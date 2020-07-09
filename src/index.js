@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from "react-router-dom";
+import Popup from "react-popup";
+
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App playerID="0" />
+    </BrowserRouter>
+    <Popup></Popup>
   </React.StrictMode>,
   document.getElementById('root')
 );
