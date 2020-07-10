@@ -1,16 +1,39 @@
 import React from 'react';
 import TemplatePage from './templatePage';
+import { LobbyAPI } from '../api';
 import './styles/homePage.css';
+
+const api = new LobbyAPI();
 
 class HomePage extends React.Component {
     state = {
         text: "",
+        loading: false,
+        redirect: null,
     };
-    /*********** functions ***********/
+    
     createGame = () => {
-        console.log('game created');
+        console.log('createGame');
+        //TODO: can this be just if, no else?
+        if (this.state.loading) {
+            return;
+        } else {
+            this.setState({ loading: true });
+        }
+
+        api.createRoom(2).then(
+            (roomID) => {
+                const history = this.props.history;
+                console.log("Created room, roomID=", roomID);
+                this.setState({ loading: false });
+                history.push('/lobby/' + roomID);
+            },
+            (error) => {
+                console.log(error);
+                this.setState({ loading: false });
+            }
+        );
     };
-    /*********************************/
 
     render() {
         const history = this.props.history;
