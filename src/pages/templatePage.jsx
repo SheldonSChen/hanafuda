@@ -7,15 +7,6 @@ class TemplatePage extends React.Component {
     render() {
         return (
             <div className="full_height">
-                <Link to="/" style={{ textDecoration: "none" }}>
-                    <div className="title">
-                        <div class="hanafuda-logo"/>
-                        <div class="title-text">Hanafuda</div>
-                    </div>
-                </Link>
-
-                {this.props.content}
-
                 <GithubCorner
                     href={"https://github.com/SheldonSChen/hanafuda"}
                     bannerColor="#c44a41"
@@ -23,6 +14,15 @@ class TemplatePage extends React.Component {
                     size={80}
                     direction="left"
                 />
+
+                <Link to="/" style={{ textDecoration: "none" }}>
+                    <div className="title">
+                        <img className="logo" src={require('../assets/hanafuda_logo.png')}></img>
+                        <div className="title-text">Hanafuda</div>
+                    </div>
+                </Link>
+
+                {this.props.content}
             </div>
         );
     }

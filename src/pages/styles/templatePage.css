@@ -5,31 +5,20 @@ html, body {
 }
 .full_height {
   height: 100%;
-  background: #707070;
+  background: #353535;
   text-align: center;
 }
 .title {
   display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  height: 70px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  width: 100%;
+  margin-top: 30px;
 }
-.hanafuda-logo {
-  display: inline-flex;
-  height: 100%;
-  width: 70px;
-  margin-bottom: -10px;
-  background-image: url("../../assets/hanafuda_logo.png");
-  background-size: cover;
+.logo {
+  width: 20vh;
+  height: auto;
 }
 .title-text {
   height: 100%;
-  display: inline-flex;
-  margin: auto;
-  font-size: 5vh;
+  font-size: 6vh;
   padding: 12px;
   color: #ffffff;
 }

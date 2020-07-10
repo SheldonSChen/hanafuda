@@ -18,14 +18,14 @@ class HomePage extends React.Component {
             <TemplatePage
                 content={
                 <>
-                    <div className="menu-cards">
+                    <div id="menu-cards">
                         <div
                             className="card"
                             onMouseEnter={() => this.setState({text: "Create a new game"})}
                             onMouseLeave={() => this.setState({text: ""})}
                             onClick={() => this.createGame()}
                         >
-                            <div className="card-inside start">
+                            <div className="card-inside" id="start">
                                 <h1>new game</h1>
                             </div>
                         </div>
@@ -36,7 +36,7 @@ class HomePage extends React.Component {
                             onMouseLeave={() => this.setState({text: ""})}
                             onClick={() => {history.push("/join");}}
                         >
-                            <div className="card-inside join">
+                            <div className="card-inside" id="join">
                                 <h1>join game</h1>
                             </div>
                         </div>
@@ -47,7 +47,7 @@ class HomePage extends React.Component {
                             onMouseLeave={() => this.setState({text: ""})}
                             onClick={() => {history.push("/help");}}
                         >
-                            <div className="card-inside help">
+                            <div className="card-inside" id="help">
                                 <h1>game help</h1>
                             </div>
                         </div>

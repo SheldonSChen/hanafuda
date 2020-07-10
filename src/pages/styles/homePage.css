@@ -1,52 +1,49 @@
-.menu-cards {
-    font-size: 1vw;
-    margin-left: auto;
-    margin-right: auto;
-    margin-left: -60px;
-    margin-top: 15vh;
-    position: relative;
-  }
-  #menu-description {
-    padding: 25px;
-  }
-  .menu-cards .card {
-    width: 8vw;
-    height: 12vw;
-    background: white;
-    border-style: solid;
-    border-radius: 1vh;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 16px;
-    color: #616161;
-    margin-right: -60px;
-    transition: margin 0.3s, width 0.2s, height 0.2s;
-  }
-  .menu-cards .card .card-inside {
-    width: 85%;
-    height: 85%;
-    border-radius: 0.8vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .menu-cards .card:hover {
-    color: #212121;
-    margin-top: 0px;
-    width: 10vw;
-    height: 15vw;
-    margin-right: 10px;
-    z-index: 1;
-    cursor: pointer;
-  }
-  .menu-cards .card .card-inside.start {
-    background: #81c784;
-  }
-  .menu-cards .card .card-inside.help {
-    background: #e57373;
-  }
-  .menu-cards .card .card-inside.join {
-    background: #81d4fa;
-  }
+#menu-cards {
+  position: relative;
+}
+#menu-description {
+  position: relative;
+  margin-top: 10vh;
+  color: #ffffff;
+  font-size: 3.5vh;
+}
+.card {
+  width: 12vh;
+  height: 20vh;
+  background: #c44a41;
+  border-style: solid;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2vh;
+  color: #616161;
+  font-size: 2vh;
+  transition: width 0.2s, height 0.2s, font-size 0.2s;
+}
+.card-inside {
+  width: 85%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card:hover {
+  color: #212121;
+  width: 16.5vh;
+  height: 27.5vh;
+  cursor: pointer;
+  font-size: 2.7vh;
+}
+#start {
+  background: #ffffff;
+  /* background-image: url("../../assets/hanafuda_logo.png");
+  background-size: contain;
+  background-repeat: no-repeat; */
+}
+#help {
+  background: #ffffff;
+}
+#join {
+  background: #ffffff;
+}
   
