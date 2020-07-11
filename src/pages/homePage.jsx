@@ -1,6 +1,6 @@
 import React from 'react';
 import TemplatePage from './templatePage';
-import { LobbyAPI } from '../api';
+import { LobbyAPI } from '../lobbyAPI';
 import './styles/homePage.css';
 
 const api = new LobbyAPI();

@@ -22,13 +22,13 @@ export class LobbyAPI {
         const data = await this.api
             .post(roomID + '/join', { json: payload })
             .json();
-        const { playerCredentials } = data;
-        return playerCredentials;
+        const { playerAuthToken } = data;
+        return playerAuthToken;
     }
 
-    //TODO: can we unify credentials / playerCredentials?
-    async leaveRoom(roomID, playerID, playerCredentials) {
-        const payload = { playerID: playerID, credentials: playerCredentials };
+    //TODO: can we unify credentials / playerAuthToken?
+    async leaveRoom(roomID, playerID, playerAuthToken) {
+        const payload = { playerID: playerID, credentials: playerAuthToken };
         try {
             await this.api
                 .post(roomID + '/leave', { json: payload})
