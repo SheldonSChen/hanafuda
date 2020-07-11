@@ -34,7 +34,7 @@ export class LobbyAPI {
                 .post(roomID + '/leave', { json: payload})
                 .json();
         } catch (error) {
-            console.log('Error - leaveRoom: ', error);
+            console.log('ERROR(leaveRoom): ', error);
         }
     }
 
