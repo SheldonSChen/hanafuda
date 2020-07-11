@@ -216,6 +216,7 @@ class LobbyPage extends React.Component {
 
     render() {
         if (this.state.joinedPlayers.length === 2) {
+            //TODO: Add start game button, prevent players joining if room is full.
             return this.getGameClient();
         } else {
             return (
