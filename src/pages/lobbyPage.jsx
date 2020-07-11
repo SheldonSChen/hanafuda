@@ -8,7 +8,7 @@ import { Hanafuda } from '../Game';
 import HanafudaBoard from '../pages/board';
 import TemplatePage from '../pages/templatePage';
 
-import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL, TOTAL_PLAYERS } from '../config';
+import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL, MAX_PLAYERS } from '../config';
 
 import './styles/lobbyPage.css';
 
@@ -33,7 +33,7 @@ class LobbyPage extends React.Component {
         this.state.gameCanStart = false;
         this.state.joinedPlayers = [];
         this.state.playerID = null;
-        this.state.playerAuthToken = null;
+        this.state.playerCredentials = null;
     }
 
     componentDidMount() {
@@ -45,7 +45,7 @@ class LobbyPage extends React.Component {
     //TODO: leaving might not be working?
     cleanup() {
         console.log('cleaning up');
-        api.leaveRoom(this.state.roomID, this.state.playerID, this.state.playerAuthToken);
+        api.leaveRoom(this.state.roomID, this.state.playerID, this.state.playerCredentials);
         clearInterval(this.interval);
     }
 
@@ -57,9 +57,9 @@ class LobbyPage extends React.Component {
         const playerName = 'player ' + playerID;
         if (this.state.roomID) {
             api.joinRoom(this.state.roomID, playerName, playerID).then(
-                (playerAuthToken) => {
+                (playerCredentials) => {
                     console.log('Joined room: player ', playerID);
-                    this.setState({ playerID: playerID, playerAuthToken: playerAuthToken });
+                    this.setState({ playerID: playerID, playerCredentials: playerCredentials });
                 },
                 (error) => { console.log(error);}
             );
@@ -136,7 +136,7 @@ class LobbyPage extends React.Component {
     };
 
     getGameStartBtn = () => {
-        if (this.state.joinedPlayers.length === TOTAL_PLAYERS) {
+        if (this.state.joinedPlayers.length === MAX_PLAYERS) {
             return (
                 <div id='game-start-button' onClick={this.startGame}>
                     {'Start Game!'}
@@ -232,7 +232,7 @@ class LobbyPage extends React.Component {
                 gameID={ this.state.roomID }
                 players={ this.state.joinedPlayers }
                 playerID={ String(this.state.playerID) }
-                credentials={ this.state.playerAuthToken }
+                credentials={ this.state.playerCredentials }
             ></HanafudaClient>
         );
     };

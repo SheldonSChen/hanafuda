@@ -3,6 +3,7 @@ import ky from 'ky';
 
 const server = APP_PRODUCTION ? `https://${window.location.hostname}` : GAME_SERVER_URL;
 
+//see: https://boardgame.io/documentation/#/api/Lobby
 export class LobbyAPI {
     constructor() {
         this.api = ky.create({ 
@@ -11,27 +12,51 @@ export class LobbyAPI {
     }
 
     async createRoom(numPlayers) {
+        const params = {
+            numPlayers: numPlayers,
+            unlisted: true 
+        };
         const data = await this.api
-            .post('create', { numPlayers: numPlayers })
+            .post('create', params)
             .json();
+        // * NOTE * API incorrectly says 'data.roomID'
         return data.gameID;
     }
 
     async joinRoom(roomID, playerName, playerID) {
-        const payload = { playerName: playerName, playerID: playerID};
+        const payload = { 
+            playerID: playerID, 
+            playerName: playerName 
+        };
         const data = await this.api
             .post(roomID + '/join', { json: payload })
             .json();
-        const { playerAuthToken } = data;
-        return playerAuthToken;
+        return data.playerCredentials;
     }
 
-    //TODO: can we unify credentials / playerAuthToken?
-    async leaveRoom(roomID, playerID, playerAuthToken) {
-        const payload = { playerID: playerID, credentials: playerAuthToken };
+    async updatePlayerName(roomID, playerID, credentials, newName) {
+        const params = { 
+            playerID: playerID, 
+            credentials: credentials,
+            newName: newName
+        };
         try {
             await this.api
-                .post(roomID + '/leave', { json: payload})
+                .post(roomID + '/update', params)
+                .json();
+        } catch (error) {
+            console.log('ERROR(updatePlayerName): ', error);
+        }
+    }
+
+    async leaveRoom(roomID, playerID, credentials) {
+        const params = { 
+            playerID: playerID, 
+            credentials: credentials 
+        };
+        try {
+            await this.api
+                .post(roomID + '/leave', params)
                 .json();
         } catch (error) {
             console.log('ERROR(leaveRoom): ', error);

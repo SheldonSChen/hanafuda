@@ -2,6 +2,7 @@ import React from 'react';
 import TemplatePage from './templatePage';
 import { LobbyAPI } from '../lobbyAPI';
 import './styles/homePage.css';
+import { MAX_PLAYERS } from '../config';
 
 const api = new LobbyAPI();
 
@@ -20,10 +21,10 @@ class HomePage extends React.Component {
             this.setState({ loading: true });
         }
 
-        api.createRoom(2).then(
+        api.createRoom(MAX_PLAYERS).then(
             (roomID) => {
                 const history = this.props.history;
-                console.log("Created room, roomID=", roomID);
+                console.log("Created room, roomID =",roomID);
                 this.setState({ loading: false });
                 history.push('/lobby/' + roomID);
             },
