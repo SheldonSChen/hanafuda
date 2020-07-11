@@ -14,7 +14,6 @@ class HomePage extends React.Component {
     
     createGame = () => {
         console.log('createGame');
-        //TODO: can this be just if, no else?
         if (this.state.loading) {
             return;
         } else {

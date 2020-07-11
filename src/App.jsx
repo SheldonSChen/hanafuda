@@ -45,7 +45,7 @@ function App() {
             render={(props) => <HanafudaClient playerID="0"></HanafudaClient>} 
           />
           <Route 
-            path="/lobby/:id" 
+            path="/lobby/:roomID" 
             component={LobbyPage} 
           />
           <Route

@@ -8,7 +8,7 @@ import { Hanafuda } from '../Game';
 import HanafudaBoard from '../pages/board';
 import TemplatePage from '../pages/templatePage';
 
-import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL } from '../config';
+import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL, TOTAL_PLAYERS } from '../config';
 
 import './styles/lobbyPage.css';
 
@@ -28,7 +28,9 @@ class LobbyPage extends React.Component {
     constructor(props) {
         super(props);
         console.log('construct');
-        this.state.roomID = props.match.params.id;
+        //TODO: regex id here too
+        this.state.roomID = props.match.params.roomID;
+        this.state.gameCanStart = false;
         this.state.joinedPlayers = [];
         this.state.playerID = null;
         this.state.playerAuthToken = null;
@@ -40,6 +42,7 @@ class LobbyPage extends React.Component {
         window.addEventListener('beforeunload', this.cleanup.bind(this));
     }
 
+    //TODO: leaving might not be working?
     cleanup() {
         console.log('cleaning up');
         api.leaveRoom(this.state.roomID, this.state.playerID, this.state.playerAuthToken);
@@ -102,19 +105,20 @@ class LobbyPage extends React.Component {
             if (player.id === this.state.playerID) {
                 return (
                     <div>
-                        <div className="player-item">
-                            <a className="player-item-edit"> (Edit) </a>
+                        <div className='player-item'>
+                            {/* TODO: this edit should change player name. */}
+                            <a className='player-item-edit'> (Edit Name) </a>
                             {player.name} - You
-                            <div className="player-ready"></div>
+                            <div className='player-ready'></div>
                         </div>
                     </div>
                 );
             } else {
                 return (
                     <div>
-                        <div className="player-item">
+                        <div className='player-item'>
                             {player.name}
-                            <div className="player-ready"></div>
+                            <div className='player-ready'></div>
                         </div>
                     </div>
                 );
@@ -122,10 +126,26 @@ class LobbyPage extends React.Component {
         } else {
             return (
                 <div>
-                    <div className="player-item loading">
+                    <div className='player-item loading'>
                         Waiting for player
-                        <div className="player-waiting"></div>
+                        <div className='player-waiting'></div>
                     </div>
+                </div>
+            );
+        }
+    };
+
+    getGameStartBtn = () => {
+        if (this.state.joinedPlayers.length === TOTAL_PLAYERS) {
+            return (
+                <div id='game-start-button' onClick={this.startGame}>
+                    {'Start Game!'}
+                </div>
+            );
+        } else {
+            return (
+                <div id='game-start-button'>
+                    {'Waiting for players...'}
                 </div>
             );
         }
@@ -135,7 +155,7 @@ class LobbyPage extends React.Component {
     copyToClipboard = () => {
         var textField = document.createElement('textarea');
         textField.innerText = this.gameLinkBox.innerText;
-        textField.style.opacity = "0";
+        textField.style.opacity = '0';
         document.body.appendChild(textField);
         textField.select();
         document.execCommand('copy');
@@ -149,6 +169,10 @@ class LobbyPage extends React.Component {
         );
     };
 
+    startGame = () => {
+        this.setState({ gameCanStart: true });
+    };
+
     gameExistsView = () => {
         const players = [0, 1];
         const server = APP_PRODUCTION ? `https://${window.location.hostname}` : WEB_SERVER_URL;
@@ -156,27 +180,27 @@ class LobbyPage extends React.Component {
         return (
             <>
                 <h3>Invite your friend by sending them the link or game code below:</h3>
-                <div id="game-link">
+                <div id='game-link'>
                     <div
-                        id="game-link-box"
+                        id='game-link-box'
                         ref={(gameLinkBox) => (this.gameLinkBox = gameLinkBox)}
                     >
                         {`${server}/lobby/${this.state.roomID}`}
                     </div>
 
-                    <div id="game-link-button" onClick={this.copyToClipboard}>
-                        {this.state.copied ? "Copied️!" : " Copy "}
+                    <div id='game-link-button' onClick={this.copyToClipboard}>
+                        {this.state.copied ? 'Copied️!' : ' Copy '}
                     </div>
                 </div>
 
                 <div>
                     Game Code
-                    <div id="game-code">
+                    <div id='game-code'>
                         {this.state.roomID}
                     </div>
                 </div>
 
-                <div id="player-list">
+                <div id='player-list'>
                     {players.map((p) => {
                         const joinedPlayer = this.state.joinedPlayers[p];
                         return this.getPlayerItem(joinedPlayer);
@@ -184,8 +208,7 @@ class LobbyPage extends React.Component {
                 </div>
 
                 <div>
-                    <br />
-                    The game will begin once all the players join!
+                    { this.getGameStartBtn() }
                 </div>
             </>
         );
@@ -197,7 +220,7 @@ class LobbyPage extends React.Component {
                 <div>
                     <h3>Sorry! This game does not exist.</h3>
                     <br />
-                    <Link to="/">Create a new game</Link>
+                    <Link to='/'>Create a new game</Link>
                 </div>
             </>
         );
@@ -215,7 +238,7 @@ class LobbyPage extends React.Component {
     };
 
     render() {
-        if (this.state.joinedPlayers.length === 2) {
+        if (this.state.gameCanStart) {
             //TODO: Add start game button, prevent players joining if room is full.
             return this.getGameClient();
         } else {

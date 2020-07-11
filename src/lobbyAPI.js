@@ -39,7 +39,9 @@ export class LobbyAPI {
     }
 
     async playersInRoom(roomID) {
-        const room = await this.api.get(roomID).json();
+        const room = await this.api
+            .get(roomID)
+            .json();
         return room.players;
     }
 }
