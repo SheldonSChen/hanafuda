@@ -58,6 +58,7 @@ class LobbyPage extends React.Component {
         if (this.state.roomID) {
             api.joinRoom(this.state.roomID, playerName, playerID).then(
                 (playerCredentials) => {
+                    console.log(playerCredentials);
                     console.log('Joined room: player ', playerID);
                     this.setState({ playerID: playerID, playerCredentials: playerCredentials });
                 },
@@ -106,8 +107,6 @@ class LobbyPage extends React.Component {
                 return (
                     <div>
                         <div className='player-item'>
-                            {/* TODO: this edit should change player name. */}
-                            <a className='player-item-edit'> (Edit Name) </a>
                             {player.name} - You
                             <div className='player-ready'></div>
                         </div>
@@ -133,6 +132,14 @@ class LobbyPage extends React.Component {
                 </div>
             );
         }
+    };
+
+    updatePlayerName = () => {
+        const el = document.getElementById('name-change');
+        const newName = el.value;
+        console.log(this.state.roomID, this.state.playerID, this.state.playerCredentials, newName);
+        api.updatePlayerName(this.state.roomID, this.state.playerID, this.state.playerCredentials, newName);
+        el.value = '';
     };
 
     getGameStartBtn = () => {
@@ -174,7 +181,7 @@ class LobbyPage extends React.Component {
     };
 
     gameExistsView = () => {
-        const players = [0, 1];
+        const players = [...Array(MAX_PLAYERS).keys()]; //[0, 1]
         const server = APP_PRODUCTION ? `https://${window.location.hostname}` : WEB_SERVER_URL;
 
         return (
@@ -199,6 +206,9 @@ class LobbyPage extends React.Component {
                         {this.state.roomID}
                     </div>
                 </div>
+                <label htmlFor='name-change'>Player name: </label>
+                <input type='text' id='name-change'></input>
+                <button type='button' id='name-change-btn' onClick={this.updatePlayerName}>Save</button>
 
                 <div id='player-list'>
                     {players.map((p) => {
@@ -239,7 +249,7 @@ class LobbyPage extends React.Component {
 
     render() {
         if (this.state.gameCanStart) {
-            //TODO: Add start game button, prevent players joining if room is full.
+            //TODO: prevent players joining if room is full.
             return this.getGameClient();
         } else {
             return (
