@@ -21,15 +21,39 @@ const HanafudaClient = Client({
     multiplayer: SocketIO({ server: server }), 
 });
 /*********************************/
-
 class LobbyPage extends React.Component {
+    state = {}
+    
+    constructor(props) {
+        super(props);
+        this.state.roomID = props.match.params.roomID;
+        this.state.leave = false;
+    }
+
+    componentDidMount() {
+        window.addEventListener('beforeunload', () => {
+            this.setState({ leave: true });
+        });
+    }
+
+    render() {
+        if (this.state.leave) {
+            return false;
+        } else {
+            return (<LobbyPageView roomID={ this.state.roomID }/>);
+        }
+    }
+}
+
+
+class LobbyPageView extends React.Component {
     state = {};
 
     constructor(props) {
         super(props);
         console.log('construct');
         //TODO: regex id here too
-        this.state.roomID = props.match.params.roomID;
+        this.state.roomID = props.roomID;
         this.state.gameCanStart = false;
         this.state.joinedPlayers = [];
         this.state.playerID = null;
@@ -39,18 +63,16 @@ class LobbyPage extends React.Component {
     componentDidMount() {
         this.checkRoomStateAndJoin();
         this.interval = setInterval(this.checkRoomState, 1000);
-        window.addEventListener('beforeunload', this.cleanup.bind(this));
     }
 
-    //TODO: leaving might not be working?
+    componentWillUnmount() {
+        this.cleanup();
+    }
+
     cleanup() {
         console.log('cleaning up');
         api.leaveRoom(this.state.roomID, this.state.playerID, this.state.playerCredentials);
         clearInterval(this.interval);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('beforeunload', this.cleanup.bind(this));
     }
 
     joinRoom = (playerID) => {
