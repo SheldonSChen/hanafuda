@@ -9,7 +9,7 @@ class TemplatePage extends React.Component {
             <div className="full_height">
                 <GithubCorner
                     href={"https://github.com/SheldonSChen/hanafuda"}
-                    bannerColor="#c44a41"
+                    bannerColor="#C44A41"
                     octoColor="#fff"
                     size={80}
                     direction="left"

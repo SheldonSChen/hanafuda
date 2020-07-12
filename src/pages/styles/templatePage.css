@@ -3,12 +3,13 @@ html, body {
   font-family: Varela Round;
   margin: 0;
   color: #ffffff;
+  background: #353535;
 }
 .full_height {
   height: 100%;
-  background: #353535;
   text-align: center;
 }
+
 .title {
   display: inline-block;
   margin-top: 30px;
@@ -22,4 +23,33 @@ html, body {
   font-size: 6vh;
   padding: 12px;
   color: #ffffff;
+}
+
+.btn {
+  font-family: Varela Round;
+  background-color: #bd645d;
+  font-size: 17px;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  box-shadow: -0px 8px 0px 0px #616161;
+}
+.btn:hover {
+  background-color: #C44A41;
+  box-shadow: -0px 8px 0px 0px #4d4d4d;
+}
+.btn:active {
+  box-shadow: -0px 2px 0px 0px #212121;
+  transform: translateY(4px) translateX(-1px);
+}
+
+.display-box {
+  border: solid;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 8px;
+  color: #212121;
+  border-color: #616161;
+  background-color: #cbba83;
 }

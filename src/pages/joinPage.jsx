@@ -32,15 +32,14 @@ class JoinPage extends React.Component {
                         <form onSubmit={ this.handleSubmit }>
                             <input
                                 type='text'
-                                className='game-code-tb'
+                                className='display-box'
                                 value={ this.state.roomID }
                                 onChange={ this.handleChange }
                             />
                             <br />
                             <input
                                 type='submit'
-                                value='Submit'
-                                className='game-code-submit'
+                                className='btn'
                             />
                         </form>
                     </>

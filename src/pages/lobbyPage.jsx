@@ -76,7 +76,9 @@ class LobbyPage extends React.Component {
                     this.setState({ joinedPlayers: joinedPlayers });
                     
                     const myPlayerID = joinedPlayers.length;
-                    this.joinRoom(myPlayerID);
+                    if (myPlayerID < MAX_PLAYERS) {
+                        this.joinRoom(myPlayerID);
+                    }
                 },
                 (error) => {
                     console.log(error);
@@ -137,7 +139,6 @@ class LobbyPage extends React.Component {
     updatePlayerName = () => {
         const el = document.getElementById('name-change');
         const newName = el.value;
-        console.log(this.state.roomID, this.state.playerID, this.state.playerCredentials, newName);
         api.updatePlayerName(this.state.roomID, this.state.playerID, this.state.playerCredentials, newName);
         el.value = '';
     };
@@ -145,7 +146,7 @@ class LobbyPage extends React.Component {
     getGameStartBtn = () => {
         if (this.state.joinedPlayers.length === MAX_PLAYERS) {
             return (
-                <div id='game-start-button' onClick={this.startGame}>
+                <div className='btn' id='game-start-button' onClick={this.startGame}>
                     {'Start Game!'}
                 </div>
             );
@@ -159,18 +160,20 @@ class LobbyPage extends React.Component {
     };
 
     //TODO: I feel like this can be shortened? 
-    copyToClipboard = () => {
+    copyToClipboard = (source, copiedText) => {
         var textField = document.createElement('textarea');
-        textField.innerText = this.gameLinkBox.innerText;
+        textField.innerText = copiedText;
         textField.style.opacity = '0';
         document.body.appendChild(textField);
         textField.select();
         document.execCommand('copy');
         textField.remove();
-        this.setState({ copied: true });
+        
+        let key = source + 'Copied';
+        this.setState({ [key]: true });
         setTimeout(
             function () {
-                this.setState({ copied: false });
+                this.setState({ [key]: false });
             }.bind(this), 
             2000
         );
@@ -187,25 +190,35 @@ class LobbyPage extends React.Component {
         return (
             <>
                 <h3>Invite your friend by sending them the link or game code below:</h3>
-                <div id='game-link'>
-                    <div
-                        id='game-link-box'
-                        ref={(gameLinkBox) => (this.gameLinkBox = gameLinkBox)}
-                    >
-                        {`${server}/lobby/${this.state.roomID}`}
-                    </div>
-
-                    <div id='game-link-button' onClick={this.copyToClipboard}>
-                        {this.state.copied ? 'Copied️!' : ' Copy '}
-                    </div>
-                </div>
-
                 <div>
-                    Game Code
-                    <div id='game-code'>
-                        {this.state.roomID}
+                    <div className='game-info-ctr'>
+                        <div
+                            className='display-box'
+                            ref={(gameLinkBox) => (this.gameLinkBox = gameLinkBox)}
+                        >
+                            {`${server}/lobby/${this.state.roomID}`}
+                        </div>
+
+                        <div className='btn' id='game-link-button' 
+                          onClick={() => this.copyToClipboard('link', this.gameLinkBox.textContent)}>
+                            {this.state.linkCopied ? 'Copied️!' : ' Copy '}
+                        </div>
+                    </div>
+                    <div className='game-info-ctr'>
+                        <div
+                            className='display-box'
+                            ref={(gameCodeBox) => (this.gameCodeBox = gameCodeBox)}
+                        >
+                            {this.state.roomID}
+                        </div>
+
+                        <div className='btn' id='game-code-button'
+                          onClick={() => this.copyToClipboard('code', this.gameCodeBox.textContent)}>
+                            {this.state.codeCopied ? 'Copied️!' : ' Copy '}
+                        </div>
                     </div>
                 </div>
+                
                 <label htmlFor='name-change'>Player name: </label>
                 <input type='text' id='name-change'></input>
                 <button type='button' id='name-change-btn' onClick={this.updatePlayerName}>Save</button>
