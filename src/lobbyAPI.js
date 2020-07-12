@@ -35,14 +35,15 @@ export class LobbyAPI {
     }
 
     async updatePlayerName(roomID, playerID, credentials, newName) {
-        const params = { 
+        const payload = { 
             playerID: playerID, 
             credentials: credentials,
             newName: newName
         };
         try {
             await this.api
-                .post(roomID + '/update', params)
+                // * NOTE * API incorrectly says params instead of JSON body params.
+                .post(roomID + '/update', { json: payload })
                 .json();
         } catch (error) {
             console.log('ERROR(updatePlayerName): ', error);
@@ -50,13 +51,14 @@ export class LobbyAPI {
     }
 
     async leaveRoom(roomID, playerID, credentials) {
-        const params = { 
+        const payload = { 
             playerID: playerID, 
             credentials: credentials 
         };
         try {
             await this.api
-                .post(roomID + '/leave', params)
+                // * NOTE * API incorrectly says params instead of JSON body params.
+                .post(roomID + '/leave', { json: payload })
                 .json();
         } catch (error) {
             console.log('ERROR(leaveRoom): ', error);
