@@ -20,8 +20,7 @@ html, body {
 }
 .title-text {
   height: 100%;
-  font-size: 6vh;
-  padding: 12px;
+  font-size: 4vh;
   color: #ffffff;
 }
 
@@ -58,5 +57,5 @@ html, body {
 }
 
 h3 {
-  font-size: 20pt;
+  font-size: 15pt;
 }

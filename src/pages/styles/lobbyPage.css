@@ -46,9 +46,16 @@
 
 .player-ready {
   margin-top: 20px;
+  font-size: 18px;
+}
+.not-ready {
+  color: #ff9090;
+}
+.ready {
+  color: #91ff95;
 }
 
 #ready-btn {
   margin: auto;
-  margin-top: 20px;
+  margin-top: 10px;
 }
