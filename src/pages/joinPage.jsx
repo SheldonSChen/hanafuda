@@ -29,19 +29,19 @@ class JoinPage extends React.Component {
                 content={
                     <>
                         <h3>Enter the Game Code below to join:</h3>
-                        <form onSubmit={ this.handleSubmit }>
-                            <input
-                                type='text'
-                                className='display-box'
-                                value={ this.state.roomID }
-                                onChange={ this.handleChange }
-                            />
-                            <br />
-                            <input
-                                type='submit'
-                                className='btn'
-                            />
-                        </form>
+                        <input
+                            type='text'
+                            className='display-box'
+                            id='game-code-box'
+                            placeholder='game code here!'
+                            onChange={ this.handleChange }
+                        />
+                        <div 
+                            className='btn'
+                            id='submit-btn' 
+                            onClick={ this.handleSubmit }>
+                                Join Game!
+                        </div>
                     </>
                 }
             />
