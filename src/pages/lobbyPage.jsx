@@ -152,8 +152,8 @@ class LobbyPageView extends React.Component {
         }
     };
 
-    updatePlayerName = () => {
-        const el = document.getElementById('name-change');
+    updatePlayerName = (sourceID) => {
+        const el = document.getElementById(sourceID);
         const newName = el.value;
         api.updatePlayerName(this.state.roomID, this.state.playerID, this.state.playerCredentials, newName);
         el.value = '';
@@ -233,8 +233,10 @@ class LobbyPageView extends React.Component {
                 <div id='name-change'>
                     <label htmlFor='name-change-txt' id='name-change-lbl'>Player name: </label>
                     <input type='text' id='name-change-txt' placeholder='type name here!'></input>
-                    {/* TODO: pass in arg for fn below */}
-                    <button type='button' id='name-change-btn' onClick={this.updatePlayerName}>Save</button>
+                    <button type='button' id='name-change-btn' 
+                      onClick={() => this.updatePlayerName('name-change-txt')}>
+                          Save
+                    </button>
                 </div>
 
                 <div id='player-list'>
@@ -274,7 +276,6 @@ class LobbyPageView extends React.Component {
 
     render() {
         if (this.state.gameCanStart) {
-            //TODO: prevent players joining if room is full.
             return this.getGameClient();
         } else {
             return (
