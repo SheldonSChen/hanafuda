@@ -26,7 +26,10 @@ export class LobbyAPI {
     async joinRoom(roomID, playerName, playerID) {
         const payload = { 
             playerID: playerID, 
-            playerName: playerName 
+            playerName: playerName,
+            data: {
+                ready: false
+            } 
         };
         const data = await this.api
             .post(roomID + '/join', { json: payload })
@@ -34,19 +37,22 @@ export class LobbyAPI {
         return data.playerCredentials;
     }
 
-    async updatePlayerName(roomID, playerID, credentials, newName) {
+    async updatePlayerData(roomID, playerID, credentials, newName, data) {
         const payload = { 
             playerID: playerID, 
             credentials: credentials,
-            newName: newName
+            //if not null, add to payload
+            ...(newName && {newName: newName}),
+            ...(data && {data: data})
         };
+        console.log(payload);
         try {
             await this.api
                 // * NOTE * API incorrectly says params instead of JSON body params.
                 .post(roomID + '/update', { json: payload })
                 .json();
         } catch (error) {
-            console.log('ERROR(updatePlayerName): ', error);
+            console.log('ERROR(updatePlayerData): ', error);
         }
     }
 

@@ -54,10 +54,10 @@ class LobbyPageView extends React.Component {
         super(props);
         console.log('construct');
         this.state.roomID = props.roomID;
-        this.state.gameCanStart = false;
-        this.state.joinedPlayers = [];
         this.state.playerID = null;
         this.state.playerCredentials = null;
+        this.state.joinedPlayers = [];
+        this.state.gameCanStart = false;
     }
 
     componentDidMount() {
@@ -115,7 +115,12 @@ class LobbyPageView extends React.Component {
             api.playersInRoom(this.state.roomID).then(
                 (players) => {
                     const joinedPlayers = players.filter((p) => p.name);
-                    this.setState({ joinedPlayers: joinedPlayers });
+                    const numReadyPlayers = players.filter((p) => p.data).filter((p) => p.data.ready).length;
+                    const gameCanStart = numReadyPlayers === MAX_PLAYERS;
+                    this.setState({ 
+                        joinedPlayers: joinedPlayers, 
+                        gameCanStart: gameCanStart
+                    });
                 },
                 (error) => {
                     console.log(error);
@@ -131,14 +136,14 @@ class LobbyPageView extends React.Component {
                 return (
                     <div className='player-item'>
                         {player.name} - You
-                        <div className='player-status ready'></div>
+                        <div className='player-status joined'></div>
                     </div>
                 );
             } else {
                 return (
                     <div className='player-item'>
                         {player.name}
-                        <div className='player-status ready'></div>
+                        <div className='player-status joined'></div>
                     </div>
                 );
             }
@@ -155,18 +160,12 @@ class LobbyPageView extends React.Component {
     updatePlayerName = (sourceID) => {
         const el = document.getElementById(sourceID);
         const newName = el.value;
-        api.updatePlayerName(this.state.roomID, this.state.playerID, this.state.playerCredentials, newName);
+        api.updatePlayerData(this.state.roomID, this.state.playerID, this.state.playerCredentials, newName, null);
         el.value = '';
     };
 
-    getGameStartBtn = () => {
-        if (this.state.joinedPlayers.length === MAX_PLAYERS) {
-            return (
-                <div className='btn' id='game-start-btn' onClick={this.startGame}>
-                    {'Start Game!'}
-                </div>
-            );
-        }
+    updatePlayerData = (data) => {
+        api.updatePlayerData(this.state.roomID, this.state.playerID, this.state.playerCredentials, null, data);
     };
 
     //TODO: I feel like this can be shortened? 
@@ -187,10 +186,6 @@ class LobbyPageView extends React.Component {
             }.bind(this), 
             2000
         );
-    };
-
-    startGame = () => {
-        this.setState({ gameCanStart: true });
     };
 
     gameExistsView = () => {
@@ -240,7 +235,11 @@ class LobbyPageView extends React.Component {
                     })}
                 </div>
 
-                { this.getGameStartBtn() }
+                <div className='btn' id='ready-btn' onClick={() => this.updatePlayerData({ ready: true })}>
+                    I'm ready!
+                </div>
+
+                <h3>The game will start once all players are ready.</h3>
             </>
         );
     };

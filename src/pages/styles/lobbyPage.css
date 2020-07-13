@@ -40,11 +40,11 @@
     width: 30%;
   }
 }
-.ready {
+.joined {
   background-color: #66bb6a;
 }
 
-#game-start-btn {
+#ready-btn {
   margin: auto;
   margin-top: 20px;
 }
