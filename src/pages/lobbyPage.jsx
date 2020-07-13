@@ -132,21 +132,13 @@ class LobbyPageView extends React.Component {
 
     getPlayerItem = (player) => {
         if (player) {
-            if (player.id === this.state.playerID) {
-                return (
-                    <div className='player-item'>
-                        {player.name} - You
-                        <div className='player-status joined'></div>
-                    </div>
-                );
-            } else {
-                return (
-                    <div className='player-item'>
-                        {player.name}
-                        <div className='player-status joined'></div>
-                    </div>
-                );
-            }
+            const name = player.id === this.state.playerID ? player.name+' (You)' : player.name;
+            return (
+                <div className='player-item'>
+                    {name}
+                    <div className='player-status joined'></div>
+                </div>
+            );
         } else {
             return (
                 <div className='player-item'>
@@ -189,7 +181,7 @@ class LobbyPageView extends React.Component {
     };
 
     gameExistsView = () => {
-        const players = [...Array(MAX_PLAYERS).keys()]; //[0, 1]
+        const playerSlots = [...Array(MAX_PLAYERS).keys()]; //[0, 1]
         const server = APP_PRODUCTION ? `https://${window.location.hostname}` : WEB_SERVER_URL;
 
         return (
@@ -229,8 +221,8 @@ class LobbyPageView extends React.Component {
                 </div>
 
                 <div id='player-list'>
-                    {players.map((p) => {
-                        const joinedPlayer = this.state.joinedPlayers[p];
+                    {playerSlots.map((i) => {
+                        const joinedPlayer = this.state.joinedPlayers[i];
                         return this.getPlayerItem(joinedPlayer);
                     })}
                 </div>
