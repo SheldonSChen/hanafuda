@@ -26,6 +26,7 @@ class LobbyPage extends React.Component {
     
     constructor(props) {
         super(props);
+        //TODO: regex id here too
         this.state.roomID = props.match.params.roomID;
         this.state.leave = false;
     }
@@ -52,7 +53,6 @@ class LobbyPageView extends React.Component {
     constructor(props) {
         super(props);
         console.log('construct');
-        //TODO: regex id here too
         this.state.roomID = props.roomID;
         this.state.gameCanStart = false;
         this.state.joinedPlayers = [];
@@ -129,30 +129,24 @@ class LobbyPageView extends React.Component {
         if (player) {
             if (player.id === this.state.playerID) {
                 return (
-                    <div>
-                        <div className='player-item'>
-                            {player.name} - You
-                            <div className='player-ready'></div>
-                        </div>
+                    <div className='player-item'>
+                        {player.name} - You
+                        <div className='player-status ready'></div>
                     </div>
                 );
             } else {
                 return (
-                    <div>
-                        <div className='player-item'>
-                            {player.name}
-                            <div className='player-ready'></div>
-                        </div>
+                    <div className='player-item'>
+                        {player.name}
+                        <div className='player-status ready'></div>
                     </div>
                 );
             }
         } else {
             return (
-                <div>
-                    <div className='player-item loading'>
-                        Waiting for player
-                        <div className='player-waiting'></div>
-                    </div>
+                <div className='player-item'>
+                    Waiting for player
+                    <div className='player-status waiting'></div>
                 </div>
             );
         }
@@ -168,14 +162,8 @@ class LobbyPageView extends React.Component {
     getGameStartBtn = () => {
         if (this.state.joinedPlayers.length === MAX_PLAYERS) {
             return (
-                <div className='btn' id='game-start-button' onClick={this.startGame}>
+                <div className='btn' id='game-start-btn' onClick={this.startGame}>
                     {'Start Game!'}
-                </div>
-            );
-        } else {
-            return (
-                <div id='game-start-button'>
-                    {'Waiting for players...'}
                 </div>
             );
         }
@@ -221,11 +209,12 @@ class LobbyPageView extends React.Component {
                             {`${server}/lobby/${this.state.roomID}`}
                         </div>
 
-                        <div className='btn' id='game-link-button' 
+                        <div className='btn' id='game-link-btn' 
                           onClick={() => this.copyToClipboard('link', this.gameLinkBox.textContent)}>
                             {this.state.linkCopied ? 'Copied️!' : ' Copy '}
                         </div>
                     </div>
+
                     <div className='game-info-ctr'>
                         <div
                             className='display-box'
@@ -234,16 +223,19 @@ class LobbyPageView extends React.Component {
                             {this.state.roomID}
                         </div>
 
-                        <div className='btn' id='game-code-button'
+                        <div className='btn' id='game-code-btn'
                           onClick={() => this.copyToClipboard('code', this.gameCodeBox.textContent)}>
                             {this.state.codeCopied ? 'Copied️!' : ' Copy '}
                         </div>
                     </div>
                 </div>
-                
-                <label htmlFor='name-change'>Player name: </label>
-                <input type='text' id='name-change'></input>
-                <button type='button' id='name-change-btn' onClick={this.updatePlayerName}>Save</button>
+
+                <div id='name-change'>
+                    <label htmlFor='name-change-txt' id='name-change-lbl'>Player name: </label>
+                    <input type='text' id='name-change-txt' placeholder='type name here!'></input>
+                    {/* TODO: pass in arg for fn below */}
+                    <button type='button' id='name-change-btn' onClick={this.updatePlayerName}>Save</button>
+                </div>
 
                 <div id='player-list'>
                     {players.map((p) => {
@@ -252,9 +244,7 @@ class LobbyPageView extends React.Component {
                     })}
                 </div>
 
-                <div>
-                    { this.getGameStartBtn() }
-                </div>
+                { this.getGameStartBtn() }
             </>
         );
     };

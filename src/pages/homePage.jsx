@@ -71,11 +71,11 @@ class HomePage extends React.Component {
                             onClick={() => {history.push("/help");}}
                         >
                             <div className="card-inside" id="help">
-                                <h1>game help</h1>
+                                <h1>help</h1>
                             </div>
                         </div>
                     </div>
-                    <div id="menu-description">{this.state.text}</div>
+                    <h3 id="menu-description">{this.state.text}</h3>
                 </>
                 }
             />

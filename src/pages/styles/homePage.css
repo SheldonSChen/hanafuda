@@ -3,10 +3,10 @@
 }
 #menu-description {
   position: relative;
-  margin-top: 10vh;
-  font-size: 3.5vh;
+  margin-top: 12pt;
 }
 .card {
+  vertical-align: middle;
   width: 12vh;
   height: 20vh;
   background: #c44a41;

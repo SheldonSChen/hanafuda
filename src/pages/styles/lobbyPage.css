@@ -1,41 +1,34 @@
 .game-info-ctr {
-  padding: 30px;
   display: inline-flex;
   align-items: center;
+  margin: 0 20px;
 }
 
-#game-code {
-  margin-top: 5px;
-  margin-bottom: 30px;
-  font-size: 30px;
+#name-change *{
+  font-size: 15px;
+  margin-top: 50px;
+}
+
+#player-list {
+  display: inline-flex;
+  margin: 25px;
 }
 
 .player-item {
   display: inline-block;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  margin-left: auto;
-  margin-right: auto;
-  border: none;
+  margin: 16px 30px;
 }
-
-.player-ready {
+.player-status {
   height: 4px;
   width: 100%;
   margin: auto;
-  background-color: #66bb6a;
 }
-
-.player-waiting {
-  height: 4px;
-  width: 100%;
-  margin: auto;
+.waiting {
   background-color: #ffca28;
   animation-name: pulse;
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
-
 @keyframes pulse {
   0% {
     width: 30%;
@@ -46,4 +39,12 @@
   100% {
     width: 30%;
   }
+}
+.ready {
+  background-color: #66bb6a;
+}
+
+#game-start-btn {
+  margin: auto;
+  margin-top: 20px;
 }
