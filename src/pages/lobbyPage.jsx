@@ -133,10 +133,14 @@ class LobbyPageView extends React.Component {
     getPlayerItem = (player) => {
         if (player) {
             const name = player.id === this.state.playerID ? player.name+' (You)' : player.name;
+            const readyStatisClass = player.data.ready ? 'player-ready ready' : 'player-ready not-ready';
+            const readyStatisText = player.data.ready ? 'Ready!' : 'Not Ready';
+
             return (
                 <div className='player-item'>
                     {name}
                     <div className='player-status joined'></div>
+                    <div className={readyStatisClass}>{readyStatisText}</div>
                 </div>
             );
         } else {

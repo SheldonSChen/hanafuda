@@ -44,6 +44,10 @@
   background-color: #66bb6a;
 }
 
+.player-ready {
+  margin-top: 20px;
+}
+
 #ready-btn {
   margin: auto;
   margin-top: 20px;
