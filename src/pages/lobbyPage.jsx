@@ -170,9 +170,9 @@ class LobbyPageView extends React.Component {
     };
 
     //TODO: I feel like this can be shortened? 
-    copyToClipboard = (source, copiedText) => {
+    copyToClipboard = (source, sourceID) => {
         var textField = document.createElement('textarea');
-        textField.innerText = copiedText;
+        textField.innerText = document.getElementById(sourceID).innerText;
         textField.style.opacity = '0';
         document.body.appendChild(textField);
         textField.select();
@@ -202,29 +202,23 @@ class LobbyPageView extends React.Component {
                 <h3>Invite your friend by sending them the link or game code below:</h3>
                 <div>
                     <div className='game-info-ctr'>
-                        <div
-                            className='display-box'
-                            ref={(gameLinkBox) => (this.gameLinkBox = gameLinkBox)}
-                        >
+                        <div className='display-box' id='game-link-box'>
                             {`${server}/lobby/${this.state.roomID}`}
                         </div>
 
                         <div className='btn' id='game-link-btn' 
-                          onClick={() => this.copyToClipboard('link', this.gameLinkBox.textContent)}>
+                          onClick={() => this.copyToClipboard('link', 'game-link-box')}>
                             {this.state.linkCopied ? 'Copied️!' : ' Copy '}
                         </div>
                     </div>
 
                     <div className='game-info-ctr'>
-                        <div
-                            className='display-box'
-                            ref={(gameCodeBox) => (this.gameCodeBox = gameCodeBox)}
-                        >
+                        <div className='display-box' id='game-code-box'>
                             {this.state.roomID}
                         </div>
 
                         <div className='btn' id='game-code-btn'
-                          onClick={() => this.copyToClipboard('code', this.gameCodeBox.textContent)}>
+                          onClick={() => this.copyToClipboard('code', 'game-code-box')}>
                             {this.state.codeCopied ? 'Copied️!' : ' Copy '}
                         </div>
                     </div>
