@@ -17,7 +17,7 @@ class TemplatePage extends React.Component {
 
                 <Link to="/" style={{ textDecoration: "none" }}>
                     <div className="title">
-                        <img className="logo" src={require('../assets/hanafuda_logo.png')}></img>
+                        <img className="logo" src={require('../assets/hanafuda_logo.svg')}></img>
                         <div className="title-text">Hanafuda</div>
                     </div>
                 </Link>
