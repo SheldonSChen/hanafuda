@@ -10,7 +10,7 @@
   vertical-align: middle;
   width: 12vh;
   height: 20vh;
-  background: #c44a41;
+  background: #bd645d;
   border-style: solid;
   display: inline-flex;
   justify-content: center;
@@ -29,6 +29,7 @@
 }
 .card:hover {
   color: #212121;
+  background: #c44a41;
   width: 16.5vh;
   height: 27.5vh;
   cursor: pointer;
