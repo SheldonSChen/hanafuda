@@ -57,5 +57,11 @@
 }
 #help {
   background: #ffffff;
+  background-image: url("../../assets/help.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#help:hover {
+  background-image: url("../../assets/help_large.png");
 }
   
