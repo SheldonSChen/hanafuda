@@ -3,6 +3,9 @@
   align-items: center;
   margin: 0 20px;
 }
+.game-info-ctr label {
+  font-size: 15pt;
+}
 
 #name-change *{
   font-size: 15px;

@@ -193,6 +193,7 @@ class LobbyPageView extends React.Component {
                 <h3>Invite your friend by sending them the link or game code below:</h3>
                 <div>
                     <div className='game-info-ctr'>
+                        <label htmlFor='game-link-box'>link: </label>
                         <div className='display-box' id='game-link-box'>
                             {`${server}/lobby/${this.state.roomID}`}
                         </div>
@@ -204,6 +205,7 @@ class LobbyPageView extends React.Component {
                     </div>
 
                     <div className='game-info-ctr'>
+                        <label htmlFor='game-link-box'>game code: </label>
                         <div className='display-box' id='game-code-box'>
                             {this.state.roomID}
                         </div>

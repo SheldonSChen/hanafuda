@@ -20,13 +20,6 @@
   font-size: 2vh;
   transition: width 0.2s, height 0.2s, font-size 0.2s;
 }
-.card-inside {
-  width: 85%;
-  height: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .card:hover {
   color: #212121;
   background: #c44a41;
@@ -35,16 +28,28 @@
   cursor: pointer;
   font-size: 2.7vh;
 }
+.card-inside {
+  width: 85%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #432D1E;
+}
+
 #start {
   background: #ffffff;
-  /* background-image: url("../../assets/hanafuda_logo.png");
+  background-image: url("../../assets/start_game.png");
   background-size: contain;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
 }
-#help {
-  background: #ffffff;
+#start:hover {
+  background-image: url("../../assets/start_game_large.png");
 }
 #join {
+  background: #ffffff;
+}
+#help {
   background: #ffffff;
 }
   
