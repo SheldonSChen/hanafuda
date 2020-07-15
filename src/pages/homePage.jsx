@@ -48,7 +48,7 @@ class HomePage extends React.Component {
                             onMouseLeave={() => this.setState({text: ""})}
                             onClick={() => this.createGame()}
                         >
-                            <div className="card-inside" id="start">
+                            <div className="card-inside" id="new">
                                 <h1>new game</h1>
                             </div>
                         </div>
