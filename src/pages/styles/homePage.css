@@ -6,39 +6,8 @@
   position: relative;
   margin-top: 12pt;
 }
-.card {
-  vertical-align: middle;
-  width: 12vh;
-  height: 20vh;
-  background: #bd645d;
-  border-style: solid;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2vh;
-  color: #616161;
-  font-size: 2vh;
-  transition: width 0.2s, height 0.2s, font-size 0.2s;
-}
-.card:hover {
-  color: #212121;
-  background: #c44a41;
-  width: 16.5vh;
-  height: 27.5vh;
-  cursor: pointer;
-  font-size: 2.7vh;
-}
-.card-inside {
-  width: 85%;
-  height: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #432D1E;
-}
 
 #new {
-  background: #ffffff;
   background-image: url("../../assets/new_game.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -47,7 +16,6 @@
   background-image: url("../../assets/new_game_large.png");
 }
 #join {
-  background: #ffffff;
   background-image: url("../../assets/join_game.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -56,7 +24,6 @@
   background-image: url("../../assets/join_game_large.png");
 }
 #help {
-  background: #ffffff;
   background-image: url("../../assets/help.png");
   background-size: contain;
   background-repeat: no-repeat;

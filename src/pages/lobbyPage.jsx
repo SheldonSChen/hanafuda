@@ -5,7 +5,7 @@ import { SocketIO } from 'boardgame.io/multiplayer';
 
 import { LobbyAPI } from '../lobbyAPI';
 import { Hanafuda } from '../Game';
-import HanafudaBoard from '../pages/board';
+import HanafudaBoard from '../boards/board';
 import TemplatePage from '../pages/templatePage';
 
 import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL, MAX_PLAYERS } from '../config';

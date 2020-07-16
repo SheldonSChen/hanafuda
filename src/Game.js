@@ -31,8 +31,10 @@ function dealCards(G, ctx) {
 }
 
 function cardNum(card) {
-    return card.month * 10 + card.type; //MMT
+    //card number is month followed by type
+    return card.month * 10 + card.type;
 }
+
 //HANDS
 function resetHands(G, ctx) {
     for (let i = 0; i < ctx.numPlayers; i++) {
@@ -45,8 +47,9 @@ function drawCard(G, ctx, player=null) {
     const card = G.deck.pop();
     G.players[p].hand.push(card);
 }
+
 //OTHER
-function setOrder(G, ctx) {
+function setOrder(G, _ctx) {
     const cardP0 = G.players[0].hand.pop();
     const cardP1 = G.players[1].hand.pop();
     if (cardNum(cardP1) < cardNum(cardP0)) {
@@ -63,7 +66,7 @@ export const Hanafuda = {
     setup: (ctx) => {
         var start = {
             deck: [],
-            players: {},
+            players: [],
             field: [],
             order: ['0', '1']
         };

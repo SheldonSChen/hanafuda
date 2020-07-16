@@ -6,7 +6,7 @@ import { SocketIO } from 'boardgame.io/multiplayer';
 import HomePage from './pages/homePage';
 import HelpPage from './pages/helpPage';
 import JoinPage from './pages/joinPage';
-import HanafudaBoard from './pages/board';
+import HanafudaBoard from './boards/board';
 import LobbyPage from './pages/lobbyPage';
 
 

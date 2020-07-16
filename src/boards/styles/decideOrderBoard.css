@@ -1,0 +1,8 @@
+#order-cards {
+    position: relative;
+    display: inline-flex;
+}
+
+.card-num {
+    text-align: center;
+}
