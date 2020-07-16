@@ -19,7 +19,7 @@
 
 .player-item {
   display: inline-block;
-  margin: 16px 30px;
+  margin: 5px 30px;
 }
 .player-status {
   height: 4px;
@@ -60,5 +60,4 @@
 
 #ready-btn {
   margin: auto;
-  margin-top: 10px;
 }
