@@ -8,9 +8,9 @@ class DisplayOrderBoard extends React.Component {
         events: PropTypes.any.isRequired,
     };
     
-    // componentDidMount() {
-    //     setTimeout(this.props.onEndPhase, 4000);
-    // }
+    componentDidMount() {
+        setTimeout(this.props.onEndPhase, 4000);
+    }
 
     getOrderCard = (player, playerName) => {
         if (player.hand.length === 1) {
@@ -43,7 +43,7 @@ class DisplayOrderBoard extends React.Component {
                         return this.getOrderCard(p, playerNames[i]);
                     })}
                 </div>
-                <div className='game-starting'>Game starting</div>
+                <div className='loading-txt' id='game-starting'>Game starting</div>
             </div>
         );
     }

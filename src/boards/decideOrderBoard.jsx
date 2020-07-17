@@ -26,7 +26,7 @@ class DecideOrderBoard extends React.Component {
         
         return (
             <div id='decide-order-ctr'>
-                <h1>Determining Order...</h1>
+                <h1 className='loading-txt'>Determining Order</h1>
                 <h4>
                     Each player will draw a card. <br></br> 
                     The player who draws an earlier month will go first. <br></br>
