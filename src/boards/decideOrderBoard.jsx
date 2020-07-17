@@ -39,7 +39,7 @@ class DecideOrderBoard extends React.Component {
                 <h3><b>{playerNames[currPlayerIndex]}</b>, please draw a card from the deck.</h3>
 
                 <div className='card' id='decide-order-deck' onClick={this.props.onDrawCard}>
-                    DECK
+                    <span className='back-text'>DECK</span>
                 </div>
 
                 <div id='order-cards'>

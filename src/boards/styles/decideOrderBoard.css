@@ -5,6 +5,11 @@
     display: flex;
     margin: 0 auto;
 }
+#decide-order-deck .back-text {
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
+}
 #order-cards {
     position: relative;
     display: inline-flex;
