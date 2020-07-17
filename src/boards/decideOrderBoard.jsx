@@ -24,14 +24,20 @@ class DecideOrderBoard extends React.Component {
     };
     
     render() {
+        const currPlayerIndex = this.props.currPlayerIndex;
         const players = this.props.players;
-        console.log(players);
+        const playerNames = this.props.playerNames;
         
         return (
-            <div id='order-cards'>
-                {players.map((p) => {
-                    return this.getOrderCard(p);
-                })}
+            <div id='decide-order-ctr'>
+                <h3>{playerNames[currPlayerIndex]}</h3>
+                <div className='card' id='decide-order-deck' onClick={this.props.onDrawCard}></div>
+                
+                <div id='order-cards'>
+                    {players.map((p) => {
+                        return this.getOrderCard(p);
+                    })}
+                </div>
             </div>
         );
     }

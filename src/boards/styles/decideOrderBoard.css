@@ -1,8 +1,17 @@
+#decide-order-ctr {
+    text-align: center;
+}
+#decide-order-deck {
+    display: block;
+    margin: 0 auto;
+}
 #order-cards {
     position: relative;
     display: inline-flex;
 }
-
+#order-cards .card:hover {
+    cursor: default;
+}
 .card-num {
     text-align: center;
 }

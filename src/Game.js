@@ -43,7 +43,7 @@ function resetHands(G, ctx) {
 }
 
 function drawCard(G, ctx, player=null) {
-    const p = player ? player : ctx.currentPlayer
+    const p = player ? player : ctx.currentPlayer;
     const card = G.deck.pop();
     G.players[p].hand.push(card);
 }

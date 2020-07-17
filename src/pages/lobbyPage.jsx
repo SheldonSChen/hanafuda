@@ -255,10 +255,12 @@ class LobbyPageView extends React.Component {
     };
 
     getGameClient = () => {
+        const playerNames = this.state.joinedPlayers.map((p) => p.name);
         return (
             <HanafudaClient
                 gameID={ this.state.roomID }
                 players={ this.state.joinedPlayers }
+                playerNames={ playerNames }
                 playerID={ String(this.state.playerID) }
                 credentials={ this.state.playerCredentials }
             ></HanafudaClient>
@@ -267,6 +269,7 @@ class LobbyPageView extends React.Component {
 
     render() {
         if (this.state.gameCanStart) {
+            //TODO: redirect to new page. currently constantly checks above.
             return this.getGameClient();
         } else {
             return (
