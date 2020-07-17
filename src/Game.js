@@ -49,14 +49,15 @@ function drawCard(G, ctx, player=null) {
 }
 
 //OTHER
-function setOrder(G, _ctx) {
-    const cardP0 = G.players[0].hand.pop();
-    const cardP1 = G.players[1].hand.pop();
+function saveOrder(G, _ctx) {
+    const cardP0 = G.players[0].hand[0];
+    const cardP1 = G.players[1].hand[0];
     if (cardNum(cardP1) < cardNum(cardP0)) {
         console.log('P1 goes first');
         G.order = ['1', '0'];
     } else {
         console.log('P0 goes first');
+        G.order = ['0', '1'];
     }
 }
 /*********************************/
@@ -68,7 +69,7 @@ export const Hanafuda = {
             deck: [],
             players: [],
             field: [],
-            order: ['0', '1']
+            order: null
         };
 
         start.deck = generateDeck(ctx);
@@ -87,13 +88,17 @@ export const Hanafuda = {
                 moveLimit: 1
             },
             moves: { drawCard },
-            next: 'play',
-            onEnd: setOrder
+            next: 'displayOrder',
+            onEnd: saveOrder
+        },
+
+        displayOrder: {
+            next: 'play'
         },
 
         play: {
             onBegin: (G, ctx) => {
-                // resetHands(G, ctx);
+                resetHands(G, ctx);
                 G.deck = generateDeck(ctx);
                 dealCards(G, ctx);
             },
