@@ -8,9 +8,9 @@ class DisplayOrderBoard extends React.Component {
         events: PropTypes.any.isRequired,
     };
     
-    componentDidMount() {
-        setTimeout(this.props.onEndPhase, 4000);
-    }
+    // componentDidMount() {
+    //     setTimeout(this.props.onEndPhase, 4000);
+    // }
 
     getOrderCard = (player, playerName) => {
         if (player.hand.length === 1) {
@@ -37,13 +37,13 @@ class DisplayOrderBoard extends React.Component {
         return (
             <div id='decide-order-ctr'>
                 <h1>Order Determined!</h1>
-                <h3>{firstPlayerName} will go first!</h3>
+                <h2><b>{firstPlayerName}</b> will go first</h2>
                 <div id='order-cards'>
                     {players.map((p, i) => {
                         return this.getOrderCard(p, playerNames[i]);
                     })}
                 </div>
-                <h3 className='game-starting'>Game starting</h3>
+                <div className='game-starting'>Game starting</div>
             </div>
         );
     }

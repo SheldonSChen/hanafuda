@@ -1,3 +1,15 @@
+h2 {
+    font-weight: normal;
+}
+.game-starting {
+    font-size: 3vmin;
+    background-color: #bd645d;
+    width: 9em;
+    height: 1.4em;
+    line-height: 1.4em;
+    border-radius: 3px;
+    margin: 25px auto;
+}
 .game-starting:after {
     content: ' .';
     animation: dots 1s steps(5, end) infinite;
