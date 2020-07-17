@@ -30,9 +30,18 @@ class DecideOrderBoard extends React.Component {
         
         return (
             <div id='decide-order-ctr'>
-                <h3>{playerNames[currPlayerIndex]}</h3>
-                <div className='card' id='decide-order-deck' onClick={this.props.onDrawCard}></div>
-                
+                <h1>Determining Order...</h1>
+                <h4>
+                    Each player will draw a card. <br></br> 
+                    The player who draws an earlier month will go first. <br></br>
+                    If the months are the same, the higher value will go first.
+                </h4>
+                <h3><b>{playerNames[currPlayerIndex]}</b>, please draw a card from the deck.</h3>
+
+                <div className='card' id='decide-order-deck' onClick={this.props.onDrawCard}>
+                    DECK
+                </div>
+
                 <div id='order-cards'>
                     {players.map((p) => {
                         return this.getOrderCard(p);
