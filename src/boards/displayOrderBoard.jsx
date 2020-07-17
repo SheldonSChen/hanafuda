@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './styles/decideOrderBoard.css';
-// import './styles/displayOrderBoard.css';
+import './styles/displayOrderBoard.css';
 
 class DisplayOrderBoard extends React.Component {
     static propTypes = {
@@ -43,7 +43,7 @@ class DisplayOrderBoard extends React.Component {
                         return this.getOrderCard(p, playerNames[i]);
                     })}
                 </div>
-                <h3>Game starting...</h3>
+                <h3 className='game-starting'>Game starting</h3>
             </div>
         );
     }
