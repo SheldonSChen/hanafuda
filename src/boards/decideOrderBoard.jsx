@@ -2,12 +2,8 @@ import React from 'react';
 import './styles/decideOrderBoard.css';
 
 class DecideOrderBoard extends React.Component {
-    getOrderCard = (player) => {
-        if (player.hand.length === 0) {
-            return (
-                <div className='card'></div>
-            );
-        } else if (player.hand.length === 1) {
+    getOrderCard = (player, playerName) => {
+        if (player.hand.length === 1) {
             const month = player.hand[0].month;
             const type = player.hand[0].type;
             return (
@@ -17,7 +13,7 @@ class DecideOrderBoard extends React.Component {
                             {month * 10 + type}
                         </div>
                     </div>
-                    <h3 className='card-num'>{month}/{type}</h3>
+                    <h3 className='name-num'>{playerName}<br></br>{month}/{type}</h3>
                 </div>
             );
         }
@@ -43,8 +39,8 @@ class DecideOrderBoard extends React.Component {
                 </div>
 
                 <div id='order-cards'>
-                    {players.map((p) => {
-                        return this.getOrderCard(p);
+                    {players.map((p, i) => {
+                        return this.getOrderCard(p, playerNames[i]);
                     })}
                 </div>
             </div>

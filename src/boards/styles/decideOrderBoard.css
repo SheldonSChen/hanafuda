@@ -17,8 +17,9 @@
 #order-cards .card:hover {
     cursor: default;
 }
-.card-num {
+.name-num {
     text-align: center;
+    margin: 0px;
 }
 h3, h4{
     font-weight: normal;
