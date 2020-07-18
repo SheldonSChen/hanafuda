@@ -18,25 +18,43 @@ class HanafudaBoard extends React.Component {
     };
 
     render() {
-        if (this.props.ctx.phase === 'decideOrder') {
-            return <DecideOrderBoard
+        switch(this.props.ctx.phase) {
+            case 'decideOrder':
+                return <DecideOrderBoard
                     currPlayerIndex={this.props.ctx.currentPlayer}
                     players={this.props.G.players}
                     playerNames={this.state.playerNames}
                     onDrawCard={this.handleDrawCard}
                 ></DecideOrderBoard>;
-        } else if (this.props.ctx.phase === 'displayOrder'){
-            return <DisplayOrderBoard
+            case 'displayOrder':
+                return <DisplayOrderBoard
                     players={this.props.G.players}
                     playerNames={this.state.playerNames}
                     firstPlayerName={this.state.playerNames[parseInt(this.props.G.order[0], 10)]}
                     onEndPhase={this.handleEndPhase}
                 ></DisplayOrderBoard>;
-        } else {
-            return (
-                <h3>playing</h3>
-            );
+            case 'play':
+                return (<h3>playing</h3>);
         }
+        // if (this.props.ctx.phase === 'decideOrder') {
+        //     return <DecideOrderBoard
+        //             currPlayerIndex={this.props.ctx.currentPlayer}
+        //             players={this.props.G.players}
+        //             playerNames={this.state.playerNames}
+        //             onDrawCard={this.handleDrawCard}
+        //         ></DecideOrderBoard>;
+        // } else if (this.props.ctx.phase === 'displayOrder'){
+        //     return <DisplayOrderBoard
+        //             players={this.props.G.players}
+        //             playerNames={this.state.playerNames}
+        //             firstPlayerName={this.state.playerNames[parseInt(this.props.G.order[0], 10)]}
+        //             onEndPhase={this.handleEndPhase}
+        //         ></DisplayOrderBoard>;
+        // } else {
+        //     return (
+        //         <h3>playing</h3>
+        //     );
+        // }
     }
 }
 
