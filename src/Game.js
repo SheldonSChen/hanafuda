@@ -3,7 +3,7 @@ import { TurnOrder } from 'boardgame.io/core';
 // import { INVALID_MOVE } from "boardgame.io/core";
 
 /*********** functions ***********/
-//DECK
+//GAME
 const generateDeck = (ctx) => {
     let deck = []; 
     for (let i = 1; i < 13; i++) {
@@ -35,13 +35,13 @@ function cardNum(card) {
     return card.month * 10 + card.type;
 }
 
-//HANDS
 function resetHands(G, ctx) {
     for (let i = 0; i < ctx.numPlayers; i++) {
         G.players[i].hand = [];
     }
 }
 
+//MOVES
 function drawCard(G, ctx, player=null) {
     const p = player ? player : ctx.currentPlayer;
     const card = G.deck.pop();

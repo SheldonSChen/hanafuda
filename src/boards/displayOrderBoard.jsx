@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {getOrderCard} from './decideOrderBoard';
 import './styles/decideOrderBoard.css';
 import './styles/displayOrderBoard.css';
 
@@ -11,23 +12,6 @@ class DisplayOrderBoard extends React.Component {
     componentDidMount() {
         setTimeout(this.props.onEndPhase, 4000);
     }
-
-    getOrderCard = (player, playerName) => {
-        if (player.hand.length === 1) {
-            const month = player.hand[0].month;
-            const type = player.hand[0].type;
-            return (
-                <div className='order-card-ctr'>
-                    <div className='card'>
-                        <div className='card-inside'>
-                            {month * 10 + type}
-                        </div>
-                    </div>
-                    <h3 className='name-num'>{playerName}<br></br>{month}/{type}</h3>
-                </div>
-            );
-        }
-    };
     
     render() {
         const players = this.props.players;
@@ -40,7 +24,7 @@ class DisplayOrderBoard extends React.Component {
                 <h2><b>{firstPlayerName}</b> will go first</h2>
                 <div id='order-cards'>
                     {players.map((p, i) => {
-                        return this.getOrderCard(p, playerNames[i]);
+                        return getOrderCard(p, playerNames[i]);
                     })}
                 </div>
                 <div className='loading-txt' id='game-starting'>Game starting</div>
