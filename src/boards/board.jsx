@@ -22,23 +22,33 @@ class HanafudaBoard extends React.Component {
     };
 
     render() {
+        const G = this.props.G;
+        const ctx = this.props.ctx;
+        //only supports 2 players
+        const myPlayerID = this.props.playerID;
+        const oppPlayerID = (this.props.playerID + 1) % 2;
+
         switch(this.props.ctx.phase) {
             case 'decideOrder':
                 return <DecideOrderBoard
-                    currPlayerIndex={this.props.ctx.currentPlayer}
-                    players={this.props.G.players}
+                    currPlayerIndex={ctx.currentPlayer}
+                    players={G.players}
                     playerNames={this.state.playerNames}
                     onDrawCard={this.handleDrawCard}
                 ></DecideOrderBoard>;
             case 'displayOrder':
                 return <DisplayOrderBoard
-                    players={this.props.G.players}
+                    players={G.players}
                     playerNames={this.state.playerNames}
-                    firstPlayerName={this.state.playerNames[parseInt(this.props.G.order[0], 10)]}
+                    firstPlayerName={this.state.playerNames[parseInt(G.order[0], 10)]}
                     onEndPhase={this.handleEndPhase}
                 ></DisplayOrderBoard>;
             case 'play':
-                return <PlayBoard></PlayBoard>;
+                //only supports 2 players
+                return <PlayBoard
+                    myCards={G.players[myPlayerID].hand}
+                    opponentCards={G.players[oppPlayerID].hand}
+                ></PlayBoard>;
         }
     }
 }
