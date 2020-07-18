@@ -1,6 +1,6 @@
 import React from 'react';
 
-function getCardElement(card, faceUp) {
+export function getCardElement(card, faceUp) {
     if (faceUp) {
         return (
             <div className='card'>

@@ -1,18 +1,5 @@
 import React from 'react';
-
-function getCardElement(card, faceUp) {
-    if (faceUp) {
-        return (
-            <div className='card'>
-                <div className='card-inside'>
-                    {card.month * 10 + card.type}
-                </div>
-            </div>
-        );
-    } else {
-        return ( <div className='card'></div> );
-    }
-}
+import {getCardElement} from './hand'
 
 class Field extends React.Component {
     render() {
