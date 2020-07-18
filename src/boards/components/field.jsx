@@ -22,16 +22,19 @@ class Field extends React.Component {
 
         return (
             <div>
-                <div>
-                    {cardsR1.map((card) => {
-                        return getCardElement(card, true);
-                    })}
-                </div>
-                
-                <div>
-                    {cardsR2.map((card) => {
-                        return getCardElement(card, true);
-                    })}
+                <div className='card'>DECK</div>
+                <div className='field-cards'>
+                    <div>
+                        {cardsR1.map((card) => {
+                            return getCardElement(card, true);
+                        })}
+                    </div>
+                    
+                    <div>
+                        {cardsR2.map((card) => {
+                            return getCardElement(card, true);
+                        })}
+                    </div>
                 </div>
             </div>
         );
