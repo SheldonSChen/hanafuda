@@ -48,6 +48,7 @@ class HanafudaBoard extends React.Component {
                 return <PlayBoard
                     myCards={G.players[myPlayerID].hand}
                     opponentCards={G.players[oppPlayerID].hand}
+                    fieldCards={G.field}
                 ></PlayBoard>;
         }
     }
