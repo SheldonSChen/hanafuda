@@ -20,11 +20,19 @@ class PlayBoard extends React.Component {
 
     onCardHover = (card) => {
         this.setState({ hoveredCard: card});
-    }
+    };
 
     onCardSelect = (card) => {
         this.setState({ selectedCard: card});
-    }
+    };
+
+    onCardDeselect = (event) => {
+        const classes = event.target.classList;
+        if (!classes.contains('player-card') && 
+            !classes.contains('field-card')) {
+            this.setState({ selectedCard: null});
+        }
+    };
 
     getCardElement = (card, type) => {
         switch (type) {
@@ -33,7 +41,7 @@ class PlayBoard extends React.Component {
                     <div className='card opponent-card'></div>
                 );
             case components.FIELD:
-                var className = 'card';
+                var className = 'card field-card';
                 const hoveredCard = this.state.hoveredCard;
                 const selectedCard = this.state.selectedCard;
                 if ((hoveredCard && (card.month === hoveredCard.month)) || 
@@ -42,18 +50,18 @@ class PlayBoard extends React.Component {
                 }
                 return (
                     <div className={className}>
-                        <div className='card-inside'>
+                        <div className='card-inside field-card'>
                             {card.month * 10 + card.type}
                         </div>
                     </div>
                 );
             case components.PLAYER:
                 return (
-                    <div className='card' 
+                    <div className='card player-card' 
                         onMouseEnter={() => this.onCardHover(card)}
                         onMouseLeave={() => this.onCardHover(null)}
                         onClick={() => this.onCardSelect(card)} >
-                        <div className='card-inside'>
+                        <div className='card-inside player-card'>
                             {card.month * 10 + card.type}
                         </div>
                     </div>
@@ -67,7 +75,7 @@ class PlayBoard extends React.Component {
         const fieldCards = this.props.fieldCards;
 
         return (
-            <div>
+            <div onClick={(event) => this.onCardDeselect(event)}>
                 <Hand 
                     cards={opponentCards} 
                     getCardElement={ (card) => this.getCardElement(card, components.OPPONENT) }
