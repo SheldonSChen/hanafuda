@@ -3,12 +3,6 @@ import Hand from './components/hand';
 import Field from './components/field';
 import './styles/playBoard.css';
 
-const components = {
-    OPPONENT: 'opponent',
-    FIELD: 'field',
-    PLAYER: 'player'
-}
-
 class PlayBoard extends React.Component {
     constructor() {
         super();
@@ -34,40 +28,40 @@ class PlayBoard extends React.Component {
         }
     };
 
-    getCardElement = (card, type) => {
-        switch (type) {
-            case components.OPPONENT:
-                return (
-                    <div className='card opponent-card'></div>
-                );
-            case components.FIELD:
-                var className = 'card field-card';
-                const hoveredCard = this.state.hoveredCard;
-                const selectedCard = this.state.selectedCard;
-                if ((hoveredCard && (card.month === hoveredCard.month)) || 
-                    (selectedCard && (card.month === selectedCard.month))) {
-                    className += ' month-match';
-                }
-                return (
-                    <div className={className}>
-                        <div className='card-inside field-card'>
-                            {card.month * 10 + card.type}
-                        </div>
-                    </div>
-                );
-            case components.PLAYER:
-                return (
-                    <div className='card player-card' 
-                        onMouseEnter={() => this.onCardHover(card)}
-                        onMouseLeave={() => this.onCardHover(null)}
-                        onClick={() => this.onCardSelect(card)} >
-                        <div className='card-inside player-card'>
-                            {card.month * 10 + card.type}
-                        </div>
-                    </div>
-                );
+    getOpponentCardElement = (_card) => {
+        return ( <div className='card opponent-card'></div> );
+    }
+
+    getFieldCardElement = (card) => {
+        var className = 'card field-card';
+        const hoveredCard = this.state.hoveredCard;
+        const selectedCard = this.state.selectedCard;
+        if ((hoveredCard && (card.month === hoveredCard.month)) || 
+            (selectedCard && (card.month === selectedCard.month))) {
+            className += ' month-match';
         }
-    };
+
+        return (
+            <div className={className}>
+                <div className='card-inside field-card'>
+                    {card.month * 10 + card.type}
+                </div>
+            </div>
+        );
+    }
+
+    getPlayerCardElement = (card) => {
+        return (
+            <div className='card player-card' 
+                onMouseEnter={() => this.onCardHover(card)}
+                onMouseLeave={() => this.onCardHover(null)}
+                onClick={() => this.onCardSelect(card)} >
+                <div className='card-inside player-card'>
+                    {card.month * 10 + card.type}
+                </div>
+            </div>
+        );
+    }
 
     render() {
         const myCards = this.props.myCards;
@@ -78,15 +72,15 @@ class PlayBoard extends React.Component {
             <div onClick={(event) => this.onCardDeselect(event)}>
                 <Hand 
                     cards={opponentCards} 
-                    getCardElement={ (card) => this.getCardElement(card, components.OPPONENT) }
+                    getCardElement={this.getOpponentCardElement}
                 ></Hand>
                 <Field
                     cards={fieldCards} 
-                    getCardElement={ (card) => this.getCardElement(card, components.FIELD) }
+                    getCardElement={this.getFieldCardElement}
                 ></Field>
                 <Hand 
                     cards={myCards} 
-                    getCardElement={ (card) => this.getCardElement(card, components.PLAYER) }
+                    getCardElement={this.getPlayerCardElement}
                 ></Hand>
             </div>
         );
