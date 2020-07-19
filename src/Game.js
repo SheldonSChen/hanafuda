@@ -104,7 +104,17 @@ export const Hanafuda = {
             },
             turn: {
                 order: TurnOrder.CUSTOM_FROM('order'),
-                moveLimit: 1
+                moveLimit: 1,
+                activePlayers: { currentPlayer: 'playHand'},
+                stages: {
+                    playHand: {
+                        moves: {},
+                        next: 'playDeck'
+                    },
+                    playDeck: {
+                        moves: {}
+                    }
+                }
             },
             moves: { drawCard },
         }
