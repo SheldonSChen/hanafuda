@@ -1,6 +1,7 @@
 import React from 'react';
 import Hand from './components/hand';
 import Field from './components/field';
+import Pile from './components/pile';
 import './styles/playBoard.css';
 
 class PlayBoard extends React.Component {
@@ -11,7 +12,7 @@ class PlayBoard extends React.Component {
             selectedCard: null
         };
     }
-
+    //EVENTS
     onCardHover = (card) => {
         this.setState({ hoveredCard: card});
     };
@@ -22,14 +23,24 @@ class PlayBoard extends React.Component {
 
     onCardDeselect = (event) => {
         const classes = event.target.classList;
-        if (!classes.contains('player-card') && 
+        if (!classes.contains('hand-card') && 
             !classes.contains('field-card')) {
             this.setState({ selectedCard: null});
         }
     };
+    //GENERATE CARD HTML
+    getCardElement = (card) => {
+        return (
+            <div className='card'>
+                <div className='card-inside'>
+                    {card.month * 10 + card.type}
+                </div>
+            </div>
+        );
+    }
 
-    getOpponentCardElement = (_card) => {
-        return ( <div className='card opponent-card'></div> );
+    getHiddenCardElement = (_card) => {
+        return ( <div className='card hidden-card'></div> );
     }
 
     getFieldCardElement = (card) => {
@@ -57,13 +68,13 @@ class PlayBoard extends React.Component {
         );
     }
 
-    getPlayerCardElement = (card) => {
+    getHandCardElement = (card) => {
         return (
-            <div className='card player-card' 
+            <div className='card hand-card' 
                 onMouseEnter={() => this.onCardHover(card)}
                 onMouseLeave={() => this.onCardHover(null)}
                 onClick={() => this.onCardSelect(card)} >
-                <div className='card-inside player-card'>
+                <div className='card-inside hand-card'>
                     {card.month * 10 + card.type}
                 </div>
             </div>
@@ -71,24 +82,34 @@ class PlayBoard extends React.Component {
     }
 
     render() {
-        const myCards = this.props.myCards;
-        const opponentCards = this.props.opponentCards;
+        const playerHand = this.props.playerHand;
+        const playerPile = this.props.playerPile;
+        const opponentHand = this.props.opponentHand;
+        const opponentPile = this.props.opponentPile;
         const fieldCards = this.props.fieldCards;
 
         return (
             <div onClick={(event) => this.onCardDeselect(event)}>
                 <Hand 
-                    cards={opponentCards} 
-                    getCardElement={this.getOpponentCardElement}
+                    cards={opponentHand} 
+                    getCardElement={this.getHiddenCardElement}
                 ></Hand>
+                <Pile
+                    cards={opponentPile}
+                    getCardElement={this.getHiddenCardElement}
+                ></Pile>
                 <Field
                     cards={fieldCards} 
                     getCardElement={this.getFieldCardElement}
                 ></Field>
                 <Hand 
-                    cards={myCards} 
-                    getCardElement={this.getPlayerCardElement}
+                    cards={playerHand} 
+                    getCardElement={this.getHandCardElement}
                 ></Hand>
+                <Pile
+                    cards={playerPile}
+                    getCardElement={this.getCardElement}
+                ></Pile>
             </div>
         );
     }

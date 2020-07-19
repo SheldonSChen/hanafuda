@@ -1,10 +1,10 @@
-.opponent-card {
+.hidden-card {
     pointer-events: none;    
 }
 .field-card {
     cursor: default;
 }
-.month-match, .player-card:hover {
+.month-match, .hand-card:hover {
     color: yellow;
     cursor: pointer;
 }

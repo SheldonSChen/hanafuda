@@ -28,8 +28,8 @@ class HanafudaBoard extends React.Component {
         const G = this.props.G;
         const ctx = this.props.ctx;
         //only supports 2 players
-        const myPlayerID = this.props.playerID;
-        const oppPlayerID = (this.props.playerID + 1) % 2;
+        const playerID = this.props.playerID;
+        const playerID_opponent = (this.props.playerID + 1) % 2;
 
         switch(this.props.ctx.phase) {
             case 'decideOrder':
@@ -49,8 +49,10 @@ class HanafudaBoard extends React.Component {
             case 'play':
                 //only supports 2 players
                 return <PlayBoard
-                    myCards={G.players[myPlayerID].hand}
-                    opponentCards={G.players[oppPlayerID].hand}
+                    playerHand={G.players[playerID].hand}
+                    playerPile={G.players[playerID].pile}
+                    opponentHand={G.players[playerID_opponent].hand}
+                    opponentPile={G.players[playerID_opponent].pile}
                     fieldCards={G.field}
                     onPlayHand={this.handlePlayHand}
                 ></PlayBoard>;
