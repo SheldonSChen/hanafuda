@@ -31,10 +31,16 @@ class LobbyPage extends React.Component {
         this.state.leave = false;
     }
 
+    handleLeave = () => {
+        this.setState({ leave: true });
+    };
+
     componentDidMount() {
-        window.addEventListener('beforeunload', () => {
-            this.setState({ leave: true });
-        });
+        window.addEventListener('beforeunload', this.handleLeave);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.handleLeave);
     }
 
     render() {
@@ -66,10 +72,6 @@ class LobbyPageView extends React.Component {
     }
 
     componentWillUnmount() {
-        this.cleanup();
-    }
-
-    cleanup() {
         console.log('cleaning up');
         api.leaveRoom(this.state.roomID, this.state.playerID, this.state.playerCredentials);
         clearInterval(this.interval);
