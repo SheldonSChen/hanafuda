@@ -18,12 +18,8 @@ class PlayBoard extends React.Component {
         };
     }
 
-    onCardEnter = (card) => {
+    onCardHover = (card) => {
         this.setState({ hoveredCard: card});
-    }
-
-    onCardLeave = () => {
-        this.setState({ hoveredCard: null});
     }
 
     onCardSelect = (card) => {
@@ -54,8 +50,8 @@ class PlayBoard extends React.Component {
             case components.PLAYER:
                 return (
                     <div className='card' 
-                        onMouseEnter={() => this.onCardEnter(card)}
-                        onMouseLeave={this.onCardLeave}
+                        onMouseEnter={() => this.onCardHover(card)}
+                        onMouseLeave={() => this.onCardHover(null)}
                         onClick={() => this.onCardSelect(card)} >
                         <div className='card-inside'>
                             {card.month * 10 + card.type}
