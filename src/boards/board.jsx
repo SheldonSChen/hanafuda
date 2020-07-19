@@ -20,6 +20,9 @@ class HanafudaBoard extends React.Component {
     handleEndPhase = () => {
         this.props.events.endPhase();
     };
+    handlePlayHand = (handCard, fieldCard) => {
+        this.props.moves.playHand(handCard, fieldCard);
+    }
 
     render() {
         const G = this.props.G;
@@ -49,6 +52,7 @@ class HanafudaBoard extends React.Component {
                     myCards={G.players[myPlayerID].hand}
                     opponentCards={G.players[oppPlayerID].hand}
                     fieldCards={G.field}
+                    onPlayHand={this.handlePlayHand}
                 ></PlayBoard>;
         }
     }

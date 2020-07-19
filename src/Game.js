@@ -2,6 +2,8 @@ import { GAME_NAME } from "./config";
 import { TurnOrder } from 'boardgame.io/core';
 // import { INVALID_MOVE } from "boardgame.io/core";
 
+const isEqual = require('lodash.isequal');
+
 /*********** functions ***********/
 //GAME
 const generateDeck = (ctx) => {
@@ -46,6 +48,13 @@ function drawCard(G, ctx, player=null) {
     const p = player ? player : ctx.currentPlayer;
     const card = G.deck.pop();
     G.players[p].hand.push(card);
+}
+
+function playHand(G, ctx, handCard, fieldCard) {
+    const player = G.players[ctx.currentPlayer];
+    player.hand = player.hand.filter(card => !isEqual(card, handCard));
+    G.field = G.field.filter(card => !isEqual(card, fieldCard));
+    player.pile.push(handCard, fieldCard);
 }
 
 //OTHER
@@ -108,7 +117,7 @@ export const Hanafuda = {
                 activePlayers: { currentPlayer: 'playHand'},
                 stages: {
                     playHand: {
-                        moves: {},
+                        moves: {playHand},
                         next: 'playDeck'
                     },
                     playDeck: {

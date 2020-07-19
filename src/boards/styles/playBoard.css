@@ -1,6 +1,10 @@
 .opponent-card {
     pointer-events: none;    
 }
-.month-match {
+.field-card {
+    cursor: default;
+}
+.month-match, .player-card:hover {
     color: yellow;
+    cursor: pointer;
 }

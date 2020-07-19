@@ -36,13 +36,20 @@ class PlayBoard extends React.Component {
         var className = 'card field-card';
         const hoveredCard = this.state.hoveredCard;
         const selectedCard = this.state.selectedCard;
-        if ((hoveredCard && (card.month === hoveredCard.month)) || 
-            (selectedCard && (card.month === selectedCard.month))) {
+        var handleOnClick = null;
+        
+        if (!selectedCard && hoveredCard && (card.month === hoveredCard.month)) {
             className += ' month-match';
+        } else if (selectedCard && (card.month === selectedCard.month)) {
+            className += ' month-match';
+            handleOnClick = () => { 
+                this.props.onPlayHand(selectedCard, card); 
+            };
         }
 
         return (
-            <div className={className}>
+            <div className={className}
+                onClick={handleOnClick}>
                 <div className='card-inside field-card'>
                     {card.month * 10 + card.type}
                 </div>
