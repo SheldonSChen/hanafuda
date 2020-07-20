@@ -4,6 +4,8 @@ import Field from './components/field';
 import Pile from './components/pile';
 import './styles/playBoard.css';
 
+const isEqual = require('lodash.isequal');
+
 class PlayBoard extends React.Component {
     constructor() {
         super();
@@ -34,7 +36,8 @@ class PlayBoard extends React.Component {
             this.checkMatch(null);
         }
     };
-
+    
+    //HELPER
     checkMatch = (card) => {
         if (card && this.props.fieldCards.some((fCard) => fCard.month === card.month)) {
             this.setState({ matchPair: true });
@@ -42,6 +45,7 @@ class PlayBoard extends React.Component {
             this.setState({ matchPair: false });
         }
     };
+    
     //GENERATE CARD HTML
     getCardElement = (card) => {
         return (
@@ -58,12 +62,13 @@ class PlayBoard extends React.Component {
     }
 
     getHandCardElement = (card) => {
+        const selected = isEqual(card, this.state.selectedCard) ? ' selected' : ''
         return (
-            <div className='game card hand-card' 
+            <div className={'game card hand-card' + selected}
                 onMouseEnter={() => this.onCardHover(card)}
                 onMouseLeave={() => this.onCardHover(null)}
                 onClick={() => this.onCardSelect(card)} >
-                <div className='game card-inside hand-card'>
+                <div className={'game card-inside hand-card' + selected}>
                     {card.month * 10 + card.type}
                 </div>
             </div>
@@ -93,6 +98,7 @@ class PlayBoard extends React.Component {
                     hoveredCard={this.state.hoveredCard}
                     selectedCard={this.state.selectedCard}
                     onPlayHand={this.props.onPlayHand}
+                    onCardSelect={this.onCardSelect}
                     matchPair={this.state.matchPair}
                 ></Field>
 

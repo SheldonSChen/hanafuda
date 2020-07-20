@@ -10,7 +10,8 @@ class Field extends React.Component {
         } else if (selectedCard && (card.month === selectedCard.month)) {
             className += ' month-match';
             handleOnClick = () => { 
-                this.props.onPlayHand(selectedCard, card); 
+                this.props.onPlayHand(selectedCard, card);
+                this.props.onCardSelect(null); 
             };
         }
 
@@ -24,8 +25,8 @@ class Field extends React.Component {
         );
     }
 
-    getAddFieldElement = (matchPair, selectedCard) => {
-        if (!matchPair) {
+    getAddFieldElement = (matchPair, hoveredCard, selectedCard) => {
+        if ((hoveredCard || selectedCard) && !matchPair) {
             return ( 
                 <div className='game card add-field' 
                     onClick={() => this.props.onPlayHand(selectedCard, null)}>
@@ -63,7 +64,7 @@ class Field extends React.Component {
                     </div>
                 </div>
 
-                {this.getAddFieldElement(matchPair, selectedCard)}
+                {this.getAddFieldElement(matchPair, hoveredCard, selectedCard)}
             </div>
         );
     }

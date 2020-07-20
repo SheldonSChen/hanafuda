@@ -26,7 +26,10 @@
     cursor: default;
 }
 /* PLAYER */
-.month-match, .hand-card:hover {
+.month-match, .hand-card:not(.selected):hover, .add-field {
     color: yellow;
     cursor: pointer;
+}
+.month-match:hover, .selected, .selected:hover, .add-field:hover {
+    color: green;
 }
