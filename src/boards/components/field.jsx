@@ -6,6 +6,8 @@ class Field extends React.Component {
         const cardsR1 = this.props.cards.slice(0, halfNumCards);
         const cardsR2 = this.props.cards.slice(halfNumCards);
         const getCardElement = this.props.getCardElement;
+        const getAddFieldElement = this.props.getAddFieldElement;
+        const monthMatch = this.props.monthMatch;
 
         return (
             <div>
@@ -24,6 +26,8 @@ class Field extends React.Component {
                         })}
                     </div>
                 </div>
+
+                {getAddFieldElement()}
             </div>
         );
     }

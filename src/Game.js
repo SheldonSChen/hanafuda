@@ -53,8 +53,13 @@ function drawCard(G, ctx, player=null) {
 function playHand(G, ctx, handCard, fieldCard) {
     const player = G.players[ctx.currentPlayer];
     player.hand = player.hand.filter(card => !isEqual(card, handCard));
-    G.field = G.field.filter(card => !isEqual(card, fieldCard));
-    player.pile.push(handCard, fieldCard);
+    
+    if (fieldCard) {
+        G.field = G.field.filter(card => !isEqual(card, fieldCard));
+        player.pile.push(handCard, fieldCard);
+    } else {
+        G.field.push(handCard);
+    }
 }
 
 //OTHER

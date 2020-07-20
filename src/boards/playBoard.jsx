@@ -9,16 +9,21 @@ class PlayBoard extends React.Component {
         super();
         this.state = {
             hoveredCard: null,
-            selectedCard: null
+            selectedCard: null,
+            matchPair: false
         };
     }
     //EVENTS
     onCardHover = (card) => {
         this.setState({ hoveredCard: card});
+        if (!this.state.selectedCard) {
+            this.checkMatch(card);
+        }
     };
 
     onCardSelect = (card) => {
         this.setState({ selectedCard: card});
+        this.checkMatch(card);
     };
 
     onCardDeselect = (event) => {
@@ -26,6 +31,15 @@ class PlayBoard extends React.Component {
         if (!classes.contains('hand-card') && 
             !classes.contains('field-card')) {
             this.setState({ selectedCard: null});
+            this.checkMatch(null);
+        }
+    };
+
+    checkMatch = (card) => {
+        if (card && this.props.fieldCards.some((fCard) => fCard.month === card.month)) {
+            this.setState({ matchPair: true });
+        } else {
+            this.setState({ matchPair: false });
         }
     };
     //GENERATE CARD HTML
@@ -68,6 +82,19 @@ class PlayBoard extends React.Component {
         );
     }
 
+    getAddFieldElement = () => {
+        if (!this.state.matchPair) {
+            const handleOnClick = () => { 
+                this.props.onPlayHand(this.state.selectedCard, null); 
+            };
+            return ( 
+                <div className='card add-field' onClick={handleOnClick}>
+                    Add to field
+                </div>
+            );
+        }
+    }
+
     getHandCardElement = (card) => {
         return (
             <div className='card hand-card' 
@@ -98,10 +125,13 @@ class PlayBoard extends React.Component {
                     cards={opponentPile}
                     getCardElement={this.getHiddenCardElement}
                 ></Pile>
+
                 <Field
                     cards={fieldCards} 
                     getCardElement={this.getFieldCardElement}
+                    getAddFieldElement={this.getAddFieldElement}
                 ></Field>
+
                 <Hand 
                     cards={playerHand} 
                     getCardElement={this.getHandCardElement}

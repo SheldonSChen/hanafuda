@@ -22,7 +22,7 @@ class HanafudaBoard extends React.Component {
     };
     handlePlayHand = (handCard, fieldCard) => {
         this.props.moves.playHand(handCard, fieldCard);
-    }
+    };
 
     render() {
         const G = this.props.G;
