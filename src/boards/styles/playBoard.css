@@ -1,9 +1,31 @@
+/* CARDS */
+.game.card, .game.card:hover{
+    transform: scale(0.8);
+}
+.game.card {
+    margin: 0px;
+}
+/* OPPONENT */
 .hidden-card {
     pointer-events: none;    
+}
+/* FIELD */
+.field {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    grid-gap: 20px;
+}
+.deck {
+    justify-self: end;
+}
+.add-field {
+    justify-self: start;
 }
 .field-card {
     cursor: default;
 }
+/* PLAYER */
 .month-match, .hand-card:hover {
     color: yellow;
     cursor: pointer;

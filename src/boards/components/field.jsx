@@ -10,8 +10,8 @@ class Field extends React.Component {
         const monthMatch = this.props.monthMatch;
 
         return (
-            <div>
-                <div className='card'>DECK</div>
+            <div className='field'>
+                <div className='game card deck'>DECK</div>
 
                 <div className='field-cards'>
                     <div>

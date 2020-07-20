@@ -45,8 +45,8 @@ class PlayBoard extends React.Component {
     //GENERATE CARD HTML
     getCardElement = (card) => {
         return (
-            <div className='card'>
-                <div className='card-inside'>
+            <div className='game card'>
+                <div className='game card-inside'>
                     {card.month * 10 + card.type}
                 </div>
             </div>
@@ -54,11 +54,11 @@ class PlayBoard extends React.Component {
     }
 
     getHiddenCardElement = (_card) => {
-        return ( <div className='card hidden-card'></div> );
+        return ( <div className='game card hidden-card'></div> );
     }
 
     getFieldCardElement = (card) => {
-        var className = 'card field-card';
+        var className = 'game card field-card';
         const hoveredCard = this.state.hoveredCard;
         const selectedCard = this.state.selectedCard;
         var handleOnClick = null;
@@ -75,7 +75,7 @@ class PlayBoard extends React.Component {
         return (
             <div className={className}
                 onClick={handleOnClick}>
-                <div className='card-inside field-card'>
+                <div className='game card-inside field-card'>
                     {card.month * 10 + card.type}
                 </div>
             </div>
@@ -88,7 +88,7 @@ class PlayBoard extends React.Component {
                 this.props.onPlayHand(this.state.selectedCard, null); 
             };
             return ( 
-                <div className='card add-field' onClick={handleOnClick}>
+                <div className='game card add-field' onClick={handleOnClick}>
                     Add to field
                 </div>
             );
@@ -97,11 +97,11 @@ class PlayBoard extends React.Component {
 
     getHandCardElement = (card) => {
         return (
-            <div className='card hand-card' 
+            <div className='game card hand-card' 
                 onMouseEnter={() => this.onCardHover(card)}
                 onMouseLeave={() => this.onCardHover(null)}
                 onClick={() => this.onCardSelect(card)} >
-                <div className='card-inside hand-card'>
+                <div className='game card-inside hand-card'>
                     {card.month * 10 + card.type}
                 </div>
             </div>
