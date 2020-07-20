@@ -28,8 +28,8 @@ class HanafudaBoard extends React.Component {
         const G = this.props.G;
         const ctx = this.props.ctx;
         //only supports 2 players
-        const playerID = this.props.playerID;
-        const playerID_opponent = (this.props.playerID + 1) % 2;
+        const playerID = parseInt(this.props.playerID, 10);
+        const playerID_opponent = (playerID + 1) % 2;
 
         switch(this.props.ctx.phase) {
             case 'decideOrder':
