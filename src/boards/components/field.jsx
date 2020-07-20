@@ -27,7 +27,7 @@ class Field extends React.Component {
 
     getAddFieldElement = (matchPair, hoveredCard, selectedCard) => {
         if ((hoveredCard || selectedCard) && !matchPair) {
-            return ( 
+            return (
                 <div className='game card add-field' 
                     onClick={() => this.props.onPlayHand(selectedCard, null)}>
                     Add to field
