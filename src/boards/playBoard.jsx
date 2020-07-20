@@ -57,44 +57,6 @@ class PlayBoard extends React.Component {
         return ( <div className='game card hidden-card'></div> );
     }
 
-    getFieldCardElement = (card) => {
-        var className = 'game card field-card';
-        const hoveredCard = this.state.hoveredCard;
-        const selectedCard = this.state.selectedCard;
-        var handleOnClick = null;
-        
-        if (!selectedCard && hoveredCard && (card.month === hoveredCard.month)) {
-            className += ' month-match';
-        } else if (selectedCard && (card.month === selectedCard.month)) {
-            className += ' month-match';
-            handleOnClick = () => { 
-                this.props.onPlayHand(selectedCard, card); 
-            };
-        }
-
-        return (
-            <div className={className}
-                onClick={handleOnClick}>
-                <div className='game card-inside field-card'>
-                    {card.month * 10 + card.type}
-                </div>
-            </div>
-        );
-    }
-
-    getAddFieldElement = () => {
-        if (!this.state.matchPair) {
-            const handleOnClick = () => { 
-                this.props.onPlayHand(this.state.selectedCard, null); 
-            };
-            return ( 
-                <div className='game card add-field' onClick={handleOnClick}>
-                    Add to field
-                </div>
-            );
-        }
-    }
-
     getHandCardElement = (card) => {
         return (
             <div className='game card hand-card' 
@@ -127,9 +89,11 @@ class PlayBoard extends React.Component {
                 ></Pile>
 
                 <Field
-                    cards={fieldCards} 
-                    getCardElement={this.getFieldCardElement}
-                    getAddFieldElement={this.getAddFieldElement}
+                    cards={fieldCards}
+                    hoveredCard={this.state.hoveredCard}
+                    selectedCard={this.state.selectedCard}
+                    onPlayHand={this.props.onPlayHand}
+                    matchPair={this.state.matchPair}
                 ></Field>
 
                 <Hand 
