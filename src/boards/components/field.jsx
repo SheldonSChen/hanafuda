@@ -29,7 +29,10 @@ class Field extends React.Component {
         if ((hoveredCard || selectedCard) && !matchPair) {
             return (
                 <div className='game card add-field' 
-                    onClick={() => this.props.onPlayHand(selectedCard, null)}>
+                    onClick={() => {
+                        this.props.onPlayHand(selectedCard, null);
+                        this.props.onCardSelect(null); 
+                    }}>
                     Add to field
                 </div>
             );
@@ -45,10 +48,11 @@ class Field extends React.Component {
         const selectedCard = this.props.selectedCard;
 
         const matchPair = this.props.matchPair;
+        const deckTop = this.props.deckTop;
 
         return (
             <div className='field'>
-                <div className='game card deck'>DECK</div>
+                {this.props.getDeckElement(deckTop)}
 
                 <div className='field-cards'>
                     <div>

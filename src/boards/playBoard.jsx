@@ -81,6 +81,7 @@ class PlayBoard extends React.Component {
         const opponentHand = this.props.opponentHand;
         const opponentPile = this.props.opponentPile;
         const fieldCards = this.props.fieldCards;
+        const deckTop = this.props.deckTop;
 
         return (
             <div onClick={(event) => this.onCardDeselect(event)}>
@@ -95,6 +96,8 @@ class PlayBoard extends React.Component {
 
                 <Field
                     cards={fieldCards}
+                    deckTop={deckTop}
+                    getDeckElement={(card) => this.getCardElement(card, 'deck')}
                     hoveredCard={this.state.hoveredCard}
                     selectedCard={this.state.selectedCard}
                     onPlayHand={this.props.onPlayHand}

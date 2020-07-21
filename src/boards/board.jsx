@@ -54,6 +54,7 @@ class HanafudaBoard extends React.Component {
                     opponentHand={G.players[playerID_opponent].hand}
                     opponentPile={G.players[playerID_opponent].pile}
                     fieldCards={G.field}
+                    deckTop={G.deck[G.deck.length - 1]}
                     onPlayHand={this.handlePlayHand}
                 ></PlayBoard>;
         }
