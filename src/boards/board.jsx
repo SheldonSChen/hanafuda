@@ -20,13 +20,15 @@ class HanafudaBoard extends React.Component {
     handleEndPhase = () => {
         this.props.events.endPhase();
     };
-    handlePlayHand = (stage, sourceCard, fieldCard) => {
-        if (stage === 'playHand') {
-            this.props.moves.playHand(sourceCard, fieldCard);
-        } else if (stage === 'playDeck') {
-            this.props.moves.playDeck(sourceCard, fieldCard);
-        }
-        
+
+    handlePlayHand = (handCard, fieldCard) => {
+        this.props.moves.playHand(handCard, fieldCard);
+    };
+    handlePlayDeck = (deckCard, fieldCard) => {
+        this.props.moves.playDeck(deckCard, fieldCard);
+    };
+    handleEndStage = () => {
+        this.props.events.endStage();
     };
 
     render() {
@@ -62,6 +64,8 @@ class HanafudaBoard extends React.Component {
                     fieldCards={G.field}
                     deckTop={G.deck[G.deck.length - 1]}
                     onPlayHand={this.handlePlayHand}
+                    onPlayDeck={this.handlePlayDeck}
+                    onEndStage={this.handleEndStage}
                 ></PlayBoard>;
         }
     }

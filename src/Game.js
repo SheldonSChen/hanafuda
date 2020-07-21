@@ -50,18 +50,6 @@ function drawCard(G, ctx, player=null) {
     G.players[p].hand.push(card);
 }
 
-function playToField(G, ctx, sourceCard, fieldCard) {
-    const player = G.players[ctx.currentPlayer];
-    
-    if (fieldCard) {
-        G.field = G.field.filter(card => !isEqual(card, fieldCard));
-        player.pile.push(sourceCard, fieldCard);
-    } else {
-        G.field.push(sourceCard);
-    }
-    ctx.events.endStage();
-}
-
 function playHand(G, ctx, handCard, fieldCard) {
     const player = G.players[ctx.currentPlayer];
     player.hand = player.hand.filter(card => !isEqual(card, handCard));
@@ -71,6 +59,17 @@ function playHand(G, ctx, handCard, fieldCard) {
 function playDeck(G, ctx, deckCard, fieldCard) {
     G.deck = G.deck.filter(card => !isEqual(card, deckCard));
     playToField(G, ctx, deckCard, fieldCard);
+}
+
+function playToField(G, ctx, sourceCard, fieldCard) {
+    const player = G.players[ctx.currentPlayer];
+
+    if (fieldCard) {
+        G.field = G.field.filter(card => !isEqual(card, fieldCard));
+        player.pile.push(sourceCard, fieldCard);
+    } else {
+        G.field.push(sourceCard);
+    }
 }
 
 //OTHER

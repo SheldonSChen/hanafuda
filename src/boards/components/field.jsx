@@ -9,9 +9,15 @@ class Field extends React.Component {
             className += ' month-match';
         } else if (selectedCard && (fieldCard.month === selectedCard.month)) {
             className += ' month-match';
-            handleOnClick = () => { 
-                this.props.onPlayHand(stage, selectedCard, fieldCard);
-                this.props.onCardSelect(deckTop); 
+            handleOnClick = () => {
+                if (stage === 'playHand') {
+                    this.props.onPlayHand(selectedCard, fieldCard);
+                    this.props.onCardSelect(deckTop); 
+                } else if (stage === 'playDeck') {
+                    this.props.onPlayDeck(selectedCard, fieldCard);
+                    this.props.onCardSelect(null);
+                } 
+                this.props.onEndStage();
             };
         }
 
@@ -30,8 +36,14 @@ class Field extends React.Component {
             return (
                 <div className='game card add-field' 
                     onClick={() => {
-                        this.props.onPlayHand(stage, selectedCard, null);
-                        this.props.onCardSelect(deckTop); 
+                        if (stage === 'playHand') {
+                            this.props.onPlayHand(selectedCard, null);
+                            this.props.onCardSelect(deckTop); 
+                        } else if (stage === 'playDeck') {
+                            this.props.onPlayDeck(selectedCard, null);
+                            this.props.onCardSelect(null);
+                        } 
+                        this.props.onEndStage();
                     }}>
                     Add to field
                 </div>

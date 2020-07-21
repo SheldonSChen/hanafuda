@@ -120,6 +120,8 @@ class PlayBoard extends React.Component {
                     hoveredCard={this.state.hoveredCard}
                     selectedCard={this.state.selectedCard}
                     onPlayHand={this.props.onPlayHand}
+                    onPlayDeck={this.props.onPlayDeck}
+                    onEndStage={this.props.onEndStage}
                     onCardSelect={this.onCardSelect}
                     matchPair={this.state.matchPair}
                 ></Field>
