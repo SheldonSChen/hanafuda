@@ -62,14 +62,21 @@ class PlayBoard extends React.Component {
         }
     }
 
-    getHandCardElement = (card) => {
-        const selected = isEqual(card, this.state.selectedCard) ? ' selected' : ''
+    getHandCardElement = (card, stage) => {
+        const selected = isEqual(card, this.state.selectedCard) ? ' selected' : '';
+        var active, onMouseEnter, onMouseLeave, onClick;
+        if (stage === 'playHand') {
+            active = ' active';
+            onMouseEnter = () => this.onCardHover(card);
+            onMouseLeave = () => this.onCardHover(null);
+            onClick = () => this.onCardSelect(card);
+        }
         return (
-            <div className={'game card hand-card' + selected}
-                onMouseEnter={() => this.onCardHover(card)}
-                onMouseLeave={() => this.onCardHover(null)}
-                onClick={() => this.onCardSelect(card)} >
-                <div className={'game card-inside hand-card' + selected}>
+            <div className={'game card hand-card' + active + selected}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick} >
+                <div className={'game card-inside hand-card' + active + selected}>
                     {card.month * 10 + card.type}
                 </div>
             </div>
@@ -86,7 +93,10 @@ class PlayBoard extends React.Component {
         const deckTop = this.props.deckTop;
 
         return (
-            <div onClick={(event) => this.onCardDeselect(event)}>
+            <div onClick={(event) => {
+                if (stage === 'playHand') {
+                    this.onCardDeselect(event)
+                }}}>
                 <Hand 
                     cards={opponentHand} 
                     getCardElement={(_card) => this.getCardElement(null, 'hidden-card')}
@@ -115,7 +125,7 @@ class PlayBoard extends React.Component {
 
                 <Hand 
                     cards={playerHand} 
-                    getCardElement={this.getHandCardElement}
+                    getCardElement={(card) => this.getHandCardElement(card, stage)}
                 ></Hand>
                 <Pile
                     cards={playerPile}
