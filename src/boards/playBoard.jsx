@@ -107,6 +107,7 @@ class PlayBoard extends React.Component {
                 ></Pile>
 
                 <Field
+                    stage={stage}
                     cards={fieldCards}
                     deckTop={deckTop}
                     getDeckElement={(card) => {

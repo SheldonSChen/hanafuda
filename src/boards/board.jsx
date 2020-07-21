@@ -20,8 +20,13 @@ class HanafudaBoard extends React.Component {
     handleEndPhase = () => {
         this.props.events.endPhase();
     };
-    handlePlayHand = (handCard, fieldCard) => {
-        this.props.moves.playHand(handCard, fieldCard);
+    handlePlayHand = (stage, sourceCard, fieldCard) => {
+        if (stage === 'playHand') {
+            this.props.moves.playHand(sourceCard, fieldCard);
+        } else if (stage === 'playDeck') {
+            this.props.moves.playDeck(sourceCard, fieldCard);
+        }
+        
     };
 
     render() {
