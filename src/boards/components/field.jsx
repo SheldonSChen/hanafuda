@@ -1,6 +1,17 @@
 import React from 'react';
 
 class Field extends React.Component {
+    makeMove = (fieldCard, selectedCard, deckTop, stage) => {
+        if (stage === 'playHand') {
+            this.props.onPlayHand(selectedCard, fieldCard);
+            this.props.onCardSelect(deckTop); 
+        } else if (stage === 'playDeck') {
+            this.props.onPlayDeck(selectedCard, fieldCard);
+            this.props.onCardSelect(null);
+        } 
+        this.props.onEndStage();
+    }
+
     getFieldCardElement = (fieldCard, hoveredCard, selectedCard, deckTop, stage) => {
         var className = 'game card field-card';
         var handleOnClick = null;
@@ -9,16 +20,7 @@ class Field extends React.Component {
             className += ' month-match';
         } else if (selectedCard && (fieldCard.month === selectedCard.month)) {
             className += ' month-match';
-            handleOnClick = () => {
-                if (stage === 'playHand') {
-                    this.props.onPlayHand(selectedCard, fieldCard);
-                    this.props.onCardSelect(deckTop); 
-                } else if (stage === 'playDeck') {
-                    this.props.onPlayDeck(selectedCard, fieldCard);
-                    this.props.onCardSelect(null);
-                } 
-                this.props.onEndStage();
-            };
+            handleOnClick = () => this.makeMove(fieldCard, selectedCard, deckTop, stage);
         }
 
         return (
@@ -35,16 +37,7 @@ class Field extends React.Component {
         if ((hoveredCard || selectedCard) && !matchPair) {
             return (
                 <div className='game card add-field' 
-                    onClick={() => {
-                        if (stage === 'playHand') {
-                            this.props.onPlayHand(selectedCard, null);
-                            this.props.onCardSelect(deckTop); 
-                        } else if (stage === 'playDeck') {
-                            this.props.onPlayDeck(selectedCard, null);
-                            this.props.onCardSelect(null);
-                        } 
-                        this.props.onEndStage();
-                    }}>
+                    onClick={() => this.makeMove(null, selectedCard, deckTop, stage)}>
                     Add to field
                 </div>
             );
