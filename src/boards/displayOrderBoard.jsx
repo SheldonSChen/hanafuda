@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {getOrderCard} from './decideOrderBoard';
 import './styles/decideOrderBoard.css';
 import './styles/displayOrderBoard.css';
 
 class DisplayOrderBoard extends React.Component {
-    static propTypes = {
-        events: PropTypes.any.isRequired,
-    };
+    // static propTypes = {
+    //     events: PropTypes.any.isRequired,
+    // };
     
     componentDidMount() {
         setTimeout(this.props.onEndPhase, 4000);
