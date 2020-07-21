@@ -31,7 +31,8 @@ class PlayBoard extends React.Component {
     onCardDeselect = (event) => {
         const classes = event.target.classList;
         if (!classes.contains('hand-card') && 
-            !classes.contains('field-card')) {
+            !classes.contains('field-card') &&
+            !classes.contains('add-field')) {
             this.setState({ selectedCard: null});
             this.checkMatch(null);
         }
