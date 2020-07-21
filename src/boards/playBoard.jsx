@@ -77,6 +77,7 @@ class PlayBoard extends React.Component {
     }
 
     render() {
+        const stage = this.props.stage;
         const playerHand = this.props.playerHand;
         const playerPile = this.props.playerPile;
         const opponentHand = this.props.opponentHand;
@@ -98,7 +99,13 @@ class PlayBoard extends React.Component {
                 <Field
                     cards={fieldCards}
                     deckTop={deckTop}
-                    getDeckElement={(card) => this.getCardElement(card, 'deck')}
+                    getDeckElement={(card) => {
+                        if (stage === 'playDeck') {
+                            return this.getCardElement(card, 'deck');
+                        } else {
+                            return this.getCardElement(null, 'deck');
+                        }
+                    }}
                     hoveredCard={this.state.hoveredCard}
                     selectedCard={this.state.selectedCard}
                     onPlayHand={this.props.onPlayHand}

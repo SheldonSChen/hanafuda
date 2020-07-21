@@ -1,7 +1,7 @@
 import React from 'react';
 
 class Field extends React.Component {
-    getFieldCardElement = (card, hoveredCard, selectedCard) => {
+    getFieldCardElement = (card, hoveredCard, selectedCard, deckTop) => {
         var className = 'game card field-card';
         var handleOnClick = null;
         
@@ -11,7 +11,7 @@ class Field extends React.Component {
             className += ' month-match';
             handleOnClick = () => { 
                 this.props.onPlayHand(selectedCard, card);
-                this.props.onCardSelect(null); 
+                this.props.onCardSelect(deckTop); 
             };
         }
 
@@ -25,13 +25,13 @@ class Field extends React.Component {
         );
     }
 
-    getAddFieldElement = (matchPair, hoveredCard, selectedCard) => {
+    getAddFieldElement = (matchPair, hoveredCard, selectedCard, deckTop) => {
         if ((hoveredCard || selectedCard) && !matchPair) {
             return (
                 <div className='game card add-field' 
                     onClick={() => {
                         this.props.onPlayHand(selectedCard, null);
-                        this.props.onCardSelect(null); 
+                        this.props.onCardSelect(deckTop); 
                     }}>
                     Add to field
                 </div>
@@ -57,18 +57,18 @@ class Field extends React.Component {
                 <div className='field-cards'>
                     <div>
                         {cardsR1.map((card) => {
-                            return this.getFieldCardElement(card, hoveredCard, selectedCard);
+                            return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop);
                         })}
                     </div>
                     
                     <div>
                         {cardsR2.map((card) => {
-                            return this.getFieldCardElement(card, hoveredCard, selectedCard);
+                            return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop);
                         })}
                     </div>
                 </div>
 
-                {this.getAddFieldElement(matchPair, hoveredCard, selectedCard)}
+                {this.getAddFieldElement(matchPair, hoveredCard, selectedCard, deckTop)}
             </div>
         );
     }

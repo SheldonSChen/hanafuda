@@ -49,6 +49,7 @@ class HanafudaBoard extends React.Component {
             case 'play':
                 //only supports 2 players
                 return <PlayBoard
+                    stage={ctx.activePlayers[playerID]}
                     playerHand={G.players[playerID].hand}
                     playerPile={G.players[playerID].pile}
                     opponentHand={G.players[playerID_opponent].hand}
