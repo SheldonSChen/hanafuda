@@ -60,6 +60,20 @@ function playHand(G, ctx, handCard, fieldCard) {
     } else {
         G.field.push(handCard);
     }
+    ctx.events.endStage();
+}
+
+function playDeck(G, ctx, deckCard, fieldCard) {
+    const player = G.players[ctx.currentPlayer];
+    G.deck = G.deck.filter(card => !isEqual(card, deckCard));
+
+    if (fieldCard) {
+        G.field = G.field.filter(card => !isEqual(card, fieldCard));
+        player.pile.push(deckCard, fieldCard);
+    } else {
+        G.field.push(deckCard);
+    }
+    ctx.events.endStage();
 }
 
 //OTHER
@@ -118,7 +132,7 @@ export const Hanafuda = {
             },
             turn: {
                 order: TurnOrder.CUSTOM_FROM('order'),
-                moveLimit: 1,
+                moveLimit: 2,
                 activePlayers: { currentPlayer: 'playHand'},
                 stages: {
                     playHand: {
@@ -126,11 +140,10 @@ export const Hanafuda = {
                         next: 'playDeck'
                     },
                     playDeck: {
-                        moves: {}
+                        moves: {playDeck}
                     }
                 }
-            },
-            moves: { drawCard },
+            }
         }
     },
 };
