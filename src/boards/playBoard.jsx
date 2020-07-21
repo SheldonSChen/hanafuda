@@ -47,18 +47,18 @@ class PlayBoard extends React.Component {
     };
     
     //GENERATE CARD HTML
-    getCardElement = (card) => {
-        return (
-            <div className='game card'>
-                <div className='game card-inside'>
-                    {card.month * 10 + card.type}
+    getCardElement = (card, otherClasses='') => {
+        if (card) {
+            return (
+                <div className={'game card ' + otherClasses}>
+                    <div className={'game card-inside ' + otherClasses}>
+                        {card.month * 10 + card.type}
+                    </div>
                 </div>
-            </div>
-        );
-    }
-
-    getHiddenCardElement = (_card) => {
-        return ( <div className='game card hidden-card'></div> );
+            );
+        } else {
+            return ( <div className={'game card ' + otherClasses}></div> );
+        }
     }
 
     getHandCardElement = (card) => {
@@ -87,11 +87,11 @@ class PlayBoard extends React.Component {
             <div onClick={(event) => this.onCardDeselect(event)}>
                 <Hand 
                     cards={opponentHand} 
-                    getCardElement={this.getHiddenCardElement}
+                    getCardElement={(_card) => this.getCardElement(null, 'hidden-card')}
                 ></Hand>
                 <Pile
                     cards={opponentPile}
-                    getCardElement={this.getHiddenCardElement}
+                    getCardElement={(_card) => this.getCardElement(null, 'hidden-card')}
                 ></Pile>
 
                 <Field
