@@ -2,11 +2,17 @@
 .game.card, .game.card:hover{
     transform: scale(0.8);
 }
+.game.card.pile-card, .game.card.pile-card:hover{
+    transform: scale(0.5);
+}
 .game.card {
     margin: 0px;
 }
+.game.card.pile-card {
+    margin: -20px;
+}
 /* OPPONENT */
-.hidden-card {
+.no-click {
     pointer-events: none;    
 }
 /* FIELD */

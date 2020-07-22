@@ -101,11 +101,11 @@ class PlayBoard extends React.Component {
                 <div className='player'>
                     <Hand 
                         cards={opponentHand} 
-                        getCardElement={(_card) => this.getCardElement(null, 'hidden-card')}
+                        getCardElement={(_card) => this.getCardElement(null, 'no-click')}
                     ></Hand>
                     <Pile
                         cards={opponentPile}
-                        getCardElement={(card) => this.getCardElement(card, 'hidden-card')}
+                        getCardElement={(card) => this.getCardElement(card, 'no-click pile-card')}
                     ></Pile>
                 </div>
 
@@ -137,7 +137,7 @@ class PlayBoard extends React.Component {
                     ></Hand>
                     <Pile
                         cards={playerPile}
-                        getCardElement={this.getCardElement}
+                        getCardElement={(card) => this.getCardElement(card, 'pile-card')}
                     ></Pile>
                 </div>
             </div>
