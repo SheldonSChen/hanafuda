@@ -112,7 +112,8 @@ class PlayBoard extends React.Component {
                     deckTop={deckTop}
                     getDeckElement={(card) => {
                         if (stage === 'playDeck') {
-                            return this.getCardElement(card, 'deck');
+                            //deck always appears selected when visible
+                            return this.getCardElement(card, 'deck selected');
                         } else {
                             return this.getCardElement(null, 'deck');
                         }
