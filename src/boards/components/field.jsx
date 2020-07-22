@@ -29,7 +29,7 @@ class Field extends React.Component {
             <div className={className}
                 onClick={handleOnClick}>
                 <div className='game card-inside field-card'>
-                    {fieldCard.month * 10 + fieldCard.type}
+                    {fieldCard.id}
                 </div>
             </div>
         );

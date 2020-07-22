@@ -4,7 +4,7 @@ import { Client } from 'boardgame.io/react';
 import { SocketIO } from 'boardgame.io/multiplayer';
 
 import { LobbyAPI } from '../lobbyAPI';
-import { Hanafuda } from '../Game';
+import { Hanafuda } from '../game/Game';
 import HanafudaBoard from '../boards/board';
 import TemplatePage from '../pages/templatePage';
 

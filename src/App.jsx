@@ -10,7 +10,7 @@ import HanafudaBoard from './boards/board';
 import LobbyPage from './pages/lobbyPage';
 
 
-import { Hanafuda } from './Game';
+import { Hanafuda } from './game/Game';
 import { APP_PRODUCTION, GAME_SERVER_URL } from './config';
 
 function App() {

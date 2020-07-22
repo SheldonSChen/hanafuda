@@ -3,16 +3,14 @@ import './styles/decideOrderBoard.css';
 
 export function getOrderCard(player, playerName) {
     if (player.hand.length === 1) {
-        const month = player.hand[0].month;
-        const type = player.hand[0].type;
         return (
             <div className='order-card-ctr'>
                 <div className='card'>
                     <div className='card-inside'>
-                        {month * 10 + type}
+                        {player.hand[0].id}
                     </div>
                 </div>
-                <h3 className='name-num'>{playerName}<br></br>{month}/{type}</h3>
+                <h3 className='name-num'>{playerName}<br></br>{player.hand[0].id}</h3>
             </div>
         );
     }

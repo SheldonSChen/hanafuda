@@ -1,4 +1,5 @@
-import { GAME_NAME } from "./config";
+import { GAME_NAME } from "../config";
+import { CARD_TYPES } from './Cards';
 import { TurnOrder } from 'boardgame.io/core';
 // import { INVALID_MOVE } from "boardgame.io/core";
 
@@ -11,8 +12,9 @@ const generateDeck = (ctx) => {
     for (let i = 1; i < 13; i++) {
         for (let j = 0; j < 4; j++) {
             deck.push({
+                id: i * 10 + j,
                 month: i,
-                type: j,
+                type: CARD_TYPES[i][j],
             });
         }
     }
@@ -32,10 +34,10 @@ function dealCards(G, ctx) {
     }
 }
 
-function cardNum(card) {
-    //card number is month followed by type
-    return card.month * 10 + card.type;
-}
+// function cardNum(card) {
+//     //card number is month followed by type
+//     return card.month * 10 + card.type;
+// }
 
 function resetHands(G, ctx) {
     for (let i = 0; i < ctx.numPlayers; i++) {
@@ -76,7 +78,7 @@ function playToField(G, ctx, sourceCard, fieldCard) {
 function saveOrder(G, _ctx) {
     const cardP0 = G.players[0].hand[0];
     const cardP1 = G.players[1].hand[0];
-    if (cardNum(cardP1) < cardNum(cardP0)) {
+    if (cardP1.id < cardP0.id) {
         console.log('P1 goes first');
         G.order = ['1', '0'];
     } else {

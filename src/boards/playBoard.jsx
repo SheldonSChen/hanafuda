@@ -53,7 +53,7 @@ class PlayBoard extends React.Component {
             return (
                 <div className={'game card ' + otherClasses}>
                     <div className={'game card-inside ' + otherClasses}>
-                        {card.month * 10 + card.type}
+                        {card.id}
                     </div>
                 </div>
             );
@@ -77,7 +77,7 @@ class PlayBoard extends React.Component {
                 onMouseLeave={onMouseLeave}
                 onClick={onClick} >
                 <div className={'game card-inside hand-card' + active + selected}>
-                    {card.month * 10 + card.type}
+                    {card.id}
                 </div>
             </div>
         );
