@@ -1,5 +1,5 @@
 import { GAME_NAME } from "../config";
-import { CARD_TYPES } from './Cards';
+import { getCardType } from './Cards';
 import { TurnOrder } from 'boardgame.io/core';
 // import { INVALID_MOVE } from "boardgame.io/core";
 
@@ -14,7 +14,7 @@ const generateDeck = (ctx) => {
             deck.push({
                 id: i * 10 + j,
                 month: i,
-                type: CARD_TYPES[i][j],
+                type: getCardType(i, j),
             });
         }
     }

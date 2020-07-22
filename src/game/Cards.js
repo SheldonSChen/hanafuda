@@ -1,16 +1,27 @@
-//plain=0, ribbon=1, animal=2, bright=3
-export const CARD_TYPES = [
-    [], //just so that index matches w/ month numbers
-    [0, 0, 1, 3], //jan
-    [0, 0, 1, 2], //feb
-    [0, 0, 1, 3], //mar
-    [0, 0, 1, 2], //apr
-    [0, 0, 1, 2], //may
-    [0, 0, 1, 2], //jun
-    [0, 0, 1, 2], //jul
-    [0, 0, 2, 3], //aug
-    [0, 0, 1, 2], //sep
-    [0, 0, 1, 2], //oct
-    [0, 1, 1, 3], //nov
-    [0, 0, 0, 3]  //dec
+//plain=TYPES.PLAIN, ribbon=TYPES.RIBBON, animal=TYPES.ANIMAL, bright=TYPES.BRIGHT
+const TYPES = {
+    'PLAIN': 0,
+    'RIBBON': 1,
+    'ANIMAL': 2,
+    'BRIGHT': 3
+}
+
+const EACH_TYPE = [
+    [], //just so that index matches w/ month
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.RIBBON, TYPES.BRIGHT], //jan
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.RIBBON, TYPES.ANIMAL], //feb
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.RIBBON, TYPES.BRIGHT], //mar
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.RIBBON, TYPES.ANIMAL], //apr
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.RIBBON, TYPES.ANIMAL], //may
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.RIBBON, TYPES.ANIMAL], //jun
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.RIBBON, TYPES.ANIMAL], //jul
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.ANIMAL, TYPES.BRIGHT], //aug
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.RIBBON, TYPES.ANIMAL], //sep
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.RIBBON, TYPES.ANIMAL], //oct
+    [TYPES.PLAIN, TYPES.RIBBON, TYPES.RIBBON, TYPES.BRIGHT], //nov
+    [TYPES.PLAIN, TYPES.PLAIN, TYPES.PLAIN, TYPES.BRIGHT]  //dec
 ];
+
+export function getCardType(month, index) {
+    return EACH_TYPE[month][index];
+}
