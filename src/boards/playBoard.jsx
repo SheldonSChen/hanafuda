@@ -128,6 +128,7 @@ class PlayBoard extends React.Component {
                     onEndStage={this.props.onEndStage}
                     onCardSelect={this.onCardSelect}
                     matchPair={this.state.matchPair}
+                    playerPile={playerPile}
                 ></Field>
 
                 <div className='player'>

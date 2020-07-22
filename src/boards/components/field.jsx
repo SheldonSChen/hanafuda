@@ -1,18 +1,20 @@
 import React from 'react';
 
 class Field extends React.Component {
-    makeMove = (fieldCard, selectedCard, deckTop, stage) => {
+    makeMove = (fieldCard, selectedCard, deckTop, stage, playerPile) => {
         if (stage === 'playHand') {
             this.props.onPlayHand(selectedCard, fieldCard);
+            console.log(playerPile.concat(selectedCard, fieldCard));
             this.props.onCardSelect(deckTop); 
         } else if (stage === 'playDeck') {
             this.props.onPlayDeck(selectedCard, fieldCard);
+            console.log(playerPile.concat(selectedCard, fieldCard));
             this.props.onCardSelect(null);
         } 
         this.props.onEndStage();
     }
 
-    getFieldCardElement = (fieldCard, hoveredCard, selectedCard, deckTop, stage) => {
+    getFieldCardElement = (fieldCard, hoveredCard, selectedCard, deckTop, stage, playerPile) => {
         var className = 'game card field-card';
         var handleOnClick = null;
         
@@ -20,7 +22,7 @@ class Field extends React.Component {
             className += ' month-match';
         } else if (selectedCard && (fieldCard.month === selectedCard.month)) {
             className += ' month-match';
-            handleOnClick = () => this.makeMove(fieldCard, selectedCard, deckTop, stage);
+            handleOnClick = () => this.makeMove(fieldCard, selectedCard, deckTop, stage, playerPile);
         }
 
         return (
@@ -33,11 +35,11 @@ class Field extends React.Component {
         );
     }
 
-    getAddFieldElement = (matchPair, hoveredCard, selectedCard, deckTop, stage) => {
+    getAddFieldElement = (matchPair, hoveredCard, selectedCard, deckTop, stage, playerPile) => {
         if ((hoveredCard || selectedCard) && !matchPair) {
             return (
                 <div className='game card add-field' 
-                    onClick={() => this.makeMove(null, selectedCard, deckTop, stage)}>
+                    onClick={() => this.makeMove(null, selectedCard, deckTop, stage, playerPile)}>
                     Add to field
                 </div>
             );
@@ -55,6 +57,7 @@ class Field extends React.Component {
         const matchPair = this.props.matchPair;
         const deckTop = this.props.deckTop;
         const stage = this.props.stage;
+        const playerPile = this.props.playerPile;
 
         return (
             <div className='field'>
@@ -63,18 +66,18 @@ class Field extends React.Component {
                 <div className='field-cards'>
                     <div>
                         {cardsR1.map((card) => {
-                            return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, stage);
+                            return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, stage, playerPile);
                         })}
                     </div>
                     
                     <div>
                         {cardsR2.map((card) => {
-                            return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, stage);
+                            return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, stage, playerPile);
                         })}
                     </div>
                 </div>
 
-                {this.getAddFieldElement(matchPair, hoveredCard, selectedCard, deckTop, stage)}
+                {this.getAddFieldElement(matchPair, hoveredCard, selectedCard, deckTop, stage, playerPile)}
             </div>
         );
     }

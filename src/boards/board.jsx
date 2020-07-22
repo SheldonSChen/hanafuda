@@ -38,6 +38,7 @@ class HanafudaBoard extends React.Component {
         const playerID = parseInt(this.props.playerID, 10);
         const playerID_opponent = (playerID + 1) % 2;
 
+        // eslint-disable-next-line default-case
         switch(this.props.ctx.phase) {
             case 'decideOrder':
                 return <DecideOrderBoard
