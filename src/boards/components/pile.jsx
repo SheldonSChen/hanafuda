@@ -6,7 +6,7 @@ class Pile extends React.Component {
         const getCardElement = this.props.getCardElement;
         
         return (
-            <div>
+            <div className='pile'>
                 {cards.map((card) => {
                     return getCardElement(card);
                 })}

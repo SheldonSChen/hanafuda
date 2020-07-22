@@ -97,14 +97,17 @@ class PlayBoard extends React.Component {
                 if (stage === 'playHand') {
                     this.onCardDeselect(event)
                 }}}>
-                <Hand 
-                    cards={opponentHand} 
-                    getCardElement={(_card) => this.getCardElement(null, 'hidden-card')}
-                ></Hand>
-                <Pile
-                    cards={opponentPile}
-                    getCardElement={(_card) => this.getCardElement(null, 'hidden-card')}
-                ></Pile>
+                
+                <div className='player'>
+                    <Hand 
+                        cards={opponentHand} 
+                        getCardElement={(_card) => this.getCardElement(null, 'hidden-card')}
+                    ></Hand>
+                    <Pile
+                        cards={opponentPile}
+                        getCardElement={(card) => this.getCardElement(card, 'hidden-card')}
+                    ></Pile>
+                </div>
 
                 <Field
                     stage={stage}
@@ -127,14 +130,16 @@ class PlayBoard extends React.Component {
                     matchPair={this.state.matchPair}
                 ></Field>
 
-                <Hand 
-                    cards={playerHand} 
-                    getCardElement={(card) => this.getHandCardElement(card, stage)}
-                ></Hand>
-                <Pile
-                    cards={playerPile}
-                    getCardElement={this.getCardElement}
-                ></Pile>
+                <div className='player'>
+                    <Hand 
+                        cards={playerHand} 
+                        getCardElement={(card) => this.getHandCardElement(card, stage)}
+                    ></Hand>
+                    <Pile
+                        cards={playerPile}
+                        getCardElement={this.getCardElement}
+                    ></Pile>
+                </div>
             </div>
         );
     }

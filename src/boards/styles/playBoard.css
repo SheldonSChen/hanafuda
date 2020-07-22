@@ -22,6 +22,7 @@
 .add-field {
     justify-self: start;
 }
+
 .field-card {
     cursor: default;
 }
@@ -32,4 +33,14 @@
 }
 .month-match:hover, .selected, .selected:hover, .add-field:hover {
     color: green;
+}
+
+.player {
+    display: grid;
+    grid-template-columns: max-content auto;
+    align-items: center;
+    grid-gap: 20px;
+}
+.pile {
+    justify-self: end;
 }

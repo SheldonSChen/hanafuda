@@ -6,7 +6,7 @@ class Hand extends React.Component {
         const getCardElement = this.props.getCardElement;
         
         return (
-            <div>
+            <div className='hand'>
                 {cards.map((card) => {
                     return getCardElement(card);
                 })}
