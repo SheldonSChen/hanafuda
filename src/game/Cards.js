@@ -1,4 +1,3 @@
-//plain=TYPES.PLAIN, ribbon=TYPES.RIBBON, animal=TYPES.ANIMAL, bright=TYPES.BRIGHT
 const TYPES = {
     'PLAIN': 0,
     'RIBBON': 1,

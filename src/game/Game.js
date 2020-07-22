@@ -34,11 +34,6 @@ function dealCards(G, ctx) {
     }
 }
 
-// function cardNum(card) {
-//     //card number is month followed by type
-//     return card.month * 10 + card.type;
-// }
-
 function resetHands(G, ctx) {
     for (let i = 0; i < ctx.numPlayers; i++) {
         G.players[i].hand = [];
