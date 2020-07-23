@@ -5,6 +5,29 @@ import './styles/homePage.css';
 import { MAX_PLAYERS } from '../config';
 
 const api = new LobbyAPI();
+const MENU = {
+    'START': 'start',
+    'JOIN': 'join',
+    'HELP': 'help'
+}
+const TEXT_TYPES = {
+    'MSG': 'msg',
+    'INNER_TEXT': 'innerText'
+}
+const texts = {
+    [MENU.START]: {
+        [TEXT_TYPES.MSG]: 'Create a new game',
+        [TEXT_TYPES.INNER_TEXT]: 'new game'
+    },
+    [MENU.JOIN]: {
+        [TEXT_TYPES.MSG]: 'Join a game',
+        [TEXT_TYPES.INNER_TEXT]: 'join game'
+    },
+    [MENU.HELP]: {
+        [TEXT_TYPES.MSG]: 'Game rules and guide',
+        [TEXT_TYPES.INNER_TEXT]: 'help'
+    }
+}
 
 class HomePage extends React.Component {
     state = {
@@ -35,6 +58,26 @@ class HomePage extends React.Component {
         );
     };
 
+    getMenuCard = (option, history, specialClick=null) => {
+        var handleClick = specialClick;
+        if (!handleClick) {
+            handleClick = () => history.push('/' + option);
+        }
+
+        return (
+            <div
+                className="card"
+                onMouseEnter={() => this.setState({text: texts[option][TEXT_TYPES.MSG]})}
+                onMouseLeave={() => this.setState({text: ""})}
+                onClick={handleClick}
+            >
+                <div className="card-inside" id={option}>
+                    <h1>{texts[option][TEXT_TYPES.INNER_TEXT]}</h1>
+                </div>
+            </div>
+        );
+    }
+
     render() {
         const history = this.props.history;
         return (
@@ -42,38 +85,9 @@ class HomePage extends React.Component {
                 content={
                 <>
                     <div id="menu-cards">
-                        <div
-                            className="card"
-                            onMouseEnter={() => this.setState({text: "Create a new game"})}
-                            onMouseLeave={() => this.setState({text: ""})}
-                            onClick={() => this.createGame()}
-                        >
-                            <div className="card-inside" id="new">
-                                <h1>new game</h1>
-                            </div>
-                        </div>
-
-                        <div
-                            className="card"
-                            onMouseEnter={() => this.setState({text: "Join a game"})}
-                            onMouseLeave={() => this.setState({text: ""})}
-                            onClick={() => {history.push("/join");}}
-                        >
-                            <div className="card-inside" id="join">
-                                <h1>join game</h1>
-                            </div>
-                        </div>
-
-                        <div
-                            className="card"
-                            onMouseEnter={() => this.setState({text: "Game rules and guide"})}
-                            onMouseLeave={() => this.setState({text: ""})}
-                            onClick={() => {history.push("/help");}}
-                        >
-                            <div className="card-inside" id="help">
-                                <h1>help</h1>
-                            </div>
-                        </div>
+                        {this.getMenuCard(MENU.START, history, () => this.createGame())}
+                        {this.getMenuCard(MENU.JOIN, history)}
+                        {this.getMenuCard(MENU.HELP, history)}
                     </div>
                     <h3 id="menu-description">{this.state.text}</h3>
                 </>
