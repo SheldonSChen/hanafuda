@@ -1,6 +1,6 @@
 import { GAME_NAME } from "../config";
 import { getCardType } from './Cards';
-import { initSets } from './Sets';
+import { initSets, updateSets } from './Sets';
 import { TurnOrder } from 'boardgame.io/core';
 // import { INVALID_MOVE } from "boardgame.io/core";
 
@@ -74,6 +74,8 @@ function playToField(G, ctx, sourceCard, fieldCard) {
     if (fieldCard) {
         G.field = G.field.filter(card => !isEqual(card, fieldCard));
         player.pile.push(sourceCard, fieldCard);
+        updateSets(G, ctx, sourceCard);
+        updateSets(G, ctx, fieldCard);
     } else {
         G.field.push(sourceCard);
     }

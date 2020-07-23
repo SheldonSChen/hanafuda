@@ -24,3 +24,8 @@ const EACH_TYPE = [
 export function getCardType(month, index) {
     return EACH_TYPE[month][index];
 }
+
+//NOTE: only works for special cards
+export function getCardID(month, type) {
+    return month * 10 + EACH_TYPE[month].indexOf(type);
+}
