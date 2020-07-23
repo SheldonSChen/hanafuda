@@ -1,5 +1,6 @@
 import { GAME_NAME } from "../config";
 import { getCardType } from './Cards';
+import { initSets } from './Sets';
 import { TurnOrder } from 'boardgame.io/core';
 // import { INVALID_MOVE } from "boardgame.io/core";
 
@@ -21,6 +22,15 @@ const generateDeck = (ctx) => {
     deck = ctx.random.Shuffle(deck);
     return deck;
 };
+
+const generatePlayer = () => {
+    var player = { 
+        hand: [],
+        pile: [],
+        sets:  initSets()
+    };
+    return player;
+}
 
 function dealCards(G, ctx) {
     for (let player = 0; player < ctx.numPlayers; player++) {
@@ -95,7 +105,7 @@ export const Hanafuda = {
 
         start.deck = generateDeck(ctx);
         for (let i = 0; i < ctx.numPlayers; i++) {
-            start.players[i] = { hand: [], pile: [] };
+            start.players[i] = generatePlayer();
         }
 
         return start;
