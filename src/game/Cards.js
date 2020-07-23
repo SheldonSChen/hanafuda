@@ -1,8 +1,8 @@
 export const CARD_TYPES = {
-    'KASU': 0,
-    'TAN': 1,
-    'TANE': 2,
-    'GOKO': 3
+    'KASU': 'kasu',
+    'TAN': 'tanzaku',
+    'TANE': 'tane',
+    'GOKO': 'goko'
 }
 
 const EACH_TYPE = [
