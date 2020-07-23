@@ -6,17 +6,21 @@ const regex = /^[\w-]{9}$/;
 const defaultID = '0000';
 
 class JoinPage extends React.Component {
-    state = { roomID: defaultID };
+    constructor(props) {
+        super(props);
+        this.state = {
+            roomID: defaultID
+        };
+    }
 
     handleSubmit = () => {
-        const history = this.props.history;
-
-        this.state.roomID = this.state.roomID.replace(/\s/g,'');
-        if (!regex.test(this.state.roomID)) {
-            this.state.roomID = defaultID;
+        var roomID = this.state.roomID;
+        roomID = roomID.replace(/\s/g,'');
+        if (!regex.test(roomID)) {
+            roomID = defaultID;
         }
 
-        history.push('/lobby/' + this.state.roomID);
+        this.props.history.push('/lobby/' + roomID);
     };
 
     handleChange = (event) => {
