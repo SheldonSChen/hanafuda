@@ -6,6 +6,12 @@ import PlayBoard from './playBoard';
 
 import './styles/board.css';
 
+const CARD_IMGS = require('../modules/mod_cardImg.js');
+
+export function getCardImage(cardID) {
+    return { backgroundImage: 'url('+ CARD_IMGS[cardID]+')' };
+}
+
 class HanafudaBoard extends React.Component {
     constructor(props) {
         super(props);

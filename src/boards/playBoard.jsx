@@ -2,6 +2,7 @@ import React from 'react';
 import Hand from './components/hand';
 import Field from './components/field';
 import Pile from './components/pile';
+import { getCardImage } from './board';
 import './styles/playBoard.css';
 
 const isEqual = require('lodash.isequal');
@@ -33,12 +34,15 @@ class PlayBoard extends React.Component {
     };
     
     //GENERATE CARD HTML
-    getCardElement = (card, otherClasses='') => {
+    getCardElement = (card, otherClasses='', events={}) => {
         if (card) {
             return (
-                <div className={'game card ' + otherClasses}>
-                    <div className={'game card-inside ' + otherClasses}>
-                        {card.id}
+                <div className={'game card ' + otherClasses}
+                    onMouseEnter={events.onMouseEnter}
+                    onMouseLeave={events.onMouseLeave}
+                    onClick={events.onClick}>
+                    <div className={'game card-inside ' + otherClasses}
+                        style={getCardImage(card.id)}>
                     </div>
                 </div>
             );
@@ -48,25 +52,23 @@ class PlayBoard extends React.Component {
     }
 
     getHandCardElement = (card, stage) => {
-        const selected = isEqual(card, this.state.selectedCard) ? ' selected' : '';
-        var active, onMouseEnter, onMouseLeave, onClick;
+        var otherClasses = 'hand-card';
+
+        var events;
         if (stage === 'playHand') {
-            active = ' active';
-            onMouseEnter = () => this.onCardHover(card);
-            onMouseLeave = () => this.onCardHover(null);
-            onClick = () => this.onCardSelect(card);
+            otherClasses += ' active';
+            events = {
+                onMouseEnter: () => this.onCardHover(card),
+                onMouseLeave: () => this.onCardHover(null),
+                onClick: () => this.onCardSelect(card),
+            }
+        }
+        
+        if (isEqual(card, this.state.selectedCard)) {
+            otherClasses += ' selected';
         }
 
-        return (
-            <div className={'game card hand-card' + active + selected}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-                onClick={onClick} >
-                <div className={'game card-inside hand-card' + active + selected}>
-                    {card.id}
-                </div>
-            </div>
-        );
+        return this.getCardElement(card, otherClasses, events);
     }
 
     render() {
@@ -99,14 +101,15 @@ class PlayBoard extends React.Component {
                     stage={stage}
                     cards={fieldCards}
                     deckTop={deckTop}
-                    getDeckElement={() => {
-                        if (stage === 'playDeck') {
-                            //deck always appears selected when visible
-                            return this.getCardElement(deckTop, 'deck selected');
-                        } else {
-                            return this.getCardElement(null, 'deck');
-                        }
-                    }}
+                    // getDeckElement={() => {
+                    //     if (stage === 'playDeck') {
+                    //         //deck always appears selected when visible
+                    //         return this.getCardElement(deckTop, 'deck selected');
+                    //     } else {
+                    //         return this.getCardElement(null, 'deck');
+                    //     }
+                    // }}
+                    getCardElement={this.getCardElement}
                     hoveredCard={this.state.hoveredCard}
                     selectedCard={this.state.selectedCard}
                     onPlayHand={this.props.onPlayHand}

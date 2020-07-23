@@ -2,19 +2,27 @@ import React from 'react';
 import {checkMatch} from '../helper';
 
 class Field extends React.Component {
+    getDeckElement = (stage, deckTop) => {
+        if (stage === 'playDeck') {
+            //deck always appears selected when visible
+            return this.props.getCardElement(deckTop, 'deck selected');
+        } else {
+            return this.props.getCardElement(null, 'deck');
+        }
+    }
 
     getFieldCardElement = (fieldCard, hoveredCard, selectedCard, deckTop, stage, playerPile) => {
-        var className = 'game card field-card';
-        var handleOnClick = null;
+        var otherClasses = 'field-card';
+        var events = {};
         
         // eslint-disable-next-line default-case
         switch(stage) {
             case 'playHand':
                 if (!selectedCard && hoveredCard && (hoveredCard.month === fieldCard.month)) {
-                    className += ' month-match';
+                    otherClasses += ' month-match';
                 } else if (selectedCard && (selectedCard.month === fieldCard.month)) {
-                    className += ' month-match';
-                    handleOnClick = () => {
+                    otherClasses += ' month-match';
+                    events.onClick = () => {
                         this.props.onPlayHand(selectedCard, fieldCard);
                         this.props.onCardSelect(null);
                     };
@@ -22,22 +30,15 @@ class Field extends React.Component {
                 break;
             case 'playDeck':
                 if (deckTop && (deckTop.month === fieldCard.month)) {
-                    className += ' month-match';
-                    handleOnClick = () => {
+                    otherClasses += ' month-match';
+                    events.onClick = () => {
                         this.props.onPlayDeck(deckTop, fieldCard);
                     };
                 }
                 break;
         }
 
-        return (
-            <div className={className}
-                onClick={handleOnClick}>
-                <div className='game card-inside field-card'>
-                    {fieldCard.id}
-                </div>
-            </div>
-        );
+        return this.props.getCardElement(fieldCard, otherClasses, events);
     }
 
     getAddFieldElement = (fieldCards, hoveredCard, selectedCard, deckTop, stage, playerPile) => {
@@ -97,7 +98,7 @@ class Field extends React.Component {
 
         return (
             <div className='field'>
-                {this.props.getDeckElement()}
+                {this.getDeckElement(stage, deckTop)}
 
                 <div className='field-cards'>
                     <div>
