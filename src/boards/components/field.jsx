@@ -4,11 +4,11 @@ class Field extends React.Component {
     makeMove = (fieldCard, selectedCard, deckTop, stage, playerPile) => {
         if (stage === 'playHand') {
             this.props.onPlayHand(selectedCard, fieldCard);
-            console.log(playerPile.concat(selectedCard, fieldCard));
+            // console.log(playerPile.concat(selectedCard, fieldCard));
             this.props.onCardSelect(deckTop); 
         } else if (stage === 'playDeck') {
             this.props.onPlayDeck(selectedCard, fieldCard);
-            console.log(playerPile.concat(selectedCard, fieldCard));
+            // console.log(playerPile.concat(selectedCard, fieldCard));
             this.props.onCardSelect(null);
         } 
         this.props.onEndStage();

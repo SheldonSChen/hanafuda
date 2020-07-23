@@ -7,8 +7,8 @@ import './styles/playBoard.css';
 const isEqual = require('lodash.isequal');
 
 class PlayBoard extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             hoveredCard: null,
             selectedCard: null,
