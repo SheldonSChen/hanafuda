@@ -38,9 +38,11 @@ function dealCards(G, ctx) {
             drawCard(G, ctx, player);
         }
     }
-
-    for (let _ = 0; _ < 8; _++) {
-        G.field.push(G.deck.pop());
+    
+    for (let i = 0; i < 2; i++) {
+        for (let _ = 0; _ < 4; _++) {
+            G.field[i].push(G.deck.pop());
+        }
     }
 }
 
@@ -72,12 +74,15 @@ function playToField(G, ctx, sourceCard, fieldCard) {
     const player = G.players[ctx.currentPlayer];
 
     if (fieldCard) {
-        G.field = G.field.filter(card => !isEqual(card, fieldCard));
+        for (let row = 0; row < 2; row++) {
+            G.field[row] = G.field[row].filter(card => !isEqual(card, fieldCard));
+        }
         player.pile.push(sourceCard, fieldCard);
         updateSets(G, ctx, sourceCard);
         updateSets(G, ctx, fieldCard);
     } else {
-        G.field.push(sourceCard);
+        var row = G.field[0].length < G.field[1].length ? 0 : 1;
+        G.field[row].push(sourceCard);
     }
     ctx.events.endStage();
 }
@@ -102,7 +107,7 @@ export const Hanafuda = {
         var start = {
             deck: [],
             players: [],
-            field: [],
+            field: [[], []],
             order: null
         };
 

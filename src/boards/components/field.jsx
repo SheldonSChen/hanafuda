@@ -40,7 +40,7 @@ class Field extends React.Component {
         );
     }
 
-    getAddFieldElement = (hoveredCard, selectedCard, deckTop, stage, playerPile) => {
+    getAddFieldElement = (fieldCards, hoveredCard, selectedCard, deckTop, stage, playerPile) => {
         var handleOnClick = null;
         var visible = false;
         
@@ -48,7 +48,7 @@ class Field extends React.Component {
         switch(stage) {
             case 'playHand':
                 if (selectedCard) {
-                    if (!checkMatch(selectedCard, this.props.cards)) {
+                    if (!checkMatch(selectedCard, fieldCards)) {
                         handleOnClick = () => {
                             this.props.onPlayHand(selectedCard, null);
                             this.props.onCardSelect(null);
@@ -56,14 +56,14 @@ class Field extends React.Component {
                         visible = true;
                     }
                 } else if (hoveredCard) {
-                    if (!checkMatch(hoveredCard, this.props.cards)) {
+                    if (!checkMatch(hoveredCard, fieldCards)) {
                         visible = true;
                     }
                 }
                 break;
             case 'playDeck':
                 if (deckTop) {
-                    if (!checkMatch(deckTop, this.props.cards)) {
+                    if (!checkMatch(deckTop, fieldCards)) {
                         handleOnClick = () => this.props.onPlayDeck(deckTop, null);
                         visible = true;
                     }
@@ -84,9 +84,9 @@ class Field extends React.Component {
     render() {
         const stage = this.props.stage;
 
-        const halfNumCards = this.props.cards.length / 2;
-        const cardsR1 = this.props.cards.slice(0, halfNumCards);
-        const cardsR2 = this.props.cards.slice(halfNumCards);
+        const cardsR0 = this.props.cards[0];
+        const cardsR1 = this.props.cards[1];
+        const cardsAll = this.props.cards.flat();
         
         const deckTop = this.props.deckTop;
 
@@ -101,19 +101,19 @@ class Field extends React.Component {
 
                 <div className='field-cards'>
                     <div>
-                        {cardsR1.map((card) => {
+                        {cardsR0.map((card) => {
                             return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, stage, playerPile);
                         })}
                     </div>
                     
                     <div>
-                        {cardsR2.map((card) => {
+                        {cardsR1.map((card) => {
                             return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, stage, playerPile);
                         })}
                     </div>
                 </div>
 
-                {this.getAddFieldElement(hoveredCard, selectedCard, deckTop, stage, playerPile)}
+                {this.getAddFieldElement(cardsAll, hoveredCard, selectedCard, deckTop, stage, playerPile)}
             </div>
         );
     }
