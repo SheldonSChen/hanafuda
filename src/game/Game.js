@@ -79,6 +79,7 @@ function playToField(G, ctx, sourceCard, fieldCard) {
     } else {
         G.field.push(sourceCard);
     }
+    ctx.events.endStage();
 }
 
 //OTHER

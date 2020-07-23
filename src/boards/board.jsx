@@ -27,9 +27,9 @@ class HanafudaBoard extends React.Component {
     handlePlayDeck = (deckCard, fieldCard) => {
         this.props.moves.playDeck(deckCard, fieldCard);
     };
-    handleEndStage = () => {
-        this.props.events.endStage();
-    };
+    // handleEndStage = () => {
+    //     this.props.events.endStage();
+    // };
 
     render() {
         const G = this.props.G;
@@ -56,17 +56,19 @@ class HanafudaBoard extends React.Component {
                 ></DisplayOrderBoard>;
             case 'play':
                 //only supports 2 players
+                const stage = ctx.activePlayers[playerID];
+                const deckTop = stage === 'playDeck' ? G.deck[G.deck.length - 1] : null;
                 return <PlayBoard
-                    stage={ctx.activePlayers[playerID]}
+                    stage={stage}
                     playerHand={G.players[playerID].hand}
                     playerPile={G.players[playerID].pile}
                     opponentHand={G.players[playerID_opponent].hand}
                     opponentPile={G.players[playerID_opponent].pile}
                     fieldCards={G.field}
-                    deckTop={G.deck[G.deck.length - 1]}
+                    deckTop={deckTop}
                     onPlayHand={this.handlePlayHand}
                     onPlayDeck={this.handlePlayDeck}
-                    onEndStage={this.handleEndStage}
+                    // onEndStage={this.handleEndStage}
                 ></PlayBoard>;
         }
     }

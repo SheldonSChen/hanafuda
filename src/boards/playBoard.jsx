@@ -12,38 +12,23 @@ class PlayBoard extends React.Component {
         this.state = {
             hoveredCard: null,
             selectedCard: null,
-            matchPair: false
         };
     }
-    //EVENTS
+    //PLAYHAND EVENTS
     onCardHover = (card) => {
         this.setState({ hoveredCard: card});
-        if (!this.state.selectedCard) {
-            this.checkMatch(card);
-        }
     };
 
     onCardSelect = (card) => {
         this.setState({ selectedCard: card});
-        this.checkMatch(card);
     };
 
-    onCardDeselect = (event) => {
+    onCardDeselectClick = (event) => {
         const classes = event.target.classList;
         if (!classes.contains('hand-card') && 
             !classes.contains('field-card') &&
             !classes.contains('add-field')) {
             this.setState({ selectedCard: null});
-            this.checkMatch(null);
-        }
-    };
-    
-    //HELPER
-    checkMatch = (card) => {
-        if (card && this.props.fieldCards.some((fCard) => fCard.month === card.month)) {
-            this.setState({ matchPair: true });
-        } else {
-            this.setState({ matchPair: false });
         }
     };
     
@@ -71,6 +56,7 @@ class PlayBoard extends React.Component {
             onMouseLeave = () => this.onCardHover(null);
             onClick = () => this.onCardSelect(card);
         }
+
         return (
             <div className={'game card hand-card' + active + selected}
                 onMouseEnter={onMouseEnter}
@@ -95,7 +81,7 @@ class PlayBoard extends React.Component {
         return (
             <div onClick={(event) => {
                 if (stage === 'playHand') {
-                    this.onCardDeselect(event)
+                    this.onCardDeselectClick(event)
                 }}}>
                 
                 <div className='player'>
@@ -113,10 +99,10 @@ class PlayBoard extends React.Component {
                     stage={stage}
                     cards={fieldCards}
                     deckTop={deckTop}
-                    getDeckElement={(card) => {
+                    getDeckElement={() => {
                         if (stage === 'playDeck') {
                             //deck always appears selected when visible
-                            return this.getCardElement(card, 'deck selected');
+                            return this.getCardElement(deckTop, 'deck selected');
                         } else {
                             return this.getCardElement(null, 'deck');
                         }
@@ -125,9 +111,8 @@ class PlayBoard extends React.Component {
                     selectedCard={this.state.selectedCard}
                     onPlayHand={this.props.onPlayHand}
                     onPlayDeck={this.props.onPlayDeck}
-                    onEndStage={this.props.onEndStage}
                     onCardSelect={this.onCardSelect}
-                    matchPair={this.state.matchPair}
+                    // onEndStage={this.props.onEndStage}
                     playerPile={playerPile}
                 ></Field>
 

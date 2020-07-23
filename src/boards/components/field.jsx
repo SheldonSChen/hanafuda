@@ -1,28 +1,33 @@
 import React from 'react';
+import {checkMatch} from '../helper';
 
 class Field extends React.Component {
-    makeMove = (fieldCard, selectedCard, deckTop, stage, playerPile) => {
-        if (stage === 'playHand') {
-            this.props.onPlayHand(selectedCard, fieldCard);
-            // console.log(playerPile.concat(selectedCard, fieldCard));
-            this.props.onCardSelect(deckTop); 
-        } else if (stage === 'playDeck') {
-            this.props.onPlayDeck(selectedCard, fieldCard);
-            // console.log(playerPile.concat(selectedCard, fieldCard));
-            this.props.onCardSelect(null);
-        } 
-        this.props.onEndStage();
-    }
 
     getFieldCardElement = (fieldCard, hoveredCard, selectedCard, deckTop, stage, playerPile) => {
         var className = 'game card field-card';
         var handleOnClick = null;
         
-        if (!selectedCard && hoveredCard && (fieldCard.month === hoveredCard.month)) {
-            className += ' month-match';
-        } else if (selectedCard && (fieldCard.month === selectedCard.month)) {
-            className += ' month-match';
-            handleOnClick = () => this.makeMove(fieldCard, selectedCard, deckTop, stage, playerPile);
+        // eslint-disable-next-line default-case
+        switch(stage) {
+            case 'playHand':
+                if (!selectedCard && hoveredCard && (hoveredCard.month === fieldCard.month)) {
+                    className += ' month-match';
+                } else if (selectedCard && (selectedCard.month === fieldCard.month)) {
+                    className += ' month-match';
+                    handleOnClick = () => {
+                        this.props.onPlayHand(selectedCard, fieldCard);
+                        this.props.onCardSelect(null);
+                    };
+                }
+                break;
+            case 'playDeck':
+                if (deckTop && (deckTop.month === fieldCard.month)) {
+                    className += ' month-match';
+                    handleOnClick = () => {
+                        this.props.onPlayDeck(deckTop, fieldCard);
+                    };
+                }
+                break;
         }
 
         return (
@@ -35,11 +40,41 @@ class Field extends React.Component {
         );
     }
 
-    getAddFieldElement = (matchPair, hoveredCard, selectedCard, deckTop, stage, playerPile) => {
-        if ((hoveredCard || selectedCard) && !matchPair) {
+    getAddFieldElement = (hoveredCard, selectedCard, deckTop, stage, playerPile) => {
+        var handleOnClick = null;
+        var visible = false;
+        
+        // eslint-disable-next-line default-case
+        switch(stage) {
+            case 'playHand':
+                if (selectedCard) {
+                    if (!checkMatch(selectedCard, this.props.cards)) {
+                        handleOnClick = () => {
+                            this.props.onPlayHand(selectedCard, null);
+                            this.props.onCardSelect(null);
+                        };
+                        visible = true;
+                    }
+                } else if (hoveredCard) {
+                    if (!checkMatch(hoveredCard, this.props.cards)) {
+                        visible = true;
+                    }
+                }
+                break;
+            case 'playDeck':
+                if (deckTop) {
+                    if (!checkMatch(deckTop, this.props.cards)) {
+                        handleOnClick = () => this.props.onPlayDeck(deckTop, null);
+                        visible = true;
+                    }
+                }
+                break;
+        };
+
+        if (visible) {
             return (
                 <div className='game card add-field' 
-                    onClick={() => this.makeMove(null, selectedCard, deckTop, stage, playerPile)}>
+                    onClick={handleOnClick}>
                     Add to field
                 </div>
             );
@@ -47,21 +82,22 @@ class Field extends React.Component {
     }
 
     render() {
+        const stage = this.props.stage;
+
         const halfNumCards = this.props.cards.length / 2;
         const cardsR1 = this.props.cards.slice(0, halfNumCards);
         const cardsR2 = this.props.cards.slice(halfNumCards);
         
+        const deckTop = this.props.deckTop;
+
         const hoveredCard = this.props.hoveredCard;
         const selectedCard = this.props.selectedCard;
-
-        const matchPair = this.props.matchPair;
-        const deckTop = this.props.deckTop;
-        const stage = this.props.stage;
+        
         const playerPile = this.props.playerPile;
 
         return (
             <div className='field'>
-                {this.props.getDeckElement(deckTop)}
+                {this.props.getDeckElement()}
 
                 <div className='field-cards'>
                     <div>
@@ -77,7 +113,7 @@ class Field extends React.Component {
                     </div>
                 </div>
 
-                {this.getAddFieldElement(matchPair, hoveredCard, selectedCard, deckTop, stage, playerPile)}
+                {this.getAddFieldElement(hoveredCard, selectedCard, deckTop, stage, playerPile)}
             </div>
         );
     }
