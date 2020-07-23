@@ -9,24 +9,18 @@
 
 #new {
   background-image: url("../../assets/new_game.png");
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 #new:hover {
   background-image: url("../../assets/new_game_large.png");
 }
 #join {
   background-image: url("../../assets/join_game.png");
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 #join:hover {
   background-image: url("../../assets/join_game_large.png");
 }
 #help {
   background-image: url("../../assets/help.png");
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 #help:hover {
   background-image: url("../../assets/help_large.png");

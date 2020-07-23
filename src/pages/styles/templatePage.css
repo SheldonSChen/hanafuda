@@ -49,6 +49,8 @@ html, body {
 .card-inside {
   color: #432D1E;
   background: #ffffff;
+  background-size: contain;
+  background-repeat: no-repeat;
   width: 85%;
   height: 90%;
   display: flex;
