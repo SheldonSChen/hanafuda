@@ -2,8 +2,8 @@ import { CARD_TYPES, getCardID } from './Cards';
 
 const SET_TYPES = {
     [CARD_TYPES.GOKO]: 'goko',
-    [CARD_TYPES.TAN]: 'tan',
     [CARD_TYPES.TANE]: 'tane',
+    [CARD_TYPES.TAN]: 'tan',
     [CARD_TYPES.KASU]: 'kasu',
     //special sets
     'AME': 'ame',
