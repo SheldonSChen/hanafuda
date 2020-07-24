@@ -11,7 +11,7 @@ import LobbyPage from './pages/lobbyPage';
 
 
 import { Hanafuda } from './game/Game';
-import { APP_PRODUCTION, GAME_SERVER_URL } from './config';
+import { APP_PRODUCTION, GAME_SERVER_URL, DEBUG } from './config';
 
 function App() {
     const history = useHistory();
@@ -19,7 +19,8 @@ function App() {
     const HanafudaClient = Client({ 
         game: Hanafuda,
         board: HanafudaBoard,
-        multiplayer: SocketIO({ server: server }), 
+        multiplayer: SocketIO({ server: server }),
+        debug: DEBUG 
     });
 
     return (

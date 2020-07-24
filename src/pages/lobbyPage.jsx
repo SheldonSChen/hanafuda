@@ -8,7 +8,7 @@ import { Hanafuda } from '../game/Game';
 import HanafudaBoard from '../boards/board';
 import TemplatePage from '../pages/templatePage';
 
-import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL, MAX_PLAYERS } from '../config';
+import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL, MAX_PLAYERS, DEBUG } from '../config';
 
 import './styles/lobbyPage.css';
 
@@ -18,7 +18,8 @@ const server = APP_PRODUCTION ? `https://${window.location.hostname}` : GAME_SER
 const HanafudaClient = Client({ 
     game: Hanafuda,
     board: HanafudaBoard,
-    multiplayer: SocketIO({ server: server }), 
+    multiplayer: SocketIO({ server: server }),
+    debug: DEBUG 
 });
 /*********************************/
 class LobbyPage extends React.Component {
