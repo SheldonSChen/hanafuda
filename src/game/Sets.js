@@ -31,12 +31,14 @@ export function initSets() {
     return numInSet;
 }
 
-export function updateSets(G, ctx, card) {
-    for (const typeKey in CARD_TYPES) {
-        updateTypeSet(G, ctx, card, CARD_TYPES[typeKey]);
-    }
-    for (const set in SPECIAL_SET_CARDS) {
-        updateSpecialSet(G, ctx, card, set);
+export function updateSets(G, ctx, cards) {
+    for (const card of cards) {
+        for (const typeKey in CARD_TYPES) {
+            updateTypeSet(G, ctx, card, CARD_TYPES[typeKey]);
+        }
+        for (const set in SPECIAL_SET_CARDS) {
+            updateSpecialSet(G, ctx, card, set);
+        }
     }
 }
 

@@ -60,14 +60,18 @@ function drawCard(G, ctx, player=null) {
 }
 
 function playHand(G, ctx, handCard, fieldCard) {
+    G.nextPlayStage = 'playDeck';
     const player = G.players[ctx.currentPlayer];
     player.hand = player.hand.filter(card => !isEqual(card, handCard));
     playToField(G, ctx, handCard, fieldCard);
+    ctx.events.setStage(G.nextPlayStage);
 }
 
 function playDeck(G, ctx, deckCard, fieldCard) {
+    G.nextPlayStage = null;
     G.deck = G.deck.filter(card => !isEqual(card, deckCard));
     playToField(G, ctx, deckCard, fieldCard);
+    ctx.events.endTurn();
 }
 
 function playToField(G, ctx, sourceCard, fieldCard) {
@@ -78,8 +82,9 @@ function playToField(G, ctx, sourceCard, fieldCard) {
             G.field[row] = G.field[row].filter(card => !isEqual(card, fieldCard));
         }
         player.pile.push(sourceCard, fieldCard);
-        updateSets(G, ctx, sourceCard);
-        updateSets(G, ctx, fieldCard);
+        var cards = [];
+        cards.push(sourceCard, fieldCard);
+        updateSets(G, ctx, cards);
     } else {
         var row = G.field[0].length < G.field[1].length ? 0 : 1;
         G.field[row].push(sourceCard);
@@ -108,7 +113,8 @@ export const Hanafuda = {
             deck: [],
             players: [],
             field: [[], []],
-            order: null
+            order: null,
+            nextPlayStage: null,
         };
 
         start.deck = generateDeck(ctx);
@@ -143,16 +149,17 @@ export const Hanafuda = {
             },
             turn: {
                 order: TurnOrder.CUSTOM_FROM('order'),
-                moveLimit: 2,
                 activePlayers: { currentPlayer: 'playHand'},
                 stages: {
                     playHand: {
-                        moves: {playHand},
-                        next: 'playDeck'
+                        moves: {playHand}
                     },
                     playDeck: {
                         moves: {playDeck}
-                    }
+                    },
+                    // submitSets: {
+                    //     moves: {submitSets}
+                    // }
                 }
             }
         }
