@@ -14,6 +14,13 @@ const SET_TYPES = {
     'AO': 'aotan'
 };
 
+const TYPE_SET_NUMS = {
+    [CARD_TYPES.GOKO]: 3,
+    [CARD_TYPES.TANE]: 5,
+    [CARD_TYPES.TAN]: 5,
+    [CARD_TYPES.KASU]: 10,
+}
+
 const SPECIAL_SET_CARDS = {
     [SET_TYPES.AME]: [getCardID(11, CARD_TYPES.GOKO)],
     [SET_TYPES.HNM]: [getCardID(3, CARD_TYPES.GOKO), getCardID(9, CARD_TYPES.TANE)],
@@ -42,16 +49,24 @@ export function updateSets(G, ctx, cards) {
     }
 }
 
-function updateTypeSet(G, ctx, card, type) {
+function updateTypeSet(G, ctx, card, cardType) {
     const player = G.players[ctx.currentPlayer];
-    if (card.type === type) {
-        player.sets[SET_TYPES[type]] += 1;
+    const setType = SET_TYPES[cardType];
+    
+    if (card.type === cardType) {
+        player.numInSet[setType] += 1;
+        if (player.numInSet[setType] >= TYPE_SET_NUMS[setType]) {
+            //new set made
+        }
     }
 }
 
 function updateSpecialSet(G, ctx, card, set) {
     const player = G.players[ctx.currentPlayer];
     if (SPECIAL_SET_CARDS[set].includes(card.id)) {
-        player.sets[set] += 1;
+        player.numInSet[set] += 1;
+        if (player.numInSet[set] === SPECIAL_SET_CARDS[set].length) {
+            //new set made
+        }
     }
 }

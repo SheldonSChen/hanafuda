@@ -27,7 +27,9 @@ const generatePlayer = () => {
     var player = { 
         hand: [],
         pile: [],
-        sets:  initSets()
+        numInSet:  initSets(),
+        setsMade: [],
+        newSetMade: null
     };
     return player;
 }
