@@ -1,18 +1,17 @@
 import React from 'react';
 import { getCardImage } from './board';
+import { getCardMonth } from '../game/Cards';
 import './styles/decideOrderBoard.css';
-
-// const CARD_IMGS = require('../modules/mod_cardImg.js');
 
 export function getOrderCard(player, playerName) {
     if (player.hand.length === 1) {
-        const cardID = player.hand[0].id;
+        const card = player.hand[0];
         return (
             <div className='order-card-ctr'>
                 <div className='card'>
-                    <div className='card-inside' style={getCardImage(cardID)}></div>
+                    <div className='card-inside' style={getCardImage(card)}></div>
                 </div>
-                <h3 className='name-num'>{playerName}<br></br>{cardID}</h3>
+                <h3 className='name-num'>{playerName}<br></br>{getCardMonth(card)}</h3>
             </div>
         );
     }

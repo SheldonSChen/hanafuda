@@ -21,11 +21,23 @@ const EACH_TYPE = [
     [CARD_TYPES.GOKO, CARD_TYPES.KASU, CARD_TYPES.KASU, CARD_TYPES.KASU]  //dec
 ];
 
-export function getCardType(month, index) {
-    return EACH_TYPE[month][index];
+export function newCard(month, index) {
+    return {
+        id: month * 10 + index,
+        month: month,
+        type: EACH_TYPE[month][index]
+    };
+}
+
+export function getCardMonth(card) {
+    return card.month;
+}
+
+export function getCardID(card) {
+    return card.id;
 }
 
 //NOTE: only works for special cards
-export function getCardID(month, type) {
+export function getSpecialCardID(month, type) {
     return month * 10 + EACH_TYPE[month].indexOf(type);
 }

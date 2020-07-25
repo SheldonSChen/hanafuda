@@ -1,4 +1,4 @@
-import { CARD_TYPES, getCardID } from './Cards';
+import { CARD_TYPES, getSpecialCardID, getCardMonth, getCardID } from './Cards';
 
 const SET_TYPES = {
     SANKO: 'SANKO',
@@ -52,23 +52,31 @@ const SET_TYPES_NOT_KO = {
 const SET_TYPES_SPECIAL = {
     [SET_TYPES.HNM]: {
         name: 'hanami',
-        setCards: [getCardID(3, CARD_TYPES.GOKO), getCardID(9, CARD_TYPES.TANE)]
+        setCardIDs: [getSpecialCardID(3, CARD_TYPES.GOKO), 
+                   getSpecialCardID(9, CARD_TYPES.TANE)]
     },
     [SET_TYPES.TKM]: {
         name: 'tsukimi',
-        setCards: [getCardID(8, CARD_TYPES.GOKO), getCardID(9, CARD_TYPES.TANE)]
+        setCardIDs: [getSpecialCardID(8, CARD_TYPES.GOKO), 
+                   getSpecialCardID(9, CARD_TYPES.TANE)]
     },
     [SET_TYPES.ISC]: {
         name: 'inoshikacho',
-        setCards: [getCardID(7, CARD_TYPES.TANE), getCardID(10, CARD_TYPES.TANE), getCardID(6, CARD_TYPES.TANE)]
+        setCardIDs: [getSpecialCardID(7, CARD_TYPES.TANE), 
+                   getSpecialCardID(10, CARD_TYPES.TANE), 
+                   getSpecialCardID(6, CARD_TYPES.TANE)]
     },
     [SET_TYPES.AKA]: {
         name: 'akatan',
-        setCards: [getCardID(1, CARD_TYPES.TAN), getCardID(2, CARD_TYPES.TAN), getCardID(3, CARD_TYPES.TAN)]
+        setCardIDs: [getSpecialCardID(1, CARD_TYPES.TAN), 
+                   getSpecialCardID(2, CARD_TYPES.TAN), 
+                   getSpecialCardID(3, CARD_TYPES.TAN)]
     },
     [SET_TYPES.AO]: {
         name: 'aotan',
-        setCards: [getCardID(6, CARD_TYPES.TAN), getCardID(9, CARD_TYPES.TAN), getCardID(10, CARD_TYPES.TAN)]
+        setCardIDs: [getSpecialCardID(6, CARD_TYPES.TAN), 
+                   getSpecialCardID(9, CARD_TYPES.TAN), 
+                   getSpecialCardID(10, CARD_TYPES.TAN)]
     }
 };
 
@@ -91,7 +99,7 @@ export function newMadeSets() {
 export function updateSets(G, ctx, cards) {
     for (const card of cards) {
         if (card.type === CARD_TYPES.GOKO) {
-            if (card.month !== 11) {
+            if (getCardMonth(card) !== 11) {
                 for (const setType in SET_TYPES_KO) {
                     updateSetKo(G, ctx, setType);
                 }
@@ -144,9 +152,9 @@ function updateSetNotKo(G, ctx, card, setType) {
 function updateSetSpecial(G, ctx, card, setType) {
     const player = G.players[ctx.currentPlayer];
     const set = SET_TYPES_SPECIAL[setType];
-    if (set.setCards.includes(card.id)) {
+    if (set.setCardIDs.includes(getCardID(card))) {
         player.numInSet[setType] += 1;
-        if (player.numInSet[setType] === set.setCards.length) {
+        if (player.numInSet[setType] === set.setCardIDs.length) {
             addNewSet(G, ctx, setType, set.name);
         }
     }

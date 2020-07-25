@@ -42,7 +42,7 @@ class PlayBoard extends React.Component {
                     onMouseLeave={events.onMouseLeave}
                     onClick={events.onClick}>
                     <div className={'game card-inside ' + otherClasses}
-                        style={getCardImage(card.id)}>
+                        style={getCardImage(card)}>
                     </div>
                 </div>
             );
@@ -101,22 +101,12 @@ class PlayBoard extends React.Component {
                     stage={stage}
                     cards={fieldCards}
                     deckTop={deckTop}
-                    // getDeckElement={() => {
-                    //     if (stage === 'playDeck') {
-                    //         //deck always appears selected when visible
-                    //         return this.getCardElement(deckTop, 'deck selected');
-                    //     } else {
-                    //         return this.getCardElement(null, 'deck');
-                    //     }
-                    // }}
                     getCardElement={this.getCardElement}
                     hoveredCard={this.state.hoveredCard}
                     selectedCard={this.state.selectedCard}
                     onPlayHand={this.props.onPlayHand}
                     onPlayDeck={this.props.onPlayDeck}
                     onCardSelect={this.onCardSelect}
-                    // onEndStage={this.props.onEndStage}
-                    playerPile={playerPile}
                 ></Field>
 
                 <div className='player'>

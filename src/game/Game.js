@@ -1,5 +1,5 @@
 import { GAME_NAME } from "../config";
-import { getCardType } from './Cards';
+import { newCard, getCardID } from './Cards';
 import { newNumSets, newMadeSets, updateSets } from './Sets';
 import { TurnOrder } from 'boardgame.io/core';
 // import { INVALID_MOVE } from "boardgame.io/core";
@@ -12,11 +12,7 @@ const generateDeck = (ctx) => {
     let deck = []; 
     for (let i = 1; i < 13; i++) {
         for (let j = 0; j < 4; j++) {
-            deck.push({
-                id: i * 10 + j,
-                month: i,
-                type: getCardType(i, j),
-            });
+            deck.push(newCard(i, j));
         }
     }
     deck = ctx.random.Shuffle(deck);
@@ -116,7 +112,7 @@ function submitSets(G, ctx, submitting) {
 function saveOrder(G, _ctx) {
     const cardP0 = G.players[0].hand[0];
     const cardP1 = G.players[1].hand[0];
-    if (cardP1.id < cardP0.id) {
+    if (getCardID(cardP1) < getCardID(cardP0)) {
         console.log('P1 goes first');
         G.order = ['1', '0'];
     } else {
