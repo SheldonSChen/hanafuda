@@ -13,8 +13,8 @@ class Field extends React.Component {
     }
 
     getFieldCardElement = (fieldCard, hoveredCard, selectedCard, deckTop, stage) => {
-        var otherClasses = 'field-card';
-        var events = {};
+        let otherClasses = 'field-card';
+        let events = {};
         
         // eslint-disable-next-line default-case
         switch(stage) {
@@ -46,8 +46,8 @@ class Field extends React.Component {
     }
 
     getAddFieldElement = (fieldCards, hoveredCard, selectedCard, deckTop, stage) => {
-        var handleOnClick = null;
-        var visible = false;
+        let handleOnClick = null;
+        let visible = false;
         
         // eslint-disable-next-line default-case
         switch(stage) {

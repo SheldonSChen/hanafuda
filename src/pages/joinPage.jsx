@@ -14,7 +14,7 @@ class JoinPage extends React.Component {
     }
 
     handleSubmit = () => {
-        var roomID = this.state.roomID;
+        let roomID = this.state.roomID;
         roomID = roomID.replace(/\s/g,'');
         if (!regex.test(roomID)) {
             roomID = defaultID;

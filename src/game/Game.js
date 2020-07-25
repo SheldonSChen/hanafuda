@@ -20,7 +20,7 @@ const generateDeck = (ctx) => {
 };
 
 const generatePlayer = () => {
-    var player = { 
+    let player = { 
         hand: [],
         pile: [],
         numInSet:  newNumSets(),
@@ -87,11 +87,11 @@ function playToField(G, ctx, sourceCard, fieldCard) {
             G.field[row] = G.field[row].filter(card => !isEqual(card, fieldCard));
         }
         player.pile.push(sourceCard, fieldCard);
-        var cards = [];
+        let cards = [];
         cards.push(sourceCard, fieldCard);
         updateSets(G, ctx, cards);
     } else {
-        var row = G.field[0].length < G.field[1].length ? 0 : 1;
+        let row = G.field[0].length < G.field[1].length ? 0 : 1;
         G.field[row].push(sourceCard);
     }
     ctx.events.endStage();
@@ -125,7 +125,7 @@ function saveOrder(G, _ctx) {
 export const Hanafuda = {
     name: GAME_NAME,
     setup: (ctx) => {
-        var start = {
+        let start = {
             deck: [],
             players: [],
             field: [[], []],

@@ -53,9 +53,9 @@ class PlayBoard extends React.Component {
     }
 
     getHandCardElement = (card, stage) => {
-        var otherClasses = 'hand-card';
+        let otherClasses = 'hand-card';
 
-        var events;
+        let events;
         if (stage === 'playHand') {
             otherClasses += ' active';
             events = {
@@ -80,7 +80,10 @@ class PlayBoard extends React.Component {
         const opponentPile = this.props.opponentPile;
         const fieldCards = this.props.fieldCards;
         const deckTop = this.props.deckTop;
+        const onPlayHand = this.props.onPlayHand;
+        const onPlayDeck = this.props.onPlayDeck;
         const newSetsMade = this.props.newSetsMade;
+        const playerMadeSet = this.props.playerMadeSet;
 
         let setsDisplay = null;
         if (newSetsMade.length > 0) {
@@ -88,7 +91,7 @@ class PlayBoard extends React.Component {
                             stage={stage}
                             newSetsMade={newSetsMade}
                             currPlayerPile={stage === 'submitSets' ? playerPile : opponentPile}
-                            playerMadeSet={this.props.playerMadeSet}
+                            playerMadeSet={playerMadeSet}
                             getCardElement={(cardID) => this.getCardElement(null, 'sets no-click', null, cardID)}
                         ></SetsDisplay>;
         }
@@ -117,8 +120,8 @@ class PlayBoard extends React.Component {
                     getCardElement={this.getCardElement}
                     hoveredCard={this.state.hoveredCard}
                     selectedCard={this.state.selectedCard}
-                    onPlayHand={this.props.onPlayHand}
-                    onPlayDeck={this.props.onPlayDeck}
+                    onPlayHand={onPlayHand}
+                    onPlayDeck={onPlayDeck}
                     onCardSelect={this.onCardSelect}
                 ></Field>
 

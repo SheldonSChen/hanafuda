@@ -169,7 +169,7 @@ class LobbyPageView extends React.Component {
 
     //TODO: I feel like this can be shortened? 
     copyToClipboard = (source, sourceID) => {
-        var textField = document.createElement('textarea');
+        let textField = document.createElement('textarea');
         textField.innerText = document.getElementById(sourceID).innerText;
         textField.style.opacity = '0';
         document.body.appendChild(textField);

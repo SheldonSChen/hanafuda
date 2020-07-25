@@ -59,7 +59,7 @@ class HomePage extends React.Component {
     };
 
     getMenuCard = (option, history, specialClick=null) => {
-        var handleClick = specialClick;
+        let handleClick = specialClick;
         if (!handleClick) {
             handleClick = () => history.push('/' + option);
         }

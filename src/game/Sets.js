@@ -93,7 +93,7 @@ const SET_TYPES_SPECIAL = {
 };
 
 export function newNumSets() {
-    var numInSet = {};
+    let numInSet = {};
     for (const setKey in SET_TYPES) {
         numInSet[SET_TYPES[setKey]] = 0;
     }
@@ -101,7 +101,7 @@ export function newNumSets() {
 }
 
 export function newMadeSets() {
-    var madeSet = {};
+    let madeSet = {};
     for (const setKey in SET_TYPES) {
         madeSet[SET_TYPES[setKey]] = false;
     }
