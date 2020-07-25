@@ -119,10 +119,10 @@ export function updateSets(G, ctx, cards) {
     }
 }
 
-function addNewSet(G, ctx, setType, setName) {
+function addNewSet(G, ctx, setType) {
     const player = G.players[ctx.currentPlayer];
     player.madeSet[setType] = true;
-    G.newSetsMade.push(setName);
+    G.newSetsMade.push(setType);
 }
 
 function updateSetKo(G, ctx, setType) {
@@ -131,7 +131,7 @@ function updateSetKo(G, ctx, setType) {
     
     const set = SET_TYPES_KO[setType];
     if (player.numInSet[setType] === set.numCards) {
-        addNewSet(G, ctx, setType, set.name);
+        addNewSet(G, ctx, setType);
     } else {
         player.madeSet[setType] = false;
     }
@@ -144,7 +144,7 @@ function updateSetNotKo(G, ctx, card, setType) {
 
         const set = SET_TYPES_NOT_KO[setType];
         if (player.numInSet[setType] >= set.minNumCards) {
-            addNewSet(G, ctx, setType, set.name);
+            addNewSet(G, ctx, setType);
         }
     }
 }
@@ -155,7 +155,7 @@ function updateSetSpecial(G, ctx, card, setType) {
     if (set.setCardIDs.includes(getCardID(card))) {
         player.numInSet[setType] += 1;
         if (player.numInSet[setType] === set.setCardIDs.length) {
-            addNewSet(G, ctx, setType, set.name);
+            addNewSet(G, ctx, setType);
         }
     }
 }
