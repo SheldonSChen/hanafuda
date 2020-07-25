@@ -1,6 +1,6 @@
 import { GAME_NAME } from "../config";
 import { getCardType } from './Cards';
-import { initSets, updateSets } from './Sets';
+import { newNumSets, newMadeSets, updateSets } from './Sets';
 import { TurnOrder } from 'boardgame.io/core';
 // import { INVALID_MOVE } from "boardgame.io/core";
 
@@ -27,9 +27,8 @@ const generatePlayer = () => {
     var player = { 
         hand: [],
         pile: [],
-        numInSet:  initSets(),
-        setsMade: [],
-        newSetMade: null
+        numInSet:  newNumSets(),
+        madeSet: newMadeSets()
     };
     return player;
 }
@@ -66,14 +65,22 @@ function playHand(G, ctx, handCard, fieldCard) {
     const player = G.players[ctx.currentPlayer];
     player.hand = player.hand.filter(card => !isEqual(card, handCard));
     playToField(G, ctx, handCard, fieldCard);
-    ctx.events.setStage(G.nextPlayStage);
+    if (G.newSetsMade.length > 0) {
+        ctx.events.setStage('submitSets');
+    } else {
+        ctx.events.setStage(G.nextPlayStage);
+    }
 }
 
 function playDeck(G, ctx, deckCard, fieldCard) {
     G.nextPlayStage = null;
     G.deck = G.deck.filter(card => !isEqual(card, deckCard));
     playToField(G, ctx, deckCard, fieldCard);
-    ctx.events.endTurn();
+    if (G.newSetsMade.length > 0) {
+        ctx.events.setStage('submitSets');
+    } else {
+        ctx.events.endTurn();
+    }
 }
 
 function playToField(G, ctx, sourceCard, fieldCard) {
@@ -92,6 +99,17 @@ function playToField(G, ctx, sourceCard, fieldCard) {
         G.field[row].push(sourceCard);
     }
     ctx.events.endStage();
+}
+
+function submitSets(G, ctx, submitting) {
+    ctx.events.endStage();
+    if (submitting) {
+        //end round ctx.events.endGame()?
+    } else if (G.nextPlayStage) {
+        ctx.events.setStage(G.nextPlayStage);
+    } else {
+        ctx.events.endTurn();
+    }
 }
 
 //OTHER
@@ -117,6 +135,7 @@ export const Hanafuda = {
             field: [[], []],
             order: null,
             nextPlayStage: null,
+            newSetsMade: []
         };
 
         start.deck = generateDeck(ctx);
@@ -159,9 +178,9 @@ export const Hanafuda = {
                     playDeck: {
                         moves: {playDeck}
                     },
-                    // submitSets: {
-                    //     moves: {submitSets}
-                    // }
+                    submitSets: {
+                        moves: {submitSets}
+                    }
                 }
             }
         }
