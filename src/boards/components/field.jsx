@@ -8,7 +8,7 @@ class Field extends React.Component {
             //deck always appears selected when visible
             return this.props.getCardElement(deckTop, 'deck selected');
         } else {
-            return this.props.getCardElement(null, 'deck');
+            return this.props.getCardElement(undefined, 'deck');
         }
     }
 

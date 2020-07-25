@@ -189,7 +189,7 @@ function getSetValuesKo(setType, pileCards) {
     const source = SET_TYPES_KO[setType];
     return {
         name: source.name,
-        setCardIDs: pileCards.filter(card => card.type === setType).map(card => getCardID(card)),
+        setCardIDs: pileCards.filter(card => card.type === CARD_TYPES.GOKO).map(card => getCardID(card)),
         points: source.points
     }
 }

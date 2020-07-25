@@ -159,12 +159,12 @@ class LobbyPageView extends React.Component {
     updatePlayerName = (sourceID) => {
         const el = document.getElementById(sourceID);
         const newName = el.value;
-        api.updatePlayerData(this.state.roomID, this.state.playerID, this.state.playerCredentials, newName, null);
+        api.updatePlayerData(this.state.roomID, this.state.playerID, this.state.playerCredentials, newName, undefined);
         el.value = '';
     };
 
     updatePlayerData = (data) => {
-        api.updatePlayerData(this.state.roomID, this.state.playerID, this.state.playerCredentials, null, data);
+        api.updatePlayerData(this.state.roomID, this.state.playerID, this.state.playerCredentials, undefined, data);
     };
 
     //TODO: I feel like this can be shortened? 

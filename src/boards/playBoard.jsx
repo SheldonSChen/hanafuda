@@ -35,7 +35,7 @@ class PlayBoard extends React.Component {
     };
     
     //GENERATE CARD HTML
-    getCardElement = (card, otherClasses='', events={}, cardID=null) => {
+    getCardElement = (card=null, otherClasses='', events={}, cardID=null) => {
         if (card || cardID) {
             return (
                 <div className={'game card ' + otherClasses}
@@ -92,7 +92,7 @@ class PlayBoard extends React.Component {
                             newSetsMade={newSetsMade}
                             currPlayerPile={stage === 'submitSets' ? playerPile : opponentPile}
                             playerMadeSet={playerMadeSet}
-                            getCardElement={(cardID) => this.getCardElement(null, 'sets no-click', null, cardID)}
+                            getCardElement={(cardID) => this.getCardElement(undefined, 'sets no-click', undefined, cardID)}
                         ></SetsDisplay>;
         }
 
@@ -105,7 +105,7 @@ class PlayBoard extends React.Component {
                 <div className='player'>
                     <Hand 
                         cards={opponentHand} 
-                        getCardElement={(_card) => this.getCardElement(null, 'no-click')}
+                        getCardElement={(_card) => this.getCardElement(undefined, 'no-click')}
                     ></Hand>
                     <Pile
                         cards={opponentPile}

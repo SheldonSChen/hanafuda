@@ -34,12 +34,12 @@ class SetsDisplay extends React.Component {
         const playerMadeSet = this.props.playerMadeSet;
         return (
             <div className='sets-display'>
-                {/* <div className='new-sets'>
+                <div className='new-sets'>
                     {newSetsMade.map((setType) => {
                         return this.getSetElement(setType, currPlayerPile);
                     })}
                 </div>
-                {stage === 'submitSets' ? this.getSubmitSetsElement() : null} */}
+                {/* {stage === 'submitSets' ? this.getSubmitSetsElement() : null} */}
             </div>
         );
     }

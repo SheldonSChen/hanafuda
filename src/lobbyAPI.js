@@ -37,7 +37,7 @@ export class LobbyAPI {
         return data.playerCredentials;
     }
 
-    async updatePlayerData(roomID, playerID, credentials, newName, data) {
+    async updatePlayerData(roomID, playerID, credentials, newName=null, data=null) {
         const payload = { 
             playerID: playerID, 
             credentials: credentials,
