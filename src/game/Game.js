@@ -97,9 +97,9 @@ function playToField(G, ctx, sourceCard, fieldCard) {
     ctx.events.endStage();
 }
 
-function submitSets(G, ctx, submitting) {
+function submitSets(G, ctx, endGame) {
     ctx.events.endStage();
-    if (submitting) {
+    if (endGame) {
         //end round ctx.events.endGame()?
     } else if (G.nextPlayStage) {
         ctx.events.setStage(G.nextPlayStage);

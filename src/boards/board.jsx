@@ -9,8 +9,8 @@ import './styles/board.css';
 
 const CARD_IMGS = require('../modules/mod_cardImg.js');
 
-export function getCardImage(card) {
-    const cardID = getCardID(card);
+export function getCardImage(card, givenCardID=null) {
+    const cardID = givenCardID ? givenCardID : getCardID(card);
     return { backgroundImage: 'url('+ CARD_IMGS[cardID]+')' };
 }
 

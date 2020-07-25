@@ -103,17 +103,13 @@ class Field extends React.Component {
                 {this.getDeckElement(stage, deckTop)}
 
                 <div className='field-cards'>
-                    <div>
-                        {cardsR0.map((card) => {
+                    <div> {cardsR0.map((card) => {
                             return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, stage);
-                        })}
-                    </div>
+                    })}</div>
                     
-                    <div>
-                        {cardsR1.map((card) => {
+                    <div> {cardsR1.map((card) => {
                             return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, stage);
-                        })}
-                    </div>
+                    })}</div>
                 </div>
 
                 {this.getAddFieldElement(cardsAll, hoveredCard, selectedCard, deckTop, stage)}

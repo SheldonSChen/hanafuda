@@ -2,6 +2,7 @@ import React from 'react';
 import Hand from './components/hand';
 import Field from './components/field';
 import Pile from './components/pile';
+import SetsDisplay from './components/setsDisplay';
 import { getCardImage } from './board';
 import './styles/playBoard.css';
 
@@ -34,15 +35,15 @@ class PlayBoard extends React.Component {
     };
     
     //GENERATE CARD HTML
-    getCardElement = (card, otherClasses='', events={}) => {
-        if (card) {
+    getCardElement = (card, otherClasses='', events={}, cardID=null) => {
+        if (card || cardID) {
             return (
                 <div className={'game card ' + otherClasses}
                     onMouseEnter={events.onMouseEnter}
                     onMouseLeave={events.onMouseLeave}
                     onClick={events.onClick}>
                     <div className={'game card-inside ' + otherClasses}
-                        style={getCardImage(card)}>
+                        style={getCardImage(card, cardID)}>
                     </div>
                 </div>
             );
@@ -79,6 +80,18 @@ class PlayBoard extends React.Component {
         const opponentPile = this.props.opponentPile;
         const fieldCards = this.props.fieldCards;
         const deckTop = this.props.deckTop;
+        const newSetsMade = this.props.newSetsMade;
+
+        let setsDisplay = null;
+        if (newSetsMade.length > 0) {
+            setsDisplay = <SetsDisplay
+                            stage={stage}
+                            newSetsMade={newSetsMade}
+                            currPlayerPile={stage === 'submitSets' ? playerPile : opponentPile}
+                            playerMadeSet={this.props.playerMadeSet}
+                            getCardElement={(cardID) => this.getCardElement(null, 'sets no-click', null, cardID)}
+                        ></SetsDisplay>;
+        }
 
         return (
             <div onClick={(event) => {
@@ -108,6 +121,8 @@ class PlayBoard extends React.Component {
                     onPlayDeck={this.props.onPlayDeck}
                     onCardSelect={this.onCardSelect}
                 ></Field>
+
+                {setsDisplay}
 
                 <div className='player'>
                     <Hand 
