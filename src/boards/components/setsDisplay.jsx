@@ -2,15 +2,24 @@ import React from 'react';
 import { getSetValues } from '../../game/Sets';
 
 class SetsDisplay extends React.Component {
-    getSetElement = (setType, currPlayerPile) => {
+    getSetElements = (className, setTypes, currPlayerPile, showCards) => {
+        return (
+            <div className={className}>
+                    {setTypes.map((setType) => {
+                        return this.getSetElement(className, setType, currPlayerPile, showCards);
+                    })}
+            </div>
+        );
+    }
+    getSetElement = (className, setType, currPlayerPile, showCards) => {
         const values = getSetValues(setType, currPlayerPile);
 
         return (
-            <div className='new-set'>
+            <div className={className.slice(0, -1)}>
                 <div>{values.name}</div>
                 <div>
                     {values.setCardIDs.map((cardID) => {
-                        return this.props.getCardElement(cardID);
+                        return showCards && this.props.getCardElement(cardID);
                     })}
                 </div>
                 <div>{values.points}</div>
@@ -18,9 +27,16 @@ class SetsDisplay extends React.Component {
         );
     }
 
-    getSubmitSetsElement = () => {
+    getSubmitSetsElement = (allSetsMade, currPlayerPile) => {
         return (
-            <div></div>
+            <div>
+                {this.getSetElements('all-sets', allSetsMade, currPlayerPile, false)}
+                <div className='submit-sets-btns'>
+                    Continue this round?
+                    <div className='btn' onClick={() => this.props.onSubmitSets(true)}>YES</div>
+                    <div className='btn' onClick={() => this.props.onSubmitSets(false)}>NO</div>
+                </div>
+            </div>
         );
     }
 
@@ -31,15 +47,11 @@ class SetsDisplay extends React.Component {
         const newSetsMade = this.props.newSetsMade;
         const currPlayerPile = this.props.currPlayerPile;
         //use these for curr player's submit
-        const playerMadeSet = this.props.playerMadeSet;
+        const playerAllSetsMade = this.props.playerAllSetsMade;
         return (
             <div className='sets-display'>
-                <div className='new-sets'>
-                    {newSetsMade.map((setType) => {
-                        return this.getSetElement(setType, currPlayerPile);
-                    })}
-                </div>
-                {/* {stage === 'submitSets' ? this.getSubmitSetsElement() : null} */}
+                {this.getSetElements('new-sets', newSetsMade, currPlayerPile, true)}
+                {stage === 'submitSets' ? this.getSubmitSetsElement(playerAllSetsMade, currPlayerPile) : null}
             </div>
         );
     }

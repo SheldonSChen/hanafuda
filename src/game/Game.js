@@ -24,7 +24,7 @@ const generatePlayer = () => {
         hand: [],
         pile: [],
         numInSet:  newNumSets(),
-        allSetsMade: new Set()
+        allSetsMade: []
     };
     return player;
 }
@@ -97,14 +97,18 @@ function playToField(G, ctx, sourceCard, fieldCard) {
     ctx.events.endStage();
 }
 
-function submitSets(G, ctx, submitting) {
+function submitSets(G, ctx, continuing) {
     ctx.events.endStage();
-    if (submitting) {
-        //end round ctx.events.endGame()?
+    if (!continuing) {
+        //calculate points
+        console.log('End round')
+        ctx.events.endGame()
     } else if (G.nextPlayStage) {
+        console.log('Continue: ', G.nextPlayStage);
         ctx.events.setStage(G.nextPlayStage);
     } else {
-        ctx.events.endTurn();
+        console.log('End turn');
+        ctx.events.endTurn({ next: ctx.playOrder[(ctx.playOrderPos + 1) % ctx.numPlayers] });
     }
 }
 

@@ -83,7 +83,8 @@ class PlayBoard extends React.Component {
         const onPlayHand = this.props.onPlayHand;
         const onPlayDeck = this.props.onPlayDeck;
         const newSetsMade = this.props.newSetsMade;
-        const playerMadeSet = this.props.playerMadeSet;
+        const playerAllSetsMade = this.props.playerAllSetsMade;
+        const onSubmitSets = this.props.onSubmitSets;
 
         let setsDisplay = null;
         if (newSetsMade.length > 0) {
@@ -91,8 +92,9 @@ class PlayBoard extends React.Component {
                             stage={stage}
                             newSetsMade={newSetsMade}
                             currPlayerPile={stage === 'submitSets' ? playerPile : opponentPile}
-                            playerMadeSet={playerMadeSet}
+                            playerAllSetsMade={playerAllSetsMade}
                             getCardElement={(cardID) => this.getCardElement(undefined, 'sets no-click', undefined, cardID)}
+                            onSubmitSets={onSubmitSets}
                         ></SetsDisplay>;
         }
 

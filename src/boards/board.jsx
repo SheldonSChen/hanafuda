@@ -35,6 +35,9 @@ class HanafudaBoard extends React.Component {
     handlePlayDeck = (deckCard, fieldCard) => {
         this.props.moves.playDeck(deckCard, fieldCard);
     };
+    handleSubmitSets = (isSubmit) => {
+        this.props.moves.submitSets(isSubmit);
+    };
 
     render() {
         const G = this.props.G;
@@ -73,8 +76,9 @@ class HanafudaBoard extends React.Component {
                     deckTop={deckTop}
                     onPlayHand={this.handlePlayHand}
                     onPlayDeck={this.handlePlayDeck}
+                    onSubmitSets={this.handleSubmitSets}
                     newSetsMade={G.newSetsMade}
-                    playerMadeSet={G.players[playerID].madeSet}
+                    playerAllSetsMade={G.players[playerID].allSetsMade}
                 ></PlayBoard>;
         }
     }

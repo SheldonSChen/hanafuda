@@ -125,7 +125,9 @@ export function updateSets(G, ctx, cards) {
 
 function addNewSet(G, ctx, setType) {
     const player = G.players[ctx.currentPlayer];
-    player.allSetsMade.add(setType);
+    if (!player.allSetsMade.includes(setType)) {
+        player.allSetsMade.push(setType);
+    }
     G.newSetsMade.push(setType);
 }
 
@@ -137,7 +139,10 @@ function updateSetKo(G, ctx, setType) {
     if (player.numInSet[setType] === set.numCards) {
         addNewSet(G, ctx, setType);
     } else {
-        player.allSetsMade.remove(setType);
+        let index = player.allSetsMade.indexOf(setType);
+        if (index >= 0) {
+            player.allSetsMade.splice(index, 1);
+        }
     }
 }
 
