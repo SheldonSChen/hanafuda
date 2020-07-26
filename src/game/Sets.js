@@ -100,14 +100,6 @@ export function newNumSets() {
     return numInSet;
 }
 
-export function newMadeSets() {
-    let madeSet = {};
-    for (const setKey in SET_TYPES) {
-        madeSet[SET_TYPES[setKey]] = false;
-    }
-    return madeSet;
-}
-
 export function updateSets(G, ctx, cards) {
     for (const card of cards) {
         if (card.type === CARD_TYPES.GOKO) {
@@ -133,7 +125,7 @@ export function updateSets(G, ctx, cards) {
 
 function addNewSet(G, ctx, setType) {
     const player = G.players[ctx.currentPlayer];
-    player.madeSet[setType] = true;
+    player.allSetsMade.add(setType);
     G.newSetsMade.push(setType);
 }
 
@@ -145,7 +137,7 @@ function updateSetKo(G, ctx, setType) {
     if (player.numInSet[setType] === set.numCards) {
         addNewSet(G, ctx, setType);
     } else {
-        player.madeSet[setType] = false;
+        player.allSetsMade.remove(setType);
     }
 }
 

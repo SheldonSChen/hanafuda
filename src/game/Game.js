@@ -1,6 +1,6 @@
 import { GAME_NAME } from "../config";
 import { newCard, getCardID } from './Cards';
-import { newNumSets, newMadeSets, updateSets } from './Sets';
+import { newNumSets, updateSets } from './Sets';
 import { TurnOrder } from 'boardgame.io/core';
 // import { INVALID_MOVE } from "boardgame.io/core";
 
@@ -24,7 +24,7 @@ const generatePlayer = () => {
         hand: [],
         pile: [],
         numInSet:  newNumSets(),
-        madeSet: newMadeSets()
+        allSetsMade: new Set()
     };
     return player;
 }
@@ -97,9 +97,9 @@ function playToField(G, ctx, sourceCard, fieldCard) {
     ctx.events.endStage();
 }
 
-function submitSets(G, ctx, endGame) {
+function submitSets(G, ctx, submitting) {
     ctx.events.endStage();
-    if (endGame) {
+    if (submitting) {
         //end round ctx.events.endGame()?
     } else if (G.nextPlayStage) {
         ctx.events.setStage(G.nextPlayStage);
