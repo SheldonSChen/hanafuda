@@ -99,6 +99,7 @@ function playToField(G, ctx, sourceCard, fieldCard) {
 
 function submitSets(G, ctx, continuing) {
     ctx.events.endStage();
+    G.newSetsMade.length = 0;
     if (!continuing) {
         //calculate points
         console.log('End round')
