@@ -14,10 +14,10 @@
   background-image: url("../../assets/new_game_large.svg");
 }
 #join {
-  background-image: url("../../assets/join_game.png");
+  background-image: url("../../assets/join_game.svg");
 }
 #join:hover {
-  background-image: url("../../assets/join_game_large.png");
+  background-image: url("../../assets/join_game_large.svg");
 }
 #help {
   background-image: url("../../assets/help.png");
