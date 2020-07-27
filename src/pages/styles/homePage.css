@@ -8,21 +8,21 @@
 }
 
 #start {
-  background-image: url("../../assets/new_game_white.svg");
+  background-image: url("../../assets/new_game.svg");
 }
 #start:hover {
-  background-image: url("../../assets/new_game_white_large.svg");
+  background-image: url("../../assets/new_game_large.svg");
 }
 #join {
-  background-image: url("../../assets/join_game_white.svg");
+  background-image: url("../../assets/join_game.svg");
 }
 #join:hover {
-  background-image: url("../../assets/join_game_white_large.svg");
+  background-image: url("../../assets/join_game_large.svg");
 }
 #help {
-  background-image: url("../../assets/help_white.svg");
+  background-image: url("../../assets/help.svg");
 }
 #help:hover {
-  background-image: url("../../assets/help_white_large.svg");
+  background-image: url("../../assets/help_large.svg");
 }
   
