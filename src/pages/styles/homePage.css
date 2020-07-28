@@ -2,6 +2,9 @@
   position: relative;
   margin-top: 15pt;
 }
+#menu-cards .card {
+  margin: 2vh;
+}
 #menu-description {
   position: relative;
   margin-top: 12pt;

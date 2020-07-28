@@ -23,7 +23,7 @@ const EACH_TYPE = [
 
 export function newCard(month, index) {
     return {
-        id: month * 10 + index,
+        id: generateCardID(month, index),
         month: month,
         type: EACH_TYPE[month][index]
     };
@@ -37,7 +37,12 @@ export function getCardID(card) {
     return card.id;
 }
 
+export function generateCardID(month, index) {
+    return month * 10 + index;
+}
+
 //NOTE: only works for special cards
 export function getSpecialCardID(month, type) {
-    return month * 10 + EACH_TYPE[month].indexOf(type);
+    let index = EACH_TYPE[month].indexOf(type);
+    return generateCardID(month, index);
 }

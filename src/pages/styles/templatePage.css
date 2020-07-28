@@ -33,7 +33,6 @@ html, body {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  margin: 2vh;
   color: #616161;
   font-size: 2vh;
   transition: width 0.2s, height 0.2s, font-size 0.2s;

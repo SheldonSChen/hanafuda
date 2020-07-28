@@ -1,0 +1,11 @@
+.month {
+    display: flex;
+    margin: 30px 0;
+    justify-content: space-around;
+}
+.month h3{
+    align-self: center;
+}
+.help-cards .card{
+    margin: 0 5px;
+}
