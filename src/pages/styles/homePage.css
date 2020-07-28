@@ -4,6 +4,14 @@
 }
 #menu-cards .card {
   margin: 2vh;
+  transition: width 0.2s, height 0.2s, font-size 0.2s;
+}
+#menu-cards .card:hover {
+  color: #212121;
+  background: #c44a41;
+  width: 16.5vh;
+  height: 27.5vh;
+  font-size: 2.7vh;
 }
 #menu-description {
   position: relative;

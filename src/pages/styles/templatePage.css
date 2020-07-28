@@ -35,15 +35,15 @@ html, body {
   align-items: center;
   color: #616161;
   font-size: 2vh;
-  transition: width 0.2s, height 0.2s, font-size 0.2s;
+  /* transition: width 0.2s, height 0.2s, font-size 0.2s; */
 }
 .card:hover {
-  color: #212121;
+  /* color: #212121;
   background: #c44a41;
   width: 16.5vh;
-  height: 27.5vh;
+  height: 27.5vh; */
   cursor: pointer;
-  font-size: 2.7vh;
+  /* font-size: 2.7vh; */
 }
 .card-inside {
   color: #432D1E;
