@@ -1,5 +1,5 @@
 //card background images
-const svgs = [3];
+const svgs = [3, 8, 10];
 
 for (let i = 1; i < 13; i++) {
     if (svgs.includes(i)) {
