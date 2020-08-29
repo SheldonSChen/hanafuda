@@ -63,6 +63,8 @@ class PlayBoard extends React.Component {
                 onMouseLeave: () => this.onCardHover(null),
                 onClick: () => this.onCardSelect(card),
             }
+        } else {
+            otherClasses += ' no-click'
         }
         
         if (isEqual(card, this.state.selectedCard)) {
@@ -85,6 +87,7 @@ class PlayBoard extends React.Component {
         const newSetsMade = this.props.newSetsMade;
         const playerAllSetsMade = this.props.playerAllSetsMade;
         const onSubmitSets = this.props.onSubmitSets;
+        const currPlayerName = this.props.currPlayerName;
 
         let setsDisplay = null;
         if (newSetsMade.length > 0) {
@@ -128,6 +131,8 @@ class PlayBoard extends React.Component {
                 ></Field>
 
                 {setsDisplay}
+
+                <h3>Current Player: {currPlayerName}</h3>
 
                 <div className='player'>
                     <Hand 

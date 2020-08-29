@@ -16,7 +16,6 @@ class Field extends React.Component {
         let otherClasses = 'field-card';
         let events = {};
         
-        // eslint-disable-next-line default-case
         switch(stage) {
             case 'playHand':
                 if (!selectedCard && hoveredCard && 
@@ -39,6 +38,9 @@ class Field extends React.Component {
                             this.props.onPlayDeck(deckTop, fieldCard);
                         };
                 }
+                break;
+            default:
+                otherClasses += ' no-click'
                 break;
         }
 

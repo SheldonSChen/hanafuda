@@ -11,9 +11,11 @@
 .game.card.pile-card {
     margin: -20px;
 }
-/* OPPONENT */
 .no-click {
     pointer-events: none;    
+}
+.hand-card.no-click, .field-card.no-click {
+    opacity: 0.8;
 }
 /* FIELD */
 .field {
@@ -32,7 +34,6 @@
 .field-card {
     cursor: default;
 }
-/* PLAYER */
 .month-match, .hand-card.active:not(.selected):hover, .add-field {
     color: yellow;
     cursor: pointer;

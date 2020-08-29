@@ -79,6 +79,7 @@ class HanafudaBoard extends React.Component {
                     onSubmitSets={this.handleSubmitSets}
                     newSetsMade={G.newSetsMade}
                     playerAllSetsMade={G.players[playerID].allSetsMade}
+                    currPlayerName={this.state.playerNames[ctx.currentPlayer]}
                 ></PlayBoard>;
         }
     }
