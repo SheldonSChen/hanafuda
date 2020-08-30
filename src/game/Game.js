@@ -1,5 +1,5 @@
 import { GAME_NAME } from "../config";
-import { newCard, getCardID } from './Cards';
+import { newCard, getCardID, compareCards } from './Cards';
 import { newNumSets, updateSets } from './Sets';
 import { TurnOrder } from 'boardgame.io/core';
 // import { INVALID_MOVE } from "boardgame.io/core";
@@ -34,6 +34,7 @@ function dealCards(G, ctx) {
         for (let _ = 0; _ < 8; _++) {
             drawCard(G, ctx, player);
         }
+        G.players[player].hand.sort(compareCards);
     }
     
     for (let i = 0; i < 2; i++) {

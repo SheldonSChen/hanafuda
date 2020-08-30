@@ -41,6 +41,10 @@ export function generateCardID(month, index) {
     return month * 10 + index;
 }
 
+export function compareCards(card0, card1) {
+    return card0.id - card1.id;
+}
+
 //NOTE: only works for special cards
 export function getSpecialCardID(month, type) {
     let index = EACH_TYPE[month].indexOf(type);
