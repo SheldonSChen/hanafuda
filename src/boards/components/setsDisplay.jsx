@@ -1,37 +1,34 @@
 import React from 'react';
-import { getSetValues } from '../../game/Sets';
 
 class SetsDisplay extends React.Component {
-    getSetElements = (className, setTypes, currPlayerPile, showCards) => {
+    getSetElements = (className, allSetValues, showCards) => {
         return (
             <div className={className}>
-                    {setTypes.map((setType) => {
-                        return this.getSetElement(className, setType, currPlayerPile, showCards);
+                    {allSetValues.map((setValues) => {
+                        return this.getSetElement(className, setValues, showCards);
                     })}
             </div>
         );
     }
-    getSetElement = (className, setType, currPlayerPile, showCards) => {
-        const values = getSetValues(setType, currPlayerPile);
-
+    getSetElement = (className, setValues, showCards) => {
         return (
             <div className={className.slice(0, -1)}>
-                <div>{values.name}</div>
+                <div>{setValues.name}</div>
                 <div>
-                    {values.setCardIDs.map((cardID) => {
+                    {setValues.setCardIDs.map((cardID) => {
                         return showCards && this.props.getCardElement(cardID);
                     })}
                 </div>
-                <div>{values.points}</div>
+                <div>{setValues.points}</div>
             </div>
         );
     }
 
-    getSubmitSetsElement = (stage, playerAllSetsMade, currPlayerPile) => {
+    getSubmitSetsElement = (stage, playerAllSetsMade) => {
         if (stage === 'submitSets') {
             return (
                 <div>
-                    {this.getSetElements('all-sets', playerAllSetsMade, currPlayerPile, false)}
+                    {this.getSetElements('all-sets', Object.values(playerAllSetsMade), false)}
                     <div className='submit-sets-btns'>
                         Continue this round?
                         <div className='btn' onClick={() => this.props.onSubmitSets(true)}>YES</div>
@@ -48,16 +45,13 @@ class SetsDisplay extends React.Component {
 
     render() {
         //somehow animate display the new sets?
-        //display these for both players
         const stage = this.props.stage;
         const newSetsMade = this.props.newSetsMade;
-        const currPlayerPile = this.props.currPlayerPile;
-        //use these for curr player's submit
         const playerAllSetsMade = this.props.playerAllSetsMade;
         return (
             <div className='sets-display'>
-                {this.getSetElements('new-sets', newSetsMade, currPlayerPile, true)}
-                {this.getSubmitSetsElement(stage, playerAllSetsMade, currPlayerPile)}
+                {this.getSetElements('new-sets', Object.values(newSetsMade), true)}
+                {this.getSubmitSetsElement(stage, playerAllSetsMade)}
             </div>
         );
     }

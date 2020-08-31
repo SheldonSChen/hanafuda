@@ -90,11 +90,10 @@ class PlayBoard extends React.Component {
         const currPlayerName = this.props.currPlayerName;
 
         let setsDisplay = null;
-        if (newSetsMade.length > 0) {
+        if (Object.keys(newSetsMade).length > 0) {
             setsDisplay = <SetsDisplay
                             stage={stage}
                             newSetsMade={newSetsMade}
-                            currPlayerPile={stage === 'submitSets' ? playerPile : opponentPile}
                             playerAllSetsMade={playerAllSetsMade}
                             getCardElement={(cardID) => this.getCardElement(undefined, 'sets no-click', undefined, cardID)}
                             onSubmitSets={onSubmitSets}

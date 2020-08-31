@@ -24,7 +24,7 @@ const generatePlayer = () => {
         hand: [],
         pile: [],
         numInSet:  newNumSets(),
-        allSetsMade: []
+        allSetsMade: {}
     };
     return player;
 }
@@ -62,7 +62,7 @@ function playHand(G, ctx, handCard, fieldCard) {
     const player = G.players[ctx.currentPlayer];
     player.hand = player.hand.filter(card => !isEqual(card, handCard));
     playToField(G, ctx, handCard, fieldCard);
-    if (G.newSetsMade.length > 0) {
+    if (Object.keys(G.newSetsMade).length > 0) {
         ctx.events.setStage('submitSets');
     } else {
         ctx.events.setStage(G.nextPlayStage);
@@ -73,13 +73,14 @@ function playDeck(G, ctx, deckCard, fieldCard) {
     G.nextPlayStage = null;
     G.deck = G.deck.filter(card => !isEqual(card, deckCard));
     playToField(G, ctx, deckCard, fieldCard);
-    if (G.newSetsMade.length > 0) {
+    if (Object.keys(G.newSetsMade).length > 0) {
         ctx.events.setStage('submitSets');
     } else {
         ctx.events.endTurn();
     }
 }
 
+//TODO: get rid of G, ctx?
 function playToField(G, ctx, sourceCard, fieldCard) {
     const player = G.players[ctx.currentPlayer];
 
@@ -88,6 +89,7 @@ function playToField(G, ctx, sourceCard, fieldCard) {
             G.field[row] = G.field[row].filter(card => !isEqual(card, fieldCard));
         }
         player.pile.push(sourceCard, fieldCard);
+        //TODO: [source, field]?
         let cards = [];
         cards.push(sourceCard, fieldCard);
         updateSets(G, ctx, cards);
@@ -100,11 +102,16 @@ function playToField(G, ctx, sourceCard, fieldCard) {
 
 function submitSets(G, ctx, continuing) {
     ctx.events.endStage();
-    G.newSetsMade.length = 0;
+    let prevChallenger = G.challenger;
+    G.challenger = ctx.currentPlayer;
+    G.newSetsMade = {};
     if (!continuing) {
         //calculate points
         console.log('End round')
-        ctx.events.endGame()
+        ctx.events.endGame({
+            winner: ctx.currentPlayer,
+            prevChallenger: prevChallenger
+        })
     } else if (G.nextPlayStage) {
         console.log('Continue: ', G.nextPlayStage);
         ctx.events.setStage(G.nextPlayStage);
@@ -137,7 +144,8 @@ export const Hanafuda = {
             field: [[], []],
             order: null,
             nextPlayStage: null,
-            newSetsMade: []
+            newSetsMade: {},
+            challenger: null
         };
 
         start.deck = generateDeck(ctx);

@@ -4,6 +4,7 @@ import { getCardID } from '../game/Cards';
 import DecideOrderBoard from './decideOrderBoard';
 import DisplayOrderBoard from './displayOrderBoard';
 import PlayBoard from './playBoard';
+import ScoreBoard from './scoreBoard';
 
 import './styles/board.css';
 
@@ -46,8 +47,7 @@ class HanafudaBoard extends React.Component {
         const playerID = parseInt(this.props.playerID, 10);
         const playerID_opponent = (playerID + 1) % 2;
 
-        // eslint-disable-next-line default-case
-        switch(this.props.ctx.phase) {
+        switch(ctx.phase) {
             case 'decideOrder':
                 return <DecideOrderBoard
                     currPlayerIndex={ctx.currentPlayer}
@@ -81,6 +81,16 @@ class HanafudaBoard extends React.Component {
                     playerAllSetsMade={G.players[playerID].allSetsMade}
                     currPlayerName={this.state.playerNames[ctx.currentPlayer]}
                 ></PlayBoard>;
+            default:
+                if (ctx.gameover) {
+                    return <ScoreBoard
+                        winner={ctx.gameover.winner}
+                        winnerAllSetsMade={G.players[ctx.gameover.winner].allSetsMade}
+                        prevChallenger={ctx.gameover.prevChallenger}
+                    ></ScoreBoard>;
+                } else {
+                    return (<h1>ERROR</h1>);
+                }
         }
     }
 }
