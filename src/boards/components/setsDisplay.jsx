@@ -27,17 +27,23 @@ class SetsDisplay extends React.Component {
         );
     }
 
-    getSubmitSetsElement = (allSetsMade, currPlayerPile) => {
-        return (
-            <div>
-                {this.getSetElements('all-sets', allSetsMade, currPlayerPile, false)}
-                <div className='submit-sets-btns'>
-                    Continue this round?
-                    <div className='btn' onClick={() => this.props.onSubmitSets(true)}>YES</div>
-                    <div className='btn' onClick={() => this.props.onSubmitSets(false)}>NO</div>
+    getSubmitSetsElement = (stage, playerAllSetsMade, currPlayerPile) => {
+        if (stage === 'submitSets') {
+            return (
+                <div>
+                    {this.getSetElements('all-sets', playerAllSetsMade, currPlayerPile, false)}
+                    <div className='submit-sets-btns'>
+                        Continue this round?
+                        <div className='btn' onClick={() => this.props.onSubmitSets(true)}>YES</div>
+                        <div className='btn' onClick={() => this.props.onSubmitSets(false)}>NO</div>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <h3 className='loading-txt'>Waiting for opponent decision</h3>
+            );
+        }
     }
 
     render() {
@@ -51,7 +57,7 @@ class SetsDisplay extends React.Component {
         return (
             <div className='sets-display'>
                 {this.getSetElements('new-sets', newSetsMade, currPlayerPile, true)}
-                {stage === 'submitSets' ? this.getSubmitSetsElement(playerAllSetsMade, currPlayerPile) : null}
+                {this.getSubmitSetsElement(stage, playerAllSetsMade, currPlayerPile)}
             </div>
         );
     }
