@@ -85,6 +85,7 @@ class HanafudaBoard extends React.Component {
                 if (ctx.gameover) {
                     return <ScoreBoard
                         winner={ctx.gameover.winner}
+                        winnerName={this.state.playerNames[ctx.gameover.winner]}
                         winnerAllSetsMade={G.players[ctx.gameover.winner].allSetsMade}
                         prevChallenger={ctx.gameover.prevChallenger}
                     ></ScoreBoard>;
