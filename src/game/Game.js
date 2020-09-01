@@ -102,15 +102,23 @@ function playToField(G, ctx, sourceCard, fieldCard) {
 
 function submitSets(G, ctx, continuing) {
     ctx.events.endStage();
+
     let prevChallenger = G.challenger;
     G.challenger = ctx.currentPlayer;
     G.newSetsMade = {};
     if (!continuing) {
-        //calculate points
-        console.log('End round')
+        console.log('End round');
+        let winner = ctx.currentPlayer;
+        let score = Object.values(G.players[winner].allSetsMade)
+                        .map((setValue) => setValue.points)
+                        .reduce((a, b) => a + b);
+        if (prevChallenger && winner !== prevChallenger) {
+            score *= 2;
+        }
+
         ctx.events.endGame({
-            winner: ctx.currentPlayer,
-            prevChallenger: prevChallenger
+            winner: winner,
+            score: score
         })
     } else if (G.nextPlayStage) {
         console.log('Continue: ', G.nextPlayStage);
