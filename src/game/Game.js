@@ -104,26 +104,28 @@ function playToField(G, ctx, sourceCard, fieldCard) {
 function submitSets(G, ctx, continuing) {
     ctx.events.endStage();
 
-    let prevWinner = G.winnerIndex;
-    G.winnerIndex = ctx.currentPlayer;
+    let prevKoiKoiIndex = G.koikoiIndex;
     G.newSetsMade = {};
     if (!continuing) {
         console.log('End round');
+        G.winnerIndex = ctx.currentPlayer;
         G.winnerPoints = Object.values(G.players[G.winnerIndex].allSetsMade)
                         .map((setValue) => setValue.points)
                         .reduce((a, b) => a + b);
-        if (prevWinner && G.winnerIndex !== prevWinner) {
+        if (prevKoiKoiIndex && G.winnerIndex !== prevKoiKoiIndex) {
             G.winnerPoints *= 2;
         }
         G.players[G.winnerIndex].points += G.winnerPoints;
 
         ctx.events.endPhase();
-    } else if (G.nextPlayStage) {
-        console.log('Continue: ', G.nextPlayStage);
-        ctx.events.setStage(G.nextPlayStage);
     } else {
-        console.log('End turn');
-        ctx.events.endTurn({ next: ctx.playOrder[(ctx.playOrderPos + 1) % ctx.numPlayers] });
+        console.log('KOIKOI!');
+        G.koikoiIndex = ctx.currentPlayer;
+        if (G.nextPlayStage) {
+            ctx.events.setStage(G.nextPlayStage);
+        } else {
+            ctx.events.endTurn({ next: ctx.playOrder[(ctx.playOrderPos + 1) % ctx.numPlayers] });
+        }
     }
 }
 
@@ -151,6 +153,7 @@ export const Hanafuda = {
             order: null,
             nextPlayStage: null,
             newSetsMade: {},
+            koikoiIndex: null,
             winnerIndex: null,
             winnerPoints: 0
         };
@@ -203,7 +206,7 @@ export const Hanafuda = {
             endIf: (G, ctx) => {
                 return G.players.map(player => player.hand.length)
                                 .every(numCards => numCards === 0)
-                        && ctx.activePlayers[ctx.currentPlayer] === 'playHand';
+                        && ctx.currentPlayer === G.order[0];
             },
             next: 'displayScore',
         },

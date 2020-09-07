@@ -85,8 +85,8 @@ class HanafudaBoard extends React.Component {
             case 'displayScore':
                 return <ScoreBoard
                         winnerIndex={G.winnerIndex}
-                        winnerName={this.state.playerNames[G.winnerIndex]}
-                        winnerAllSetsMade={G.players[G.winnerIndex].allSetsMade}
+                        players={G.players}
+                        playerNames={this.state.playerNames}
                         winnerPoints={G.winnerPoints}
                     ></ScoreBoard>;
         }
