@@ -47,6 +47,7 @@ class HanafudaBoard extends React.Component {
         const playerID = parseInt(this.props.playerID, 10);
         const playerID_opponent = (playerID + 1) % 2;
 
+        // eslint-disable-next-line default-case
         switch(ctx.phase) {
             case 'decideOrder':
                 return <DecideOrderBoard
@@ -81,17 +82,13 @@ class HanafudaBoard extends React.Component {
                     playerAllSetsMade={G.players[playerID].allSetsMade}
                     currPlayerName={this.state.playerNames[ctx.currentPlayer]}
                 ></PlayBoard>;
-            default:
-                if (ctx.gameover) {
-                    return <ScoreBoard
-                        winner={ctx.gameover.winner}
-                        winnerName={this.state.playerNames[ctx.gameover.winner]}
-                        winnerAllSetsMade={G.players[ctx.gameover.winner].allSetsMade}
-                        score={ctx.gameover.score}
+            case 'displayScore':
+                return <ScoreBoard
+                        winnerIndex={G.winnerIndex}
+                        winnerName={this.state.playerNames[G.winnerIndex]}
+                        winnerAllSetsMade={G.players[G.winnerIndex].allSetsMade}
+                        winnerPoints={G.winnerPoints}
                     ></ScoreBoard>;
-                } else {
-                    return (<h1>ERROR</h1>);
-                }
         }
     }
 }

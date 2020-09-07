@@ -24,7 +24,8 @@ const generatePlayer = () => {
         hand: [],
         pile: [],
         numInSet:  newNumSets(),
-        allSetsMade: {}
+        allSetsMade: {},
+        points: 0
     };
     return player;
 }
@@ -103,23 +104,20 @@ function playToField(G, ctx, sourceCard, fieldCard) {
 function submitSets(G, ctx, continuing) {
     ctx.events.endStage();
 
-    let prevChallenger = G.challenger;
-    G.challenger = ctx.currentPlayer;
+    let prevWinner = G.winnerIndex;
+    G.winnerIndex = ctx.currentPlayer;
     G.newSetsMade = {};
     if (!continuing) {
         console.log('End round');
-        let winner = ctx.currentPlayer;
-        let score = Object.values(G.players[winner].allSetsMade)
+        G.winnerPoints = Object.values(G.players[G.winnerIndex].allSetsMade)
                         .map((setValue) => setValue.points)
                         .reduce((a, b) => a + b);
-        if (prevChallenger && winner !== prevChallenger) {
-            score *= 2;
+        if (prevWinner && G.winnerIndex !== prevWinner) {
+            G.winnerPoints *= 2;
         }
+        G.players[G.winnerIndex].points += G.winnerPoints;
 
-        ctx.events.endGame({
-            winner: winner,
-            score: score
-        })
+        ctx.events.endPhase();
     } else if (G.nextPlayStage) {
         console.log('Continue: ', G.nextPlayStage);
         ctx.events.setStage(G.nextPlayStage);
@@ -153,7 +151,8 @@ export const Hanafuda = {
             order: null,
             nextPlayStage: null,
             newSetsMade: {},
-            challenger: null
+            winnerIndex: null,
+            winnerPoints: 0
         };
 
         start.deck = generateDeck(ctx);
@@ -200,7 +199,17 @@ export const Hanafuda = {
                         moves: {submitSets}
                     }
                 }
-            }
+            },
+            endIf: (G, ctx) => {
+                return G.players.map(player => player.hand.length)
+                                .every(numCards => numCards === 0)
+                        && ctx.activePlayers[ctx.currentPlayer] === 'playHand';
+            },
+            next: 'displayScore',
+        },
+
+        displayScore: {
+            next: 'play'
         }
     },
 };

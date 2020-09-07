@@ -2,13 +2,14 @@ import React from 'react';
 
 class ScoreBoard extends React.Component {
     render() {
-        const winner = this.props.winner;
+        const winnerIndex = this.props.winnerIndex;
         const winnerName = this.props.winnerName;
         const winnerAllSetsMade = this.props.winnerAllSetsMade;
-        const score = this.props.score;
+        const winnerPoints = this.props.winnerPoints;
+        
         return(
             <div>
-                <h1>Winner: Player {winner} - {winnerName}!</h1>
+                <h1>Winner: Player {winnerIndex} - {winnerName}!</h1>
                 <div>
                     {Object.values(winnerAllSetsMade).map((setValue) => {
                         return (
@@ -19,7 +20,7 @@ class ScoreBoard extends React.Component {
                         );
                     })}
                 </div>
-                <h1>{score} Points Won!</h1>
+                <h1>{winnerPoints} Points Won!</h1>
             </div>
         );
     }
