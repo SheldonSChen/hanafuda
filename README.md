@@ -4,8 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## IO:brief explanation
 
-Each client (i.e. player) connects to the server (i.e. game server).
-The server matches up clients and puts them in a gameroom.
+Each client (i.e. player) connects to the server (i.e. game server).<br />
+The server matches up clients and puts them in a gameroom.<br />
 Multiples pairs can play on one server simultaneously.
 
 ## Running App Locally
