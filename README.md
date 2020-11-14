@@ -1,5 +1,6 @@
 # HANAFUDA.io
-An attempt at making an io version of a traditional Hanafuda game, with Koikoi rules.
+An attempt at making an io version of a traditional Hanafuda game, with Koikoi rules.<br />
+This repo is NOT ready to be run on other local machines yet.<br />
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## IO:brief explanation
