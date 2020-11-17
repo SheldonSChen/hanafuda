@@ -9,7 +9,7 @@ Each client (i.e. player) connects to the server (i.e. game server).<br />
 The server matches up clients and puts them in a gameroom.<br />
 Multiples pairs can play on one server simultaneously.
 
-## Running App Locally (NOT YET READY)
+## Running App on Local Network
 
 Run both commands in the project directory simultaneously, each in a separate terminal window:
 
