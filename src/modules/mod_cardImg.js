@@ -1,8 +1,19 @@
 //card background images
+const isEmpty = require('lodash.isempty');
 
-for (let i = 1; i < 13; i++) {
-    for (let j = 0; j < 4; j++) {
-        const cardID = i * 10 + j;
-        module.exports[cardID] = require('../assets/cards/' + cardID + '.svg');
+var mod = {
+    noNumbers: {},
+    numbers: {}
+}
+
+module.exports = function(cardSet) {
+    if (isEmpty(mod[cardSet])) {
+        for (let i = 1; i < 13; i++) {
+            for (let j = 0; j < 4; j++) {
+                const cardID = i * 10 + j;
+                mod[cardSet][cardID] = require(`../assets/cards/${cardSet}/${cardID}.svg`);
+            }
+        }
     }
+    return mod[cardSet];
 }

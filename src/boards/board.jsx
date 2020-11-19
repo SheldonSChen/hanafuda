@@ -8,11 +8,11 @@ import ScoreBoard from './scoreBoard';
 
 import './styles/board.css';
 
-const CARD_IMGS = require('../modules/mod_cardImg.js');
+// const CARD_IMGS = require('../modules/mod_cardImg.js')("numbers");
 
-export function getCardImage(card, givenCardID=null) {
+export function getCardImage(card, givenCardID=null, cardSet) {
     const cardID = givenCardID ? givenCardID : getCardID(card);
-    return { backgroundImage: 'url('+ CARD_IMGS[cardID]+')' };
+    return { backgroundImage: 'url('+ cardSet[cardID]+')' };
 }
 
 class HanafudaBoard extends React.Component {

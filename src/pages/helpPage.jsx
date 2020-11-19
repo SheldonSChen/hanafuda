@@ -5,6 +5,7 @@ import { generateCardID } from '../game/Cards';
 import './styles/helpPage.css';
 
 const ALL_CARD_IDS = [];
+//TODO: move to Cards
 for (let month = 0; month < 12; month++) {
     const row = [];
     for (let index = 0; index < 4; index++) {
@@ -12,14 +13,27 @@ for (let month = 0; month < 12; month++) {
     }
     ALL_CARD_IDS.push(row);
 }
+var cardSetImgs;
 
 class HelpPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cardSetName: "noNumbers"
+        };
+    }
+
+    handleChange = (event) => {
+        this.setState({ cardSetName: event.target.value });
+    };
+
     getCard = (cardID) => {
         //TODO: display sets part of on hover
+        cardSetImgs = require('../modules/mod_cardImg.js')(this.state.cardSetName);
         return (
             <div className='card'>
                 <div className='card-inside'
-                    style={getCardImage(undefined, cardID)}>
+                    style={getCardImage(undefined, cardID, cardSetImgs)}>
                 </div>
             </div>
         );
@@ -49,6 +63,12 @@ class HelpPage extends React.Component {
             <TemplatePage
                 content={
                     <>
+                        <label for="cardSet">Choose a card set to view:</label>
+                        <select id="cardSet" onChange={ this.handleChange } value={ this.state.cardSetName }>
+                            <option value="noNumbers">No Numbers (default)</option>
+                            <option value="numbers">Numbers</option>
+                        </select>
+
                         {this.getAllCards()}
                     </>
                 }
