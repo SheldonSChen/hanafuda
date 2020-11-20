@@ -8,8 +8,6 @@ import ScoreBoard from './scoreBoard';
 
 import './styles/board.css';
 
-// const CARD_IMGS = require('../modules/mod_cardImg.js')("numbers");
-
 export function getCardImage(card, givenCardID=null, cardSet) {
     const cardID = givenCardID ? givenCardID : getCardID(card);
     return { backgroundImage: 'url('+ cardSet[cardID]+')' };

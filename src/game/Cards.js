@@ -1,3 +1,8 @@
+export const CARD_SETS = {
+    NO_NUMBERS: 'noNumbers',
+    NUMBERS: 'numbers',
+}
+
 export const CARD_TYPES = {
     GOKO: 'GOKO',
     TANE: 'TANE',
@@ -20,6 +25,16 @@ const EACH_TYPE = [
     [CARD_TYPES.GOKO, CARD_TYPES.TANE, CARD_TYPES.TAN, CARD_TYPES.KASU],   //nov
     [CARD_TYPES.GOKO, CARD_TYPES.KASU, CARD_TYPES.KASU, CARD_TYPES.KASU]  //dec
 ];
+
+const ALL_CARD_IDS_TEMP = [];
+for (let month = 1; month < 13; month++) {
+    const row = [];
+    for (let index = 0; index < 4; index++) {
+        row.push(generateCardID(month, index));
+    }
+    ALL_CARD_IDS_TEMP.push(row);
+}
+export const ALL_CARD_IDS = ALL_CARD_IDS_TEMP;
 
 export function newCard(month, index) {
     return {

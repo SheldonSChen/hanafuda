@@ -1,25 +1,16 @@
 import React from 'react';
 import TemplatePage from './templatePage';
 import {getCardImage} from '../boards/board';
-import { generateCardID } from '../game/Cards';
+import { ALL_CARD_IDS, CARD_SETS } from '../game/Cards';
 import './styles/helpPage.css';
 
-const ALL_CARD_IDS = [];
-//TODO: move to Cards
-for (let month = 0; month < 12; month++) {
-    const row = [];
-    for (let index = 0; index < 4; index++) {
-        row.push(generateCardID(month+1, index));
-    }
-    ALL_CARD_IDS.push(row);
-}
 var cardSetImgs;
 
 class HelpPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cardSetName: "noNumbers"
+            cardSetName: CARD_SETS.NO_NUMBERS
         };
     }
 
@@ -66,8 +57,12 @@ class HelpPage extends React.Component {
                         <div>
                             <label htmlFor="cardSet">Choose a card set to view: </label>
                             <select id="cardSet" onChange={ this.handleChange } value={ this.state.cardSetName }>
-                                <option key="noNumbers" value="noNumbers">No Numbers (default)</option>
-                                <option key="numbers" value="numbers">Numbers</option>
+                                <option key={CARD_SETS.NO_NUMBERS} value={CARD_SETS.NO_NUMBERS}>
+                                    No Numbers (default)
+                                </option>
+                                <option key={CARD_SETS.NUMBERS} value={CARD_SETS.NUMBERS}>
+                                    Numbers
+                                </option>
                             </select>
                         </div>
 
