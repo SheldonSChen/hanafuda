@@ -31,7 +31,7 @@ class HelpPage extends React.Component {
         //TODO: display sets part of on hover
         cardSetImgs = require('../modules/mod_cardImg.js')(this.state.cardSetName);
         return (
-            <div className='card'>
+            <div className='card' key={cardID}>
                 <div className='card-inside'
                     style={getCardImage(undefined, cardID, cardSetImgs)}>
                 </div>
@@ -41,7 +41,7 @@ class HelpPage extends React.Component {
 
     getMonthCards = (monthCards, month) => {
         return (
-            <div className={'month ' + month}>
+            <div className={'month ' + month} key={month}>
                 <h3>{month}</h3>
                 <div className='help-cards'>
                     {monthCards.map((cardID) => this.getCard(cardID))}
@@ -63,11 +63,13 @@ class HelpPage extends React.Component {
             <TemplatePage
                 content={
                     <>
-                        <label for="cardSet">Choose a card set to view:</label>
-                        <select id="cardSet" onChange={ this.handleChange } value={ this.state.cardSetName }>
-                            <option value="noNumbers">No Numbers (default)</option>
-                            <option value="numbers">Numbers</option>
-                        </select>
+                        <div>
+                            <label htmlFor="cardSet">Choose a card set to view: </label>
+                            <select id="cardSet" onChange={ this.handleChange } value={ this.state.cardSetName }>
+                                <option key="noNumbers" value="noNumbers">No Numbers (default)</option>
+                                <option key="numbers" value="numbers">Numbers</option>
+                            </select>
+                        </div>
 
                         {this.getAllCards()}
                     </>
