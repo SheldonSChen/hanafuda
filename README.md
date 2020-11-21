@@ -14,16 +14,20 @@ After cloning, remember to open your terminal and run `npm install` from the roo
 
 ## Running App on Local Network (development mode)
 
-Player 1:<br />
-1. Open a terminal tab and run `npm run client`. (returns network address)
-1. Open another terminal tab and run `npm run server`.
-1. (To end either, `ctrl + c`.)
+### Player 1:<br />
+1. Open a terminal tab and run `npm run client` 
+    - (returns "On Your Network" address)
+1. Open another terminal tab and run `npm run server`
 
-Player 2:<br />
+To end either, click the tab and press `ctrl + c`
+
+### Player 2:<br />
 Join via link or game code.
 The game page can be viewed at:
 - same device as Player 1: [http://localhost:3000](http://localhost:3000)<br />
-- different device, but same network (e.g. wifi) as Player 1: *ask for "On Your Network" address*<br />
+- different device, but same network (e.g. wifi) as Player 1: (ask for "On Your Network" address)<br />
+
+## `npm` Commands
 
 ### `npm run client`
 
