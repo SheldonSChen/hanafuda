@@ -3,6 +3,7 @@ import TemplatePage from './templatePage';
 import {getCardImage} from '../boards/board';
 import { ALL_CARD_IDS, CARD_SETS } from '../game/Cards';
 import './styles/helpPage.css';
+import CardSetDropdown from '../boards/components/cardSetDropdown';
 
 var cardSetImgs;
 
@@ -54,18 +55,10 @@ class HelpPage extends React.Component {
             <TemplatePage
                 content={
                     <>
-                        <div>
-                            <label htmlFor="cardSet">Choose a card set to view: </label>
-                            <select id="cardSet" onChange={ this.handleChange } value={ this.state.cardSetName }>
-                                <option key={CARD_SETS.NO_NUMBERS} value={CARD_SETS.NO_NUMBERS}>
-                                    No Numbers (default)
-                                </option>
-                                <option key={CARD_SETS.NUMBERS} value={CARD_SETS.NUMBERS}>
-                                    Numbers
-                                </option>
-                            </select>
-                        </div>
-
+                        <CardSetDropdown
+                            onChange={this.handleChange}
+                            value={this.state.value}
+                        />
                         {this.getAllCards()}
                     </>
                 }

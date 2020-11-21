@@ -5,8 +5,8 @@ const isEmpty = require('lodash.isempty');
 const ALL_CARD_IDS_FLAT = ALL_CARD_IDS.flat();
 
 var mod = {}
-Object.keys(CARD_SETS).forEach(function (key) {
-    mod[CARD_SETS[key]] = {};
+Object.values(CARD_SETS).forEach(function (cardSet) {
+    mod[cardSet] = {};
 });
 
 module.exports = function(cardSet) {
