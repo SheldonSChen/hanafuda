@@ -1,7 +1,7 @@
 import React from 'react';
 import TemplatePage from './templatePage';
 import {getCardImage} from '../boards/board';
-import { ALL_CARD_IDS, CARD_SETS } from '../game/Cards';
+import { ALL_CARD_IDS, DEFAULT_CARD_SET } from '../game/Cards';
 import './styles/helpPage.css';
 import CardSetDropdown from '../boards/components/cardSetDropdown';
 
@@ -11,7 +11,7 @@ class HelpPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cardSetName: CARD_SETS.NO_NUMBERS
+            cardSetName: DEFAULT_CARD_SET
         };
     }
 

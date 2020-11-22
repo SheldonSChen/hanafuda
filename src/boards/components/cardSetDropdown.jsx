@@ -6,6 +6,7 @@ class CardSetDropdown extends React.Component {
         const onChange = this.props.onChange;
         const value = this.props.value;
         
+        //TODO: defaultSet
         return (
             <div>
                 <label htmlFor="cardSet">Choose a card set to view: </label>

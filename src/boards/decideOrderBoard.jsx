@@ -1,15 +1,14 @@
 import React from 'react';
-import { getCardImage } from './board';
 import { getCardMonth } from '../game/Cards';
 import './styles/decideOrderBoard.css';
 
-export function getOrderCard(player, playerName) {
+export function getOrderCard(player, playerName, getPlayerCardImage) {
     if (player.hand.length === 1) {
         const card = player.hand[0];
         return (
             <div className='order-card-ctr'>
                 <div className='card'>
-                    <div className='card-inside' style={getCardImage(card)}></div>
+                    <div className='card-inside' style={getPlayerCardImage(card)}></div>
                 </div>
                 <h3 className='name-num'>{playerName}<br></br>{getCardMonth(card)}</h3>
             </div>
@@ -22,6 +21,7 @@ class DecideOrderBoard extends React.Component {
         const currPlayerIndex = this.props.currPlayerIndex;
         const players = this.props.players;
         const playerNames = this.props.playerNames;
+        const getPlayerCardImage = this.props.getPlayerCardImage;
         
         return (
             <div id='decide-order-ctr'>
@@ -39,7 +39,7 @@ class DecideOrderBoard extends React.Component {
 
                 <div id='order-cards'>
                     {players.map((p, i) => {
-                        return getOrderCard(p, playerNames[i]);
+                        return getOrderCard(p, playerNames[i], getPlayerCardImage);
                     })}
                 </div>
             </div>

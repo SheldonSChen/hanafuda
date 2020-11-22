@@ -3,6 +3,8 @@ export const CARD_SETS = {
     NUMBERS: 'numbers',
 }
 
+export const DEFAULT_CARD_SET = CARD_SETS.NO_NUMBERS;
+
 export const CARD_TYPES = {
     GOKO: 'GOKO',
     TANE: 'TANE',
