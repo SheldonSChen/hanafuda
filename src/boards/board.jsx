@@ -9,7 +9,7 @@ import ScoreBoard from './scoreBoard';
 import './styles/board.css';
 
 var playerCardSetImgs;
-export function getCardImage(card, givenCardID=null, playerCardSetImgs) {
+export function getCardImage(card, givenCardID=null) {
     const cardID = givenCardID ? givenCardID : getCardID(card);
     return { backgroundImage: 'url('+ playerCardSetImgs[cardID]+')' };
 }
@@ -40,10 +40,6 @@ class HanafudaBoard extends React.Component {
         const playerID = parseInt(this.props.playerID, 10);
         const playerID_opponent = (playerID + 1) % 2;
         playerCardSetImgs = require('../modules/mod_cardImg.js')(this.props.playerCardSetName);
-        
-        function getPlayerCardImage(card, givenCardID=null) {
-            return getCardImage(card, givenCardID, playerCardSetImgs);
-        };
 
         // eslint-disable-next-line default-case
         switch(ctx.phase) {
@@ -53,7 +49,6 @@ class HanafudaBoard extends React.Component {
                     players={G.players}
                     playerNames={playerNames}
                     onDrawCard={this.handleDrawCard}
-                    getPlayerCardImage={getPlayerCardImage}
                 ></DecideOrderBoard>;
             case 'displayOrder':
                 return <DisplayOrderBoard
