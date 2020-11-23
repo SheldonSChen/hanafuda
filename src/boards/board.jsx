@@ -9,9 +9,12 @@ import ScoreBoard from './scoreBoard';
 import './styles/board.css';
 
 var playerCardSetImgs;
-export function getCardImage(card, givenCardID=null) {
+export function getCardImageFromSet(card, givenCardID=null, cardSetImgs) {
     const cardID = givenCardID ? givenCardID : getCardID(card);
-    return { backgroundImage: 'url('+ playerCardSetImgs[cardID]+')' };
+    return { backgroundImage: 'url('+ cardSetImgs[cardID]+')' };
+}
+export function getCardImage(card, givenCardID=null) {
+    return getCardImageFromSet(card, givenCardID, playerCardSetImgs);
 }
 
 class HanafudaBoard extends React.Component {
@@ -39,7 +42,9 @@ class HanafudaBoard extends React.Component {
         const playerNames = this.props.playerNames;
         const playerID = parseInt(this.props.playerID, 10);
         const playerID_opponent = (playerID + 1) % 2;
-        playerCardSetImgs = require('../modules/mod_cardImg.js')(this.props.playerCardSetName);
+        if (playerCardSetImgs == null) {
+            playerCardSetImgs = require('../modules/mod_cardImg.js')(this.props.playerCardSetName);
+        }
 
         // eslint-disable-next-line default-case
         switch(ctx.phase) {

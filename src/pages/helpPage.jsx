@@ -1,6 +1,6 @@
 import React from 'react';
 import TemplatePage from './templatePage';
-import {getCardImage} from '../boards/board';
+import {getCardImageFromSet} from '../boards/board';
 import { ALL_CARD_IDS, DEFAULT_CARD_SET } from '../game/Cards';
 import './styles/helpPage.css';
 import CardSetDropdown from '../boards/components/cardSetDropdown';
@@ -25,7 +25,7 @@ class HelpPage extends React.Component {
         return (
             <div className='card' key={cardID}>
                 <div className='card-inside'
-                    style={getCardImage(undefined, cardID, cardSetImgs)}>
+                    style={getCardImageFromSet(undefined, cardID, cardSetImgs)}>
                 </div>
             </div>
         );
