@@ -10,6 +10,7 @@
     "esm": "^3.2.25",
     "koa-static": "^5.0.0",
     "ky": "^0.20.0",
+    "lodash.isempty": "^4.4.0",
     "lodash.isequal": "^4.5.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

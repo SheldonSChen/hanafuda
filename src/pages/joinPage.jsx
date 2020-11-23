@@ -2,22 +2,22 @@ import React from 'react';
 import TemplatePage from './templatePage';
 import './styles/joinPage.css';
 
-const regex = /^[\w-]{9}$/;
-const defaultID = '0000';
+const REGEX = /^[\w-]{9}$/;
+const DEFAULT_ID = '0000';
 
 class JoinPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            roomID: defaultID
+            roomID: DEFAULT_ID
         };
     }
 
     handleSubmit = () => {
         let roomID = this.state.roomID;
         roomID = roomID.replace(/\s/g,'');
-        if (!regex.test(roomID)) {
-            roomID = defaultID;
+        if (!REGEX.test(roomID)) {
+            roomID = DEFAULT_ID;
         }
 
         this.props.history.push('/lobby/' + roomID);

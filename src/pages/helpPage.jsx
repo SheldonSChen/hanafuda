@@ -1,25 +1,31 @@
 import React from 'react';
 import TemplatePage from './templatePage';
-import {getCardImage} from '../boards/board';
-import { generateCardID } from '../game/Cards';
+import {getCardImageFromSet} from '../boards/board';
+import { ALL_CARD_IDS, DEFAULT_CARD_SET } from '../game/Cards';
 import './styles/helpPage.css';
+import CardSetDropdown from '../boards/components/cardSetDropdown';
 
-const ALL_CARD_IDS = [];
-for (let month = 0; month < 12; month++) {
-    const row = [];
-    for (let index = 0; index < 4; index++) {
-        row.push(generateCardID(month+1, index));
-    }
-    ALL_CARD_IDS.push(row);
-}
+var cardSetImgs;
 
 class HelpPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cardSetName: DEFAULT_CARD_SET
+        };
+    }
+
+    handleChange = (event) => {
+        this.setState({ cardSetName: event.target.value });
+    };
+
     getCard = (cardID) => {
         //TODO: display sets part of on hover
+        cardSetImgs = require('../modules/mod_cardImg.js')(this.state.cardSetName);
         return (
-            <div className='card'>
+            <div className='card' key={cardID}>
                 <div className='card-inside'
-                    style={getCardImage(undefined, cardID)}>
+                    style={getCardImageFromSet(undefined, cardID, cardSetImgs)}>
                 </div>
             </div>
         );
@@ -27,7 +33,7 @@ class HelpPage extends React.Component {
 
     getMonthCards = (monthCards, month) => {
         return (
-            <div className={'month ' + month}>
+            <div className={'month ' + month} key={month}>
                 <h3>{month}</h3>
                 <div className='help-cards'>
                     {monthCards.map((cardID) => this.getCard(cardID))}
@@ -49,6 +55,10 @@ class HelpPage extends React.Component {
             <TemplatePage
                 content={
                     <>
+                        <CardSetDropdown
+                            onChange={this.handleChange}
+                            value={this.state.value}
+                        />
                         {this.getAllCards()}
                     </>
                 }

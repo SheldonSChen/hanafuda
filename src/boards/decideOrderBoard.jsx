@@ -1,6 +1,6 @@
 import React from 'react';
-import { getCardImage } from './board';
 import { getCardMonth } from '../game/Cards';
+import { getCardImage } from './board'
 import './styles/decideOrderBoard.css';
 
 export function getOrderCard(player, playerName) {

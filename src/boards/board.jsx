@@ -8,21 +8,16 @@ import ScoreBoard from './scoreBoard';
 
 import './styles/board.css';
 
-const CARD_IMGS = require('../modules/mod_cardImg.js');
-
-export function getCardImage(card, givenCardID=null) {
+var playerCardSetImgs;
+export function getCardImageFromSet(card, givenCardID=null, cardSetImgs) {
     const cardID = givenCardID ? givenCardID : getCardID(card);
-    return { backgroundImage: 'url('+ CARD_IMGS[cardID]+')' };
+    return { backgroundImage: 'url('+ cardSetImgs[cardID]+')' };
+}
+export function getCardImage(card, givenCardID=null) {
+    return getCardImageFromSet(card, givenCardID, playerCardSetImgs);
 }
 
 class HanafudaBoard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            playerNames: this.props.playerNames
-        };
-    }
-
     handleDrawCard = () => {
         this.props.moves.drawCard();
     };
@@ -44,8 +39,12 @@ class HanafudaBoard extends React.Component {
         const G = this.props.G;
         const ctx = this.props.ctx;
         //only supports 2 players
+        const playerNames = this.props.playerNames;
         const playerID = parseInt(this.props.playerID, 10);
         const playerID_opponent = (playerID + 1) % 2;
+        if (playerCardSetImgs == null) {
+            playerCardSetImgs = require('../modules/mod_cardImg.js')(this.props.playerCardSetName);
+        }
 
         // eslint-disable-next-line default-case
         switch(ctx.phase) {
@@ -53,14 +52,14 @@ class HanafudaBoard extends React.Component {
                 return <DecideOrderBoard
                     currPlayerIndex={ctx.currentPlayer}
                     players={G.players}
-                    playerNames={this.state.playerNames}
+                    playerNames={playerNames}
                     onDrawCard={this.handleDrawCard}
                 ></DecideOrderBoard>;
             case 'displayOrder':
                 return <DisplayOrderBoard
                     players={G.players}
-                    playerNames={this.state.playerNames}
-                    firstPlayerName={this.state.playerNames[parseInt(G.order[0], 10)]}
+                    playerNames={playerNames}
+                    firstPlayerName={playerNames[parseInt(G.order[0], 10)]}
                     onEndPhase={this.handleEndPhase}
                 ></DisplayOrderBoard>;
             case 'play':
@@ -80,13 +79,13 @@ class HanafudaBoard extends React.Component {
                     onSubmitSets={this.handleSubmitSets}
                     newSetsMade={G.newSetsMade}
                     playerAllSetsMade={G.players[playerID].allSetsMade}
-                    currPlayerName={this.state.playerNames[ctx.currentPlayer]}
+                    currPlayerName={playerNames[ctx.currentPlayer]}
                 ></PlayBoard>;
             case 'displayScore':
                 return <ScoreBoard
                         winnerIndex={G.winnerIndex}
                         players={G.players}
-                        playerNames={this.state.playerNames}
+                        playerNames={playerNames}
                         winnerPoints={G.winnerPoints}
                     ></ScoreBoard>;
         }

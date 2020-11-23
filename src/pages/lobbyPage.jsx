@@ -11,6 +11,8 @@ import TemplatePage from '../pages/templatePage';
 import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL, MAX_PLAYERS, DEBUG } from '../config';
 
 import './styles/lobbyPage.css';
+import CardSetDropdown from '../boards/components/cardSetDropdown';
+import { DEFAULT_CARD_SET } from '../game/Cards';
 
 /*********** constants ***********/
 const api = new LobbyAPI();
@@ -28,8 +30,10 @@ class LobbyPage extends React.Component {
     constructor(props) {
         super(props);
         //TODO: regex id here too
-        this.state.roomID = props.match.params.roomID;
-        this.state.leave = false;
+        this.state = {
+            roomID: props.match.params.roomID,
+            leave: false,
+        }
     }
 
     handleLeave = () => {
@@ -60,11 +64,14 @@ class LobbyPageView extends React.Component {
     constructor(props) {
         super(props);
         console.log('construct');
-        this.state.roomID = props.roomID;
-        this.state.playerID = null;
-        this.state.playerCredentials = null;
-        this.state.joinedPlayers = [];
-        this.state.gameCanStart = false;
+        this.state = {
+            roomID: props.roomID,
+            playerID: null,
+            playerCredentials: null,
+            playerCardSetName: DEFAULT_CARD_SET,
+            joinedPlayers: [],
+            gameCanStart: false
+        }
     }
 
     componentDidMount() {
@@ -229,6 +236,11 @@ class LobbyPageView extends React.Component {
                     </button>
                 </div>
 
+                <CardSetDropdown 
+                    value={ this.state.playerCardSetName } 
+                    onChange={(e) => this.setState({ playerCardSetName : e.target.value})}
+                ></CardSetDropdown>
+
                 <div id='player-list'>
                     {playerSlots.map((i) => {
                         const joinedPlayer = this.state.joinedPlayers[i];
@@ -259,13 +271,16 @@ class LobbyPageView extends React.Component {
 
     getGameClient = () => {
         const playerNames = this.state.joinedPlayers.map((p) => p.name);
+        
         return (
             <HanafudaClient
                 gameID={ this.state.roomID }
                 players={ this.state.joinedPlayers }
                 playerNames={ playerNames }
                 playerID={ String(this.state.playerID) }
+                playerCardSetName={ this.state.playerCardSetName }
                 credentials={ this.state.playerCredentials }
+                
             ></HanafudaClient>
         );
     };

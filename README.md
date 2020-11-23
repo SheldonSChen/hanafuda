@@ -1,28 +1,42 @@
 # HANAFUDA.io
-An attempt at making an io version of a traditional Hanafuda game, with Koikoi rules.<br />
-This repo is NOT ready to be run on other local machines yet.<br />
+An attempt at making an io version of a traditional Hanafuda game, with Koikoi rules (2 players).<br />
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## IO:brief explanation
+## Client-Server: brief explanation
 
-Each client (i.e. player) connects to the server (i.e. game server).<br />
-The server matches up clients and puts them in a gameroom.<br />
-Multiples pairs can play on one server simultaneously.
+The client provides the game website.<br />
+The server provides the lobby, matches up players, and runs matches.<br />
+Multiples matches can play on one server simultaneously.
 
-## Running App on Local Network
+## Getting Started
 
-Run both commands in the project directory simultaneously, each in a separate terminal window:
+After cloning, remember to open your terminal and run `npm install` from the root folder (i.e. /hanafuda).
+
+## Running App on Local Network (development mode)
+
+### Player 1:<br />
+1. Open a terminal tab and run `npm run client` 
+    - (returns "On Your Network" address)
+1. Open another terminal tab and run `npm run server`
+
+To end either, click the tab and press `ctrl + c`
+
+### Player 2:<br />
+Join via link or game code.
+The game page can be viewed at:
+- same device as Player 1: [http://localhost:3000](http://localhost:3000)<br />
+- different device, but same network (e.g. wifi) as Player 1: (ask for "On Your Network" address)<br />
+
+## `npm` Commands
 
 ### `npm run client`
 
-Runs the client side of the app in the development mode.<br />
-Each player is a client.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Runs the client side of the app in development mode.<br />
+The game page can be viewed at: [http://localhost:3000](http://localhost:3000)<br />
 
-The page will reload if you make edits.<br />
+The page will reload if you make edits to the code.<br />
 You will also see any lint errors in the console.
 
 ### `npm run server`
 
 Runs the server side of the app in development mode.<br />
-The server runs all game matches. 
