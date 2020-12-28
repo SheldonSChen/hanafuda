@@ -26,7 +26,7 @@ Join via link or game code.
 The game page can be viewed at:
 - same device as Player 1: [http://localhost:3000](http://localhost:3000)<br />
 - different device, but same network (e.g. wifi) as Player 1: (ask for "On Your Network" address)<br />
-  - note: you will need to change "localhost" to the network address beforehand in config.js 
+  - note: you will need to change `localhost` to the network address beforehand in [`src/config.js`](src/config.js) 
 
 ## `npm` Commands
 
