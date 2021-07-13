@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The client provides the game website.<br />
 The server provides the lobby, matches up players, and runs matches.<br />
-Multiples matches can play on one server simultaneously.
+Multiple matches can play on one server simultaneously.
 
 ## Getting Started
 
