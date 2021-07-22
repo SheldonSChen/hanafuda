@@ -63,7 +63,7 @@ function playHand(G, ctx, handCard, fieldCard) {
     const player = G.players[ctx.currentPlayer];
     player.hand = player.hand.filter(card => !isEqual(card, handCard));
     playToField(G, ctx, handCard, fieldCard);
-    ctx.events.endStage();
+    ctx.events.setStage(G.nextPlayStage);
 }
 
 function playDeck(G, ctx, deckCard, fieldCard) {
@@ -189,8 +189,7 @@ export const Hanafuda = {
                 activePlayers: { currentPlayer: 'playHand'},
                 stages: {
                     playHand: {
-                        moves: {playHand},
-                        next: 'playDeck'
+                        moves: {playHand}
                     },
                     playDeck: {
                         moves: {playDeck}
