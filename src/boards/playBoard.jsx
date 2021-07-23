@@ -75,7 +75,8 @@ class PlayBoard extends React.Component {
     }
 
     render() {
-        const stage = this.props.stage;
+        const playerStage = this.props.playerStage;
+        const opponentStage = this.props.opponentStage;
         const playerHand = this.props.playerHand;
         const playerPile = this.props.playerPile;
         const opponentHand = this.props.opponentHand;
@@ -90,9 +91,9 @@ class PlayBoard extends React.Component {
         const currPlayerName = this.props.currPlayerName;
 
         let setsDisplay = null;
-        if (Object.keys(newSetsMade).length > 0) {
+        if (playerStage === 'submitSets' || opponentStage === 'submitSets') {
             setsDisplay = <SetsDisplay
-                            stage={stage}
+                            playerStage={playerStage}
                             newSetsMade={newSetsMade}
                             playerAllSetsMade={playerAllSetsMade}
                             getCardElement={(cardID) => this.getCardElement(undefined, 'sets no-click', undefined, cardID)}
@@ -102,7 +103,7 @@ class PlayBoard extends React.Component {
 
         return (
             <div onClick={(event) => {
-                if (stage === 'playHand') {
+                if (playerStage === 'playHand') {
                     this.onCardDeselectClick(event)
                 }}}>
                 
@@ -118,7 +119,7 @@ class PlayBoard extends React.Component {
                 </div>
 
                 <Field
-                    stage={stage}
+                    playerStage={playerStage}
                     cards={fieldCards}
                     deckTop={deckTop}
                     getCardElement={this.getCardElement}
@@ -136,7 +137,7 @@ class PlayBoard extends React.Component {
                 <div className='player'>
                     <Hand 
                         cards={playerHand} 
-                        getCardElement={(card) => this.getHandCardElement(card, stage)}
+                        getCardElement={(card) => this.getHandCardElement(card, playerStage)}
                     ></Hand>
                     <Pile
                         cards={playerPile}
