@@ -89,7 +89,7 @@ class Field extends React.Component {
     }
 
     render() {
-        const stage = this.props.stage;
+        const playerStage = this.props.playerStage;
 
         const cardsR0 = this.props.cards[0];
         const cardsR1 = this.props.cards[1];
@@ -102,19 +102,19 @@ class Field extends React.Component {
 
         return (
             <div className='field'>
-                {this.getDeckElement(stage, deckTop)}
+                {this.getDeckElement(playerStage, deckTop)}
 
                 <div className='field-cards'>
                     <div> {cardsR0.map((card) => {
-                            return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, stage);
+                            return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, playerStage);
                     })}</div>
                     
                     <div> {cardsR1.map((card) => {
-                            return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, stage);
+                            return this.getFieldCardElement(card, hoveredCard, selectedCard, deckTop, playerStage);
                     })}</div>
                 </div>
 
-                {this.getAddFieldElement(cardsAll, hoveredCard, selectedCard, deckTop, stage)}
+                {this.getAddFieldElement(cardsAll, hoveredCard, selectedCard, deckTop, playerStage)}
             </div>
         );
     }

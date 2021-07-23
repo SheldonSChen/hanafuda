@@ -24,8 +24,8 @@ class SetsDisplay extends React.Component {
         );
     }
 
-    getSubmitSetsElement = (stage, playerAllSetsMade) => {
-        if (stage === 'submitSets') {
+    getSubmitSetsElement = (playerStage, playerAllSetsMade) => {
+        if (playerStage === 'submitSets') {
             return (
                 <div>
                     {this.getSetElements('all-sets', Object.values(playerAllSetsMade), false)}
@@ -45,13 +45,13 @@ class SetsDisplay extends React.Component {
 
     render() {
         //somehow animate display the new sets?
-        const stage = this.props.stage;
+        const playerStage = this.props.playerStage;
         const newSetsMade = this.props.newSetsMade;
         const playerAllSetsMade = this.props.playerAllSetsMade;
         return (
             <div className='sets-display'>
                 {this.getSetElements('new-sets', Object.values(newSetsMade), true)}
-                {this.getSubmitSetsElement(stage, playerAllSetsMade)}
+                {this.getSubmitSetsElement(playerStage, playerAllSetsMade)}
             </div>
         );
     }

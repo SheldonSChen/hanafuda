@@ -64,10 +64,11 @@ class HanafudaBoard extends React.Component {
                 ></DisplayOrderBoard>;
             case 'play':
                 //only supports 2 players
-                const stage = ctx.activePlayers[playerID];
-                const deckTop = stage === 'playDeck' ? G.deck[G.deck.length - 1] : null;
+                const playerStage = ctx.activePlayers[playerID];
+                const deckTop = playerStage === 'playDeck' ? G.deck[G.deck.length - 1] : null;
                 return <PlayBoard
-                    stage={stage}
+                    playerStage={playerStage}
+                    opponentStage={ctx.activePlayers[playerID_opponent]}
                     playerHand={G.players[playerID].hand}
                     playerPile={G.players[playerID].pile}
                     opponentHand={G.players[playerID_opponent].hand}
