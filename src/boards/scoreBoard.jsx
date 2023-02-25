@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/scoreBoard.css';
 
 class ScoreBoard extends React.Component {
 
@@ -9,8 +10,8 @@ class ScoreBoard extends React.Component {
         const winnerPoints = this.props.winnerPoints;
         if (winnerIndex) {
             return(
-                <div>
-                    <h1>Winner: Player {winnerIndex} - {playerNames[winnerIndex]}!</h1>
+                <div id='all'>
+                    <h1>Winner: Player {winnerIndex} : {playerNames[winnerIndex]}!</h1>
                     <div>
                         {Object.values(players[winnerIndex].allSetsMade).map((setValue) => {
                             return (
