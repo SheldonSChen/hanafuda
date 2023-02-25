@@ -13,13 +13,12 @@ class SetsDisplay extends React.Component {
     getSetElement = (className, setValues, showCards) => {
         return (
             <div className={className.slice(0, -1)}>
-                <div>{setValues.name}</div>
+                <div>{setValues.name} : {setValues.points}</div>
                 <div>
                     {setValues.setCardIDs.map((cardID) => {
                         return showCards && this.props.getCardElement(cardID);
                     })}
                 </div>
-                <div>{setValues.points}</div>
             </div>
         );
     }
