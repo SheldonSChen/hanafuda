@@ -1,7 +1,8 @@
-import { GAME_NAME, GAME_SERVER_URL, APP_PRODUCTION } from './config'
+import { GAME_NAME } from './config'
 import ky from 'ky';
 
-const server = APP_PRODUCTION ? `https://${window.location.hostname}` : GAME_SERVER_URL;
+const { protocol, hostname, port } = window.location;
+const server = `${protocol}//${hostname}:${port}`;
 
 //see: https://boardgame.io/documentation/#/api/Lobby
 export class LobbyAPI {

@@ -8,7 +8,7 @@ import { Hanafuda } from '../game/Game';
 import HanafudaBoard from '../boards/board';
 import TemplatePage from '../pages/templatePage';
 
-import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL, MAX_PLAYERS, DEBUG } from '../config';
+import { MAX_PLAYERS, DEBUG } from '../config';
 
 import './styles/lobbyPage.css';
 import CardSetDropdown from '../boards/components/cardSetDropdown';
@@ -16,7 +16,8 @@ import { DEFAULT_CARD_SET } from '../game/Cards';
 
 /*********** constants ***********/
 const api = new LobbyAPI();
-const server = APP_PRODUCTION ? `https://${window.location.hostname}` : GAME_SERVER_URL;
+const { protocol, hostname, port } = window.location;
+const server = `${protocol}//${hostname}:${port}`;
 const HanafudaClient = Client({ 
     game: Hanafuda,
     board: HanafudaBoard,
@@ -196,7 +197,6 @@ class LobbyPageView extends React.Component {
 
     gameExistsView = () => {
         const playerSlots = [...Array(MAX_PLAYERS).keys()]; //[0, 1]
-        const server = APP_PRODUCTION ? `https://${window.location.hostname}` : WEB_SERVER_URL;
 
         return (
             <>

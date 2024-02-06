@@ -11,11 +11,12 @@ import LobbyPage from './pages/lobbyPage';
 
 
 import { Hanafuda } from './game/Game';
-import { APP_PRODUCTION, GAME_SERVER_URL, DEBUG } from './config';
+import { DEBUG } from './config';
 
 function App() {
     const history = useHistory();
-    const server = APP_PRODUCTION ? `https://${window.location.hostname}` : GAME_SERVER_URL;
+    const { protocol, hostname, port } = window.location;
+    const server = `${protocol}//${hostname}:${port}`;
     const HanafudaClient = Client({ 
         game: Hanafuda,
         board: HanafudaBoard,
