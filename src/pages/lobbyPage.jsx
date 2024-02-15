@@ -8,7 +8,7 @@ import { Hanafuda } from '../game/Game';
 import HanafudaBoard from '../boards/board';
 import TemplatePage from '../pages/templatePage';
 
-import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL, MAX_PLAYERS, DEBUG } from '../config';
+import { GAME_SERVER_URL, WEB_SERVER_URL, MAX_PLAYERS, DEBUG } from '../config';
 
 import './styles/lobbyPage.css';
 import CardSetDropdown from '../boards/components/cardSetDropdown';
@@ -16,11 +16,10 @@ import { DEFAULT_CARD_SET } from '../game/Cards';
 
 /*********** constants ***********/
 const api = new LobbyAPI();
-const server = APP_PRODUCTION ? `https://${window.location.hostname}` : GAME_SERVER_URL;
 const HanafudaClient = Client({ 
     game: Hanafuda,
     board: HanafudaBoard,
-    multiplayer: SocketIO({ server: server }),
+    multiplayer: SocketIO({ server: GAME_SERVER_URL }),
     debug: DEBUG 
 });
 /*********************************/
@@ -196,7 +195,6 @@ class LobbyPageView extends React.Component {
 
     gameExistsView = () => {
         const playerSlots = [...Array(MAX_PLAYERS).keys()]; //[0, 1]
-        const server = APP_PRODUCTION ? `https://${window.location.hostname}` : WEB_SERVER_URL;
 
         return (
             <>
@@ -205,7 +203,7 @@ class LobbyPageView extends React.Component {
                     <div className='game-info-ctr'>
                         <label htmlFor='game-link-box'>link: </label>
                         <div className='display-box' id='game-link-box'>
-                            {`${server}/lobby/${this.state.roomID}`}
+                            {`${WEB_SERVER_URL}/lobby/${this.state.roomID}`}
                         </div>
 
                         <div className='btn' id='game-link-btn' 
