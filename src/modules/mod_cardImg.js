@@ -9,7 +9,7 @@ Object.values(CARD_SETS).forEach(function (cardSet) {
     mod[cardSet] = {};
 });
 
-module.exports = function(cardSet) {
+export function getCardImg(cardSet) {
     if (isEmpty(mod[cardSet])) {
         for (const cardID of ALL_CARD_IDS_FLAT) {
             mod[cardSet][cardID] = require(`../assets/cards/${cardSet}/${cardID}.svg`);

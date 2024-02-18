@@ -4,6 +4,7 @@ import {getCardImageFromSet} from '../boards/board';
 import { ALL_CARD_IDS, DEFAULT_CARD_SET } from '../game/Cards';
 import './styles/helpPage.css';
 import CardSetDropdown from '../boards/components/cardSetDropdown';
+import { getCardImg } from '../modules/mod_cardImg';
 
 var cardSetImgs;
 
@@ -21,7 +22,7 @@ class HelpPage extends React.Component {
 
     getCard = (cardID) => {
         //TODO: display sets part of on hover
-        cardSetImgs = require('../modules/mod_cardImg.js')(this.state.cardSetName);
+        cardSetImgs = getCardImg(this.state.cardSetName);
         return (
             <div className='card' key={cardID}>
                 <div className='card-inside'

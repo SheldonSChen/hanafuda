@@ -6,6 +6,8 @@ import DisplayOrderBoard from './displayOrderBoard';
 import PlayBoard from './playBoard';
 import ScoreBoard from './scoreBoard';
 
+import { getCardImg } from '../modules/mod_cardImg';
+
 import './styles/board.css';
 
 var playerCardSetImgs;
@@ -43,7 +45,7 @@ class HanafudaBoard extends React.Component {
         const playerID = parseInt(this.props.playerID, 10);
         const playerID_opponent = (playerID + 1) % 2;
         if (playerCardSetImgs == null) {
-            playerCardSetImgs = require('../modules/mod_cardImg.js')(this.props.playerCardSetName);
+            playerCardSetImgs = getCardImg(this.props.playerCardSetName);
         }
 
         // eslint-disable-next-line default-case
