@@ -4,7 +4,7 @@ const LOCAL_HOST = true;
 const ADDRESS = LOCAL_HOST ? "http://localhost" : "NETWORK ADDRESS HERE";
 export const APP_PRODUCTION = true;
 export const GAME_SERVER_URL = APP_PRODUCTION ? `https://hanafuda-backend.onrender.com` : `${ADDRESS}:${GAME_SERVER_PORT}`;
-export const WEB_SERVER_URL = APP_PRODUCTION ? `https://hanafuda-backend.onrender.com` : `${ADDRESS}:3000`;
+export const WEB_SERVER_URL = APP_PRODUCTION ? `https://shel-hanafuda.onrender.com` : `${ADDRESS}:3000`;
 
 
 export const DEBUG = false;
